@@ -1,47 +1,28 @@
-# 知办 · NotiDo：外部兼容性基线
+# 知办 · NotiDo：兼容性与业务依赖基线
 
-日期：2026-10-07。此表是阶段零工作底稿，未安装/运行 AstrBot 或滴答 CLI，未执行微信、QQ、滴答真实账号联调。unknown 表示尚未确认实际能力；not_run 表示尚未执行测试。所有版本锁定与生产就绪均待验证。
+版本：v1.5｜日期：2026-10-07。兼容对象为 AstrBot 的公开插件接口；不创建下游渠道矩阵或要求逐渠道账号联调。滴答 CLI、Provider 和文档读取组件是 NotiDo 自身业务依赖，仍需验证。
 
-## 能力清单
+当前未实现插件、未锁定构建、未运行真实测试。unknown 表示实际能力未确定；not_run 表示尚未执行验证；文档依据不等于生产就绪。
 
-| 能力 | 文档依据/候选 | 实现版本 | 实际能力 | 账号验证 | 生产就绪 | 必要证据 |
+| 门槛/能力 | 候选或依据 | 实现版本 | 实际能力 | 验证 | 就绪 | 必要证据 |
 | --- | --- | --- | --- | --- | --- | --- |
-| 微信官方私聊/稳定 ID | 原 PRD 引用 AstrBot weixin_oc | 未锁定 | unknown | not_run | false | 双向消息、重启、稳定标识、默认回复去重 |
-| QQ 官方私聊/稳定 ID | QQ WebSocket 文档 | 未锁定 | unknown | not_run | false | 账号双向消息、授权身份、重启 |
-| 两平台原文件 | 官方适配器候选 | 未锁定 | unknown | not_run | false | PDF/图像/其他原件、字节 hash、失效补发 |
-| 延迟回执 | AstrBot send_message，平台资格待测 | 未锁定 | unknown | not_run | false | 30 秒归组与长文件处理、过期/重启 |
-| Plugin Pages/API | Pages 官方文档 | 未锁定 | unknown | not_run | false | bridge、文件上传下载、认证/版本/去重 |
-| 模型文字/视觉 | 可配置 AstrBot Provider | 未选定 | unknown | not_run | false | 严格输出、OCR、关键日期、失败分类 |
-| 中国版 CLI 授权 | @suibiji/dida-cli 候选，沿用原调研 | 未锁定 | unknown | not_run | false | 帮助/机器输出、账号身份、认证根/重启 |
-| 任务新增/查询/修改/完成 | 官方 CLI 候选 | 未锁定 | unknown | not_run | false | 准确 argv、JSON、完整性、完成回读 |
-| 原生日期/全天/备注 | 具体映射未测试 | 未锁定 | unknown | not_run | false | 客户端实际字段、全天不漂移、备注保留 |
-| 中国版原生附件 | 官方能力待核实，或受控 CLI 扩展 | 未锁定 | unknown | not_run | false | 中国版域名/授权、上传与登记、查询、下载 hash |
-| 附件未知结果核查 | 尚无已验证查询契约 | 未锁定 | unknown | not_run | false | 超时、重复请求、可靠远端 ID/内容匹配 |
-| 单次原生提醒 | 可选能力 | 未锁定 | unknown | not_run | false | 写/读提醒字段；不支持时按 PRD 追问降级 |
-| 官网来源 | 契约计划，采集不在首版 | 未实现 | unsupported | not_run | disabled | 仅验 E01–E03 禁用与内存契约，无真实采集 |
+| G0 插件生命周期 | AstrBot 稳定发行版 | 未锁定 | unknown | not_run | false | 安装、加载、传播控制、卸载、重载与资源释放 |
+| G0 消息/身份/会话 | AstrMessageEvent 公共接口 | 未锁定 | unknown | not_run | false | 稳定标识、授权、去重及代表性事件夹具 |
+| G0 材料交付 | AstrBot 消息组件与材料能力 | 未锁定 | unknown | not_run | false | 已交付文本/图片/文件、不可用组件、真实原字节持久 |
+| G0 回复 | 框架原会话回复接口 | 未锁定 | unknown | not_run | false | 成功、失败、未知、补回执不重做业务 |
+| G0 Provider/Pages | 框架公开 Provider 与 Pages bridge | 未锁定 | unknown | not_run | false | 调用、超时、后台鉴权、文件上传下载 |
+| G1 中国版 CLI 授权 | @suibiji/dida-cli 优先 | 未锁定 | unknown | not_run | false | help、账号作用域、认证路径/重启复用 |
+| G1 任务与原生字段 | 受控任务 CLI | 未锁定 | unknown | not_run | false | argv/JSON、清单/任务读取、增改完、日期/全天/备注 |
+| G2 原生附件 | 已验证 CLI 或受控扩展 | 未锁定 | unknown | not_run | false | 中国版域名/授权、上传登记/查询、客户端可见下载/hash |
+| G2 附件未知核查 | 可靠 ID/查询/内容匹配契约 | 未锁定 | unknown | not_run | false | 超时/重启/重复输入，无盲目上传 |
+| G3 读取/构建/恢复 | 锁定组件、SQLite、Docker | 未锁定 | unknown | not_run | false | PDF/DOCX/OCR范围、依赖锁、数据根、迁移备份与故障 |
+| 可选提醒 | 实测 CLI 原生提醒 | 未锁定 | unknown | not_run | false | 写/回读；不支持时按 PRD 询问只记待办 |
+| 禁用官网 | SourceAdapter 与 DisabledWebsiteSource 计划 | 未实现 | unsupported | not_run | disabled | E01–E03，仅禁用和内存转换，无实际采集 |
 
-## 每项测试记录
+代表性 AstrBot 事件用框架公共事件/组件契约构造，不为每个下游重新建设测试和授权体系。实际材料缺失仍以通用 MATERIAL_UNAVAILABLE 处理，不能把占位组件当完整输入。
 
-真实执行后逐项填写以下字段；凭据值、临时媒体令牌、真实通知及完整个人任务列表不得写入公开证据。
+## 证据记录字段
 
-```text
-capability:
-implemented_version:
-tested_at:
-account_region: dida_cn
-account_ref: <脱敏引用>
-endpoint_domains:
-auth_method: <类型，不含值>
-stdout_schema:
-field_mapping:
-limits:
-verification_evidence:
-failure_classification:
-restart_result:
-acceptance_ids:
-supported: unknown
-readiness: false
-next_step:
-```
+执行后逐能力填写 implemented_version、tested_at、接口/依赖版本、stdout_schema 或框架契约、field_mapping、limits、verification_evidence、failure_classification、restart_result、acceptance_ids、supported 和 readiness。滴答项目另记录 account_region、脱敏 account_ref、endpoint_domains、auth_method 类型；不记录凭据值。
 
-G0 入口与持久能力、G1 任务 CLI、G2 原生附件、G3 版本/恢复，门槛定义见 PRD 26.7。文档阅读不能把门槛标为 passed；核心能力 unsupported/unknown 时记录阻塞而非模拟通过。
+真实原件和个人通知不默认进公开证据；使用脱敏样本和必要 hash/结果。文档阅读、框架夹具或 mock Gateway 不算 G1/G2 的真实滴答验证。发布规则见 [PRD 13](PRD.md#13-阶段零工作包与完成定义)。
