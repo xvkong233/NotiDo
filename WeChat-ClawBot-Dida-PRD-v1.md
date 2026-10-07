@@ -1,14 +1,19 @@
-# 东北大学通知转滴答待办与附件助手：产品需求与技术规格
+# 知办 · NotiDo：产品需求与技术规格
 
-版本：1.3 ｜ 日期：2026 年 10 月 7 日 ｜ 交付对象：AI 开发代理与项目维护者
+*From Notices to Action.*
+**让通知成为行动。**
+
+版本：1.4 ｜ 日期：2026 年 10 月 7 日 ｜ 交付对象：AI 开发代理与项目维护者
+
+产品名为“知办”，仓库名为 `NotiDo`。本版基于已有 1.3 版审阅细化，保留原业务范围；修订动作版本与幂等、账号隔离、取件恢复、状态核查、队列边界、日期与读取预算。审阅结论见 [docs/PRD-REVIEW.md](docs/PRD-REVIEW.md)，新增技术验收 T15–T26；总验收为 83 项。本文记录的是需求及设计，当前仓库尚无可运行产品。
 
 本文定义一个面向东北大学学生的通知处理助手。用户将老师、同学发来的通知及附件，通过微信官方 ClawBot 或 QQ 官方机器人发送；官网来源仅预留统一接入接口，首版不实现采集或监测。服务结合用户身份，提炼需要用户执行的事项及真实截止日期，通过 CLI 写入滴答清单，并将有关原文件上传为该任务的滴答原生附件。采用 AstrBot 加专用插件，在 Linux 云服务器通过 Docker Compose 部署。
 
-通知解析是首版核心入口，直接口述记事和查询、修改、完成任务是辅助能力。用户已确认首版规划程度为“行动项加真实截止日期”，不要求模型估算准备工期或自动拆分准备步骤。本文替代 1.2 版：保留 QQ 官方入口、原生附件与成组材料归并；按用户最新决定，将东北大学官网采集移出首版，仅交付来源契约与禁用实现。教务处与江河建筑学院为后续候选来源。新增第 17 至 25 节的详细技术规格，覆盖技术选型、功能分解、数据、接口、执行编排、部署和交付追踪。文件链接或服务器下载链接不能替代已确认的原生附件要求。
+通知解析是首版核心入口，直接口述记事和查询、修改、完成任务是辅助能力。用户已确认首版规划程度为“行动项加真实截止日期”，不要求模型估算准备工期或自动拆分准备步骤。本版延续 1.3 版的范围：保留 QQ 官方入口、原生附件与成组材料归并；沿用原 PRD 的决定，东北大学官网采集不在首版，仅交付来源契约与禁用实现。教务处与江河建筑学院为后续候选来源。第 17 至 25 节继续提供详细技术规格，本轮修订其契约缺口，覆盖技术选型、功能分解、数据、接口、执行编排、部署和交付追踪。文件链接或服务器下载链接不能替代已确认的原生附件要求。
 
 本文是需求对齐后的开发基线。用户已确认的选择、产品默认规则和待验证的外部能力分别标明。调研阅读了官方文档，以及 touxian 和附件候选 CLI 的相关源码；未运行用户账号的真实收发、CLI 授权、任务写入或附件上传。尤其中国版滴答的原生附件 CLI 路径尚未验证，属于阶段零阻塞项，不能宣称现成可用。
 
-文档状态：需求与技术规格已细化，外部能力待阶段零真实验证。第 1 至 16 节是业务基线，第 17 至 25 节是实现细则；涉及相同字段时，以后者的精确 DTO、数据库与 API 契约为准。示例均标明是否为内部协议或待实现模板，不得当作现成可运行工程。
+文档状态：需求与技术规格已细化，外部能力待阶段零真实验证。第 1 至 16 节是业务基线，第 17 至 25 节是实现细则；第 26 节补充关键边界与阶段零证据要求。相同契约必须一致，不允许以“后一节优先”为理由忽略冲突。示例均为内部协议或待实现模板，不得当作现成可运行工程。“已确认需求”继承原 PRD 的对齐记录；本轮新增确认是产品命名和公开仓库，其余新增细则均为产品默认规则。
 
 | 阅读目的 | 对应章节 |
 | --- | --- |
@@ -18,6 +23,7 @@
 | DTO、数据库、API 与 CLI 契约 | 19–21 |
 | 幂等、未知结果、恢复、配置和文件边界 | 11、22–23 |
 | Docker、迁移、备份、升级和交付验收 | 9、12–14、24–25 |
+| 本轮修订、执行边界和阶段零证据 | 19.6、22.7、26；docs/PRD-REVIEW.md |
 
 ## 1 已确认需求
 
@@ -130,7 +136,7 @@ AstrBot 仓库标注 AGPL-3.0，腾讯插件标注 MIT，easy-weixin-clawbot REA
 | 其他文件，如 XLSX、DWG、ZIP | 首版不承诺解析正文；获取原始字节后可作为原生附件上传。关键要求依赖其内容时请求可读版本，不凭文件名推断 |
 | 用户发送的外部链接 | 保留为来源或提交地址，不默认访问；首版不打开官网链接，后续来源契约见第 4.8 节 |
 
-“能读取内容”和“能附上原文件”是两种能力，后台和回执分别显示。PDF、DOCX、TXT 为首版文档读取范围，读取默认单文件 20 MiB、PDF 最多 30 页、每组最多 5 张需识别图片；超限提示拆分且报告已读范围。原文件上传受实际滴答账号限制，不能直接沿用读取限额。初始上传单文件上限保守设为 10 MB（十进制），阶段零按账号权益和实测修订；文件数量、总量及平台取件限制均可配置，不伪造无限额度。超限原文件不能静默压缩、转换或替换为链接；可先保存独立明确的任务，附件状态保持失败并说明原因。
+“能读取内容”和“能附上原文件”是两种能力，后台和回执分别显示。PDF、DOCX、TXT 为首版文档读取范围，读取默认单文件 20 MiB、PDF 最多 30 页、每组最多 5 张独立通知截图（文档页与嵌图另按 26.4 计量）；超限提示拆分且报告已读范围。原文件上传受实际滴答账号限制，不能直接沿用读取限额。初始上传单文件上限保守设为 10 MB（十进制），阶段零按账号权益和实测修订；文件数量、总量及平台取件限制均可配置，不伪造无限额度。超限原文件不能静默压缩、转换或替换为链接；可先保存独立明确的任务，附件状态保持失败并说明原因。
 
 正文说“具体时间/要求详见附件”而附件未提供或读取失败时，对受影响任务暂停写入并请求补充。可以处理不依赖失败材料的独立明确事项，回执逐项说明。材料收集按第 4.6 节归组，不能把连续发来的所有通知无条件拼接。为待补材料保存草稿，随后提供的附件只补全或更新关联事项，不重复新增。
 
@@ -192,7 +198,7 @@ AstrBot 仓库标注 AGPL-3.0，腾讯插件标注 MIT，easy-weixin-clawbot REA
 
 ### 4.8 官网来源接口预留，首版不采集
 
-此节按用户最新决定取代 1.2 版的官网监测范围。首版不编写教务处或江河建筑学院爬虫，不实现列表/正文/附件下载，不启动扫描调度，不处理网站历史基线，不提供“检查官网通知”可执行入口，也不因网站访问失败影响首版验收。
+此节沿用 1.3 版的官网禁用范围。首版不编写教务处或江河建筑学院爬虫，不实现列表/正文/附件下载，不启动扫描调度，不处理网站历史基线，不提供“检查官网通知”可执行入口，也不因网站访问失败影响首版验收。
 
 预留 SourceAdapter Protocol、SourceEnvelope DTO、SourceRegistry 和 DisabledWebsiteSource，详见第 21 节。通过内存测试样本验证来源材料可转换为统一通知输入，不连接真实网站，不触发生产任务或附件写入。首版只注册禁用的 website_neu 适配器，返回 SOURCE_NOT_IMPLEMENTED；没有可把它打开的运行时开关。
 
@@ -249,7 +255,7 @@ AstrBot 负责微信登录与长轮询、QQ 官方通道及 WebUI 模型配置�
 
 采用专用待办会话模式：允许列表中的 weixin_oc 与 QQ 官方私聊由插件接管，插件处理后停止事件传播，避免 AstrBot 默认聊天流程再次调用模型或生成第二份操作。插件调用 AstrBot 模型接口解析意图，不向模型开放 Shell、任意文件操作或通用执行工具。其他平台、未显式启用的群聊不接管。授权依据是外层消息发送者，转发内容中的老师身份不能获得账号权限。
 
-插件名称建议 `astrbot_plugin_dida_todo`。Python 实现插件逻辑，Node.js 运行官方 dida-cli；附件 CLI 扩展可采用 Python 或 Node.js，但须具有同一受控契约。首版单容器、单实例；不增加 Redis、PostgreSQL 或消息中间件。同一用户写操作串行，后台恢复、微信与 QQ 必须共享执行锁及幂等记录；材料窗口与操作恢复持久化，官网调度不创建。
+插件名称定为 `astrbot_plugin_notido`，展示名为“知办 · NotiDo”；仓库根为 NotiDo，部署服务和镜像为 notido。Python 实现插件逻辑，Node.js 运行官方 dida-cli；附件 CLI 扩展可采用 Python 或 Node.js，但须具有同一受控契约。首版单容器、单实例；不增加 Redis、PostgreSQL 或消息中间件。同一用户写操作串行，后台恢复、微信与 QQ 必须共享执行锁及幂等记录；材料窗口与操作恢复持久化，官网调度不创建。
 
 ## 7 模型输出与程序校验
 
@@ -259,7 +265,7 @@ AstrBot 负责微信登录与长轮询、QQ 官方通道及 WebUI 模型配置�
 
 ```json
 {
-  "schema_version": "3",
+  "schema_version": "4",
   "intent": "ingest_notice",
   "material_group_id": "group-1",
   "notice_summary": "建筑设计课程要求提交场地分析图",
@@ -292,9 +298,6 @@ AstrBot 负责微信登录与长轮询、QQ 官方通道及 WebUI 模型配置�
   }],
   "optional_items": [],
   "information_only": [],
-  "target": null,
-  "query": null,
-  "patch": null,
   "ambiguities": []
 }
 ```
@@ -422,7 +425,7 @@ OAuth 登录作为可选运维方案，必须单独验证无浏览器授权、�
 | receipt_records | operation_id、回执内容、发送状态、重试次数；和滴答写入结果分开 |
 | settings | 默认清单 ID、允许清单、别名、时区及能力检查结果；密钥不混入普通设置 |
 
-消息去重键包含平台、机器人实例、会话、发送者和消息 ID；message_id 按字符串或无精度损失方式存储，微信与 QQ 同字符串 ID 不碰撞。任务操作键使用已固化 action_item_id、notice_revision 与 operation_kind，不因模型数组顺序变化重建。附件操作键包含用户、真实目标任务与资产哈希；远端可用的上传幂等标识经验证后持久保存重用。若适配器不暴露稳定消息 ID，需在前置验证中解决，不能把文本哈希冒充可靠 ID。
+消息去重键包含平台、机器人实例、会话、发送者和消息 ID；message_id 按字符串或无精度损失方式存储，微信与 QQ 同字符串 ID 不碰撞。动作身份与版本分离，具体操作键见第 22.4 节：create 不因通知修订生成第二份；update/complete 以不同的固化 plan_id 区分明确的新请求。所有远端操作键包含 account_ref；附件键另包含真实目标与资产哈希。若远端有经验证的幂等标识，持久保存重用。若适配器不暴露稳定消息 ID，需在前置验证中解决，不能把文本哈希冒充可靠 ID。
 
 通知需要额外的业务去重，因为老师和同学可能多次转发同一通知。已建立关联的同一通知行动项，在 CLI 回读确认任务仍存在后只返回既有任务，不新增。不同媒体中的类似通知，以课程或活动、行动对象、提交渠道、期限和来源证据寻找候选；仅标题相似不能自动合并。无法确认同一事项时询问是重复通知、变更还是另一份任务。直接口述的同文记事仍视为新请求，与通知去重区别处理。
 
@@ -432,7 +435,7 @@ OAuth 登录作为可选运维方案，必须单独验证无浏览器授权、�
 
 ### 11.2 执行状态
 
-下图描述单个有副作用操作，不是整个通知的完成状态；任务写入与每份附件上传分别记账。
+下图包含收到请求与追问两个执行前准备阶段；received/awaiting_clarification 属于消息/草稿，operations 只从 validated 起记账。任务写入与每份附件上传分别记账，不作为整份通知的完成状态。
 
 ```mermaid
 stateDiagram-v2
@@ -445,14 +448,20 @@ stateDiagram-v2
     executing --> failed_safe
     executing --> outcome_unknown
     executing --> created_unverified
-    outcome_unknown --> reconciled
-    created_unverified --> reconciled
+    executing --> uploaded_unverified
+    executing --> applied_unverified
+    outcome_unknown --> succeeded: 唯一证据证明执行且核验通过
+    outcome_unknown --> failed_safe: 证明确无副作用
+    created_unverified --> succeeded: 只读核验通过
+    uploaded_unverified --> succeeded: 只读核验通过
+    applied_unverified --> succeeded: 只读核验通过
+    validated --> cancelled: 取消尚未开始的操作
     failed_safe --> validated
 ```
 
 `failed_safe` 表示可以证明没有产生远端副作用，例如本地参数校验失败或子进程未启动。`outcome_unknown` 表示请求可能已发送而结果无法确定。`created_unverified` 表示已收到创建 ID，但读回失败或字段尚未核实。状态不是 CLI 原生返回值，由适配器按实测契约转换。
 
-通知聚合结果另用 `awaiting_materials`、`awaiting_clarification`、`task_saved_attachments_pending`、`partially_done`、`completed`。completed 表示通知处理完成，不代表本人已完成待办；仅所有应执行操作和应上传原附件均验证成功时才能设置。“任务已存”与“通知处理全部完成”不能混用。`created_unverified` 用于任务，附件收到 ID 尚未核验则记 `uploaded_unverified`；两者都保留 ID 并核查，不再次创建或上传。
+通知聚合结果另用 `awaiting_materials`、`awaiting_clarification`、`task_saved_attachments_pending`、`partially_done`、`completed`。completed 表示通知处理完成，不代表本人已完成待办；仅所有应执行操作和应上传原附件均验证成功时才能设置。“任务已存”与“通知处理全部完成”不能混用。`created_unverified` 用于新增，附件收到 ID 尚未核验记 `uploaded_unverified`，修改/完成已有明确成功结果但回读失败记 `applied_unverified`。这些状态保留远端 ID 并只读核查。“reconcile”是核查动作，不是表示成功的终态；核查未解决就保持原未知或未核验状态。
 
 执行前把计划和 executing 状态持久化；CLI 返回真实 ID 后立即保存，再读回核验。任何已拿到远端 ID 的新增都不能再次创建。服务启动时，遗留 executing 转为未知并核查，不能直接当成失败重跑。
 
@@ -536,7 +545,7 @@ stateDiagram-v2
 | E02 | 来源接口 | 用内存样本验证 SourceEnvelope 转成标准通知；生产 registry 的 website_neu 永远 disabled |
 | E03 | 未实现入口 | “检查官网通知”和试图启用来源返回未实现，不创建同名待办、不调用网络 |
 
-本节共 57 项首版验收（A24、N18、B12、E03）；第 25 节另有技术验收 T01 至 T14，合计 71 项。解析测试集至少 50 条中文请求，其中至少 25 条真实风格通知，覆盖身份、相对日期、多节点、重复和延期；补充成组消息、同名异内容文件、无法解析但需上传文件、两平台重复与来源禁用样本。记录材料、模型结果、证据、计划、实际远端任务和附件结果；真实账号测试使用单独测试清单。官网真实连通性不属于首版验收，严禁测试或运行时偷偷采集。
+本节共 57 项首版验收（A24、N18、B12、E03）；第 25 节另有技术验收 T01 至 T26，合计 83 项。解析测试集至少 50 条中文请求，其中至少 25 条真实风格通知，覆盖身份、相对日期、多节点、重复和延期；补充成组消息、同名异内容文件、无法解析但需上传文件、两平台重复与来源禁用样本。记录材料、模型结果、证据、计划、实际远端任务和附件结果；真实账号测试使用单独测试清单。官网真实连通性不属于首版验收，严禁测试或运行时偷偷采集。
 
 ## 13 开发前置验证与阶段交付
 
@@ -568,11 +577,11 @@ stateDiagram-v2
 
 ### 阶段三 通知关联、恢复部署与网页
 
-交付转发通知去重、版本及改期/附件变更、deadline 查询、目标定位、修改和完成，未知任务/附件结果核查、回执补发、网页配置与记录、Docker Compose、持久化和备份。实现禁用的来源扩展契约及 E01 至 E03，无官网采集模块。完成第 12 节与第 25 节合计 71 项验收，填写锁定版本、实际验证证据与已知限制。前面阶段仅为里程碑，不能替代完整首版。
+交付转发通知去重、版本及改期/附件变更、deadline 查询、目标定位、修改和完成，未知任务/附件结果核查、回执补发、网页配置与记录、Docker Compose、持久化和备份。实现禁用的来源扩展契约及 E01 至 E03，无官网采集模块。完成第 12 节与第 25 节合计 83 项验收，填写锁定版本、实际验证证据与已知限制。前面阶段仅为里程碑，不能替代完整首版。
 
 ## 14 AI 开发交付要求
 
-项目提交应包含插件源码、metadata.yaml、配置 Schema、插件 Pages、两平台接入/身份绑定、材料归组与资产模型、通知读取与证据、身份判断、提示词与 Schema、任务及原生附件 CLI 适配器/扩展源码、来源接口与禁用实现、数据库迁移、Dockerfile、compose.yml、配置示例、README、compatibility.md、通知样本及 71 项验收结果。配置示例不得包含真实 token 或 API Key，测试通知去除无关个人信息。明确记录哪些外部能力已真实验证，不能只标“附件支持”而省略原生上传证据。
+项目提交应包含插件源码、metadata.yaml、配置 Schema、插件 Pages、两平台接入/身份绑定、材料归组与资产模型、通知读取与证据、身份判断、提示词与 Schema、任务及原生附件 CLI 适配器/扩展源码、来源接口与禁用实现、数据库迁移、Dockerfile、compose.yml、配置示例、README、compatibility.md、通知样本及 83 项验收结果。配置示例不得包含真实 token 或 API Key，测试通知去除无关个人信息。明确记录哪些外部能力已真实验证，不能只标“附件支持”而省略原生上传证据。
 
 建议模块为 main.py 处理 AstrBot 集成，batches.py 归组，materials/ 读取，assets.py 保存原文件，parser.py 解析，relevance.py 匹配身份，notice_links.py 关联与变更，sources/ 放来源契约与禁用实现，workers.py 放材料窗口与恢复作业，policy.py 校验，dida_cli.py 与 attachment_cli.py 封装受控 CLI，service.py 编排，repository.py 持久化，date_rules.py 解析日期，receipts.py 回执，pages/todo/ 管理页面。名称可调整，边界须保留。来源包首版不包含实际采集器，不把温州大学域名与学院枚举残留在默认配置中。
 
@@ -641,7 +650,7 @@ README 必须回答：如何启动和升级；如何微信扫码与配置 QQ 官
 
 消息 handler 只做身份校验、归一化、入库、创建作业与轻量回执，不能一直占用事件线程完成整个 OCR/CLI 链路。CPU/阻塞的文档提取使用有界线程池，Poppler 及 CLI 使用子进程；不在 asyncio 主线程调用 requests 或同步大文件读写。
 
-默认同时 2 个材料读取任务、2 个模型调用、1 个滴答有副作用操作。数字是首版默认，不是吞吐承诺；数据库 jobs 为真实待执行来源，内存 Queue 只用于唤醒，重启从数据库恢复。队列上限默认 100 个活动作业；满时保留已入库材料，返回排队状态，不丢消息、不立即触发无限模型调用。
+默认同时 2 个材料读取任务、2 个模型调用、1 个滴答有副作用操作。数字是首版默认，不是吞吐承诺；数据库 jobs 为真实待执行来源，内存 Queue 只用于唤醒，重启从数据库恢复。100 是已准入的 pending/running 活动作业上限；未准入消息在持久 inbox 中标 queued_not_admitted，不无限创建 jobs。inbox 默认最多 1000 条未准入消息；容量满或磁盘余量不足时拒绝新的业务接收并明确提示重发，不声称已保存。取件优先级高于解析，关闭组后仅在所需取件/读取完成或明确失败时解析。具体背压见第 26.3 节。
 
 同一用户的微信、QQ、后台共享写入队列和锁。文件下载可与任务解析并发，但任务字段未确定前不创建；目标任务保存且核验后才能上传附件。读取可有限重试，所有副作用须先记账。远端调用期间不持有 SQLite 写事务。
 
@@ -790,7 +799,7 @@ LLM 提供日期原文与所属动作，程序提取明确年月日/时刻并交
 
 event_id 为本地 UUIDv4；message_id 为不透明字符串。原通知作者/时间缺失时为 null，不能填 outer_sender 或 received_at 代替。reply_capability_ref 指向服务持有的最小回复上下文，不是提供给模型的 token。临时下载描述只在平台取件服务内部可见，不放进模型 Envelope。
 
-合法 kind 为 text、image、file、voice_transcript、forward_node；实际平台不可读取的节点用 material_unavailable 记录，不伪造文本。节点顺序按真实输入保存。最大正文默认 50,000 字符、最多 100 个节点、每组最多 20 个原文件、单平台接收原文件上限默认 20 MiB；另受滴答上传额度约束。超限不静默丢尾部，不能用截断后内容执行受影响事项。
+合法 kind 为 text、image、file、voice_transcript、forward_node、material_unavailable；最后一种必须含 safe_reason 和原节点引用，不含虚构 text。节点顺序按真实输入保存。Envelope.source_kind 为 direct_request、manual_notice、user_forward；notice_records 使用 manual_notice/user_forward/website，direct_request 仅生成请求与计划，不强造通知记录。最大正文默认 50,000 字符、最多 100 个节点、每组最多 20 个原文件、单平台接收原文件上限默认 20 MiB；另受滴答上传额度约束。超限不静默丢尾部，不能用截断后内容执行受影响事项。
 
 首版 web 管理页面可补充原文件，但必须指定已有 group_id 或 notice_id，通过 bridge 单文件上传，逐文件关联；它是用户补材料入口，不是外部 URL 采集接口。
 
@@ -804,9 +813,9 @@ ExtractionResult 包含完整范围、已读范围、漏读范围和 critical_un
 
 ### 19.3 NoticePlan 与执行计划分离
 
-NoticePlan 是第 7 节的模型协议，继续采用 schema_version=3。模型只输出行动、要求、身份与原文日期、asset_id 候选关联、歧义及摘要。
+NoticePlan 是第 7 节的模型协议，本版采用 schema_version=4，并按第 19.6 节拆成以 intent 区分的严格联合类型。模型只输出行动、要求、身份与原文日期、asset_id 候选关联、歧义及摘要。
 
-ValidatedPlan 由程序生成，至少有 plan_id、plan_revision、notice_id、notice_revision、user_id、action_item_id、operation_kind、resolved_project_id、resolved_target、normalized_date、requirements、validated_evidence_ids、attachment_asset_ids、policy_version、parser_version、provider_ref、input_fingerprint。每个 action_item_id 在初次有效计划固化时生成 UUID，不用标题、数组下标或模型重排作为身份。
+ValidatedPlan 由程序生成，至少有 plan_id、plan_revision、notice_id、notice_revision、user_id、account_ref、action_item_id、item_revision、request_origin、config_revision、authorization_revision、operation_kind、resolved_project_id、resolved_target、normalized_date、requirements、validated_evidence_ids、attachment_asset_ids、policy_version、parser_version、provider_ref、input_fingerprint。每个 action_item_id 在初次有效计划固化时生成 UUID，不用标题、数组下标或模型重排作为身份；同一行动后续延期沿用该 ID，增加不可变 action_item_versions 记录。plan_id 固化后不修改请求；补充、更改意图形成新 plan_id 并关联 supersedes_plan_id，仅可替代尚未执行计划。直接口述请求的 notice_id/notice_revision 可为 null，仍有 action_item_id、request_origin 和固化计划。
 
 normalized_date 内部采用以下结构：
 
@@ -819,14 +828,14 @@ normalized_date 内部采用以下结构：
   "timezone": "Asia/Shanghai",
   "instant": "2026-10-09T10:00:00Z",
   "is_all_day": false,
-  "comparison": "before_or_at",
+  "comparison": "before",
   "raw_text": "10月9日18:00前",
   "anchor_basis": "原通知明确年份或已确认上下文",
   "evidence_id": "evidence-uuid"
 }
 ```
 
-日期级 precision=date、local_time/instant=null、is_all_day=true；无日期用 null，未知日期不得伪装成 null 执行计划。comparison 保存原文关系，不擅自改变端点含义；above 示例要求用户/来源上下文能确定年份。原生 CLI 的日期参数由 codec 映射，不能直接把这个 JSON 当原生参数。
+日期级 precision=date、local_time/instant=null、is_all_day=true；无日期用 null，未知日期不得伪装成 null 执行计划。comparison 为 before、before_or_at、at、unspecified，保存原文关系，不擅自改变端点含义；“前”保留 before，“不晚于”保留 before_or_at，不用减一分钟伪造新截止。示例要求用户/来源上下文能确定年份。原生 CLI 的日期参数由 codec 映射，不能直接把这个 JSON 当原生参数。
 
 CreateCommand、UpdateCommand、CompleteCommand、UploadAttachmentCommand 分开定义，禁止任意额外字段。UpdateCommand 的 changes 为明确字段集，以 field_presence 区分缺省、null 与新值；complete 没有暗含 patch。目标只有项目/任务真实 ID，模型候选关键词不能直接交给 CLI。
 
@@ -834,7 +843,7 @@ CreateCommand、UpdateCommand、CompleteCommand、UploadAttachmentCommand 分开
 
 一次通知读取采用“提取材料 → 通知语义解析 → 本地校验”流程。原生结构化输出能用则启用；不支持时解析单个 JSON 对象并校验，格式修复最多一次。修复仅处理 JSON 契约，不能在修复时任意改日期或补缺失证据。没有证据的动作丢入待处理项，不执行。
 
-长文分块遵循段落/页边界：默认最多每块 12,000 字符、相邻重叠 500 字符，整组最多 8 块；超出时提示拆分，不静默只读前 8 块。合并层用来源 segment 与 action 指纹去掉重叠产生的同项，不合并同标题不同要求。原文“详见下一页”会把相邻段列为依赖。图片最多 5 张是每组默认可识别范围，超限按读取边界处理；原文件数上限另计。
+长文分块遵循段落/页边界：默认最多每块 12,000 字符、相邻重叠 500 字符，整组最多 8 块；超出时提示拆分，不静默只读前 8 块。合并层用来源 segment 与 action 指纹去掉重叠产生的同项，不合并同标题不同要求。原文“详见下一页”会把相邻段列为依赖。独立截图最多 5 张；PDF 渲染页和 DOCX 嵌图采用独立预算，不计入这 5 张，详见第 26.4 节。所有识别限额均在解析前检查，超限按读取边界处理；原文件数上限另计。
 
 每次调用记录 prompt_version、schema_version、model/Provider 引用、输入 fingerprint、耗时、token 用量（Provider 能提供才记录）、输出校验与错误类型。temperature 设低且在 Provider 支持时传递，不假设同一次模型必然确定性输出；业务幂等靠固化计划而不是模型重复给出相同结果。
 
@@ -856,11 +865,33 @@ CreateCommand、UpdateCommand、CompleteCommand、UploadAttachmentCommand 分开
 
 Domain ports 用 typing.Protocol 与 DTO 表达，具体方法名可按项目规范调整，但输入输出契约与副作用边界必须固定。对外服务 handler 统一返回 DTO，不把 ORM 对象直接序列化成页面或模型上下文。
 
+### 19.6 各意图的精确边界
+
+以下为 schema_version=4 的实现基线，开发产物须包含按此生成的 JSON Schema 与有效/无效样本。共同必填仅为 schema_version、intent、ambiguities；schema_version 是字符串字面量 "4"，ambiguities 为结构化问题数组。不得用一个全部可空的大对象代替联合类型。第 7 节示例仅为 ingest_notice 分支。
+
+| intent | 本分支字段 | 不允许混入的字段/行为 |
+| --- | --- | --- |
+| ingest_notice | material_group_id、notice_summary、source_published_at（可 null）、source_time_basis（可 null）、tasks、optional_items、information_only | 顶层 target/query/patch；真实远端 ID |
+| create | tasks（至少 1 项） | 每项 action 固定 create；没有 notice 的直接请求以外层消息为证据，不要求虚构发布者 |
+| query | query | tasks/patch；任何写操作 |
+| update | target、patch | tasks/query；patch 空对象或未开放字段 |
+| complete | target | patch/query/tasks；恢复、删除、隐式修改日期 |
+| clarify | question_ref、answer | 无有效活动问题不得作为补充；不携带新执行命令 |
+| unsupported / none | reason、safe_summary | target/patch/tasks；不会形成写计划 |
+
+TaskItem.action=create 时含 title、relevance、relevance_evidence、obligation、requirements、project_name（可 null）、attachment_asset_ids、date_text/time_text（可 null）、time_kind、date_kind、source_evidence、ambiguities；action=update 时使用 target、patch、变更证据及 relevance/obligation，不混用新增字段。optional_items 使用同结构但 obligation 必须 optional；information_only 为有证据的摘要，不能再作为写任务重复处理。模型可提议 action，不自行生成 action_item_id、item_revision 或 plan_id。
+
+target 是 keyword、selection_ref、recent_ref 三者之一，含必要关键词/编号引用，不能直接使用 model_task_id。程序提供候选并回读绑定真实目标。query 字段限 completion（默认 incomplete）、date_scope、project_name、keyword、page_ref；时间范围由程序解析。page_ref 只能引用本会话有效查询，不是模型生成的远端游标。patch 限 title、notes、date、已验证的 priority/reminder；含至少一个用户明确变更，字段缺省与 null 分别验证。取消日期对应 date=null，不接受 dueDate/CLI argv 作为模型字段。
+
+字段上限：title 默认 200 个 Unicode 字符、单任务 notes 默认 10,000 字符、keyword 默认 200 字符；最终取项目限额与阶段零确认的 CLI/远端限额中较小者。超限返回 FIELD_TOO_LONG 并展示受影响字段，不静默截断关键提交要求。疑问对象含本地 question_ref、blocking_reason、必要 answer_type 和 safe_question；ref 由程序生成/映射，模型不能伪造旧草稿回答权限。
+
+模型版本、内部 Envelope contract_version、CLI wrapper contract_version、数据库 schema_version、PRD 版本是五个独立版本，不以 PRD=1.4 推导任一协议版本。模型旧版本不能未经转换进入新计划；数据库转换只通过显式迁移。
+
 ## 20 数据模型、约束与迁移规格
 
 ### 20.1 存储约定
 
-插件独立 SQLite 路径由数据根解析，默认落在 AstrBot 持久 data 内的 plugin_data/astrbot_plugin_dida_todo/notice.db。服务启动用 AstrBot 的插件数据目录能力取得实际根；路径以实测为准，不能只因为 Docker 示例写了 /AstrBot 就假定任意镜像相同。
+插件独立 SQLite 路径由数据根解析，默认落在 AstrBot 持久 data 内的 plugin_data/astrbot_plugin_notido/notice.db。服务启动用 AstrBot 的插件数据目录能力取得实际根；路径以实测为准，不能只因为 Docker 示例写了 /AstrBot 就假定任意镜像相同。
 
 本地 ID 采用 UUIDv4 TEXT；远端 project/task/message/OpenID 均不透明 TEXT，禁止转整数或假定 24 位。数据库 instant 用 Unix 毫秒 INTEGER，DTO/API 转 RFC3339 带 Z 或明确 offset；日期级字段用 YYYY-MM-DD TEXT，不通过 UTC 日期转换，避免全天跨日。
 
@@ -875,21 +906,24 @@ Domain ports 用 typing.Protocol 与 DTO 表达，具体方法名可按项目规
 | 表 | 最低业务字段（除公共时间字段） | 约束与索引 |
 | --- | --- | --- |
 | users | id、profile_json、timezone、revision | 首版一个用户；profile 缺失项为 null，不把空字符串当已知 |
+| account_scopes | id（account_ref）、user_id、region、remote_account_fingerprint（可空）、state、credential_generation、revision | 同用户只一个 active；凭据轮换不等于新账号，见 26.2；不存凭据值 |
 | actor_bindings | id、user_id、platform、bot_instance_id、sender_id、peer_id、enabled | unique(platform,bot_instance_id,sender_id,peer_id)；绑定必须后台确认 |
 | material_groups | id、user_id、conversation_key、mode、state、opened_at_ms、close_at_ms、revision | 同会话最多一个 collecting 组；索引(state,close_at_ms) |
 | message_records | id、user_id、platform、bot_instance_id、peer_id、sender_id、message_id、group_id、received_at_ms、envelope_json、state | 平台消息唯一键；没有稳定 ID 则该平台未就绪 |
 | blobs | id、user_id、sha256、size_bytes、mime、relative_path、verify_state、retain_until_ms | unique(user_id,sha256)；路径程序生成且须落在数据根 |
-| assets | id、user_id、group_id、blob_id、source_node_id、original_filename、acquire_state、read_state、error_code | 同字节可有多个来源/文件名 occurrence；不丢来源关系 |
+| assets | id、user_id、group_id、blob_id（取件前可空）、source_node_id、original_filename、acquire_state、read_state、error_code | blob_id=null 不可读/上传；同字节可有多个 occurrence |
+| media_acquisitions | id、asset_id、platform_ref、protected_descriptor_ref、expires_at_ms、state、attempt、error_code | 与 acquire_media job 同事务保存；敏感取件描述只存保护引用；失效请求补发 |
 | material_segments | id、user_id、group_id、asset_id、location_json、raw_text、normalized_text、method、read_state | 索引(group_id,asset_id)；位置与读取范围有效 |
 | notice_records | id、user_id、group_id、source_kind、current_revision、state、summary、read_at_ms | source_kind 支持 manual_notice、user_forward、website；website 当前不能生产入库 |
 | notice_versions | id、notice_id、revision、published_at_ms、time_basis、input_fingerprint、content_json、parser_version | unique(notice_id,revision)；内容不可原位覆盖；原发布时间可空 |
-| action_items | id、notice_id、notice_revision、plan_json、relevance、obligation、blocking_reason、execution_state | action ID 一经固化不重排；引用一个确定版本 |
+| action_items | id、user_id、origin_notice_id（可空）、current_item_revision、execution_state | 稳定业务身份；来源版本和计划放不可变版本表 |
+| action_item_versions | id、action_item_id、item_revision、notice_id/notice_revision（可空）、plan_json、relevance、obligation、blocking_reason | unique(action_item_id,item_revision)；notice 有值时组合 FK 到 notice_versions；旧版本不覆盖 |
 | notice_task_links | id、user_id、notice_id、action_item_id、account_ref、project_id、task_id、time_kind、date_precision、last_written_snapshot_json | 同 action 有唯一当前目标；同远端可关联多来源通知，不错误禁止 |
-| task_attachment_links | id、user_id、project_id、task_id、asset_id、sha256、remote_attachment_id、operation_id、state、verified_at_ms | unique(user_id,project_id,task_id,sha256)；asset hash 与 blob 一致 |
+| task_attachment_links | id、user_id、account_ref、project_id、task_id、asset_id、sha256、remote_attachment_id、operation_id、state、verified_at_ms | unique(user_id,account_ref,project_id,task_id,sha256)；asset hash 与 blob 一致 |
 | sessions | conversation_key、user_id、draft_json、draft_revision、expires_at_ms、query_map_json、query_expires_at_ms | conversation_key PK；跨平台不共享活动草稿；编号映射保存真实 ID |
-| operations | id、user_id、revision、item_id、kind、idempotency_key、parent_operation_id、plan_json、plan_revision、state、attempt、remote_project_id、remote_task_id、remote_attachment_id、error_code、result_json | unique(idempotency_key)；状态条件更新；远端 ID 获取后不能清空 |
+| operations | id、user_id、account_ref、revision、item_id/item_revision、kind、idempotency_key、parent_operation_id、plan_json、plan_revision、state、attempt、remote_project_id、remote_task_id、remote_attachment_id、error_code、result_json、reconciliation_json | unique(idempotency_key)；状态条件更新；远端 ID 获取后不能清空 |
 | jobs | id、user_id、job_kind、subject_id、dedupe_key、state、available_at_ms、owner_epoch、attempt、last_error | unique(dedupe_key)；索引(state,available_at_ms)；执行前 claim |
-| receipt_records | id、user_id、operation_or_group_id、destination_key、destination_json、message_scope、receipt_revision、content_json、state、attempt、available_at_ms、last_error | unique(destination_key,message_scope,receipt_revision)；拆段 sequence 计入 message_scope |
+| receipt_records | id、user_id、account_ref（无账号副作用可空）、operation_or_group_id、destination_key、destination_json、message_scope、receipt_revision、content_json、state、attempt、available_at_ms、last_error | unique(destination_key,message_scope,receipt_revision)；拆段 sequence 计入 message_scope |
 | api_requests | user_id、endpoint、target_id、request_id、payload_hash、state、response_json、expires_at_ms | unique(user_id,endpoint,target_id,request_id)；恢复请求和操作引用不因短期清理丢失 |
 | evidence_records | id、user_id、notice_version_id、segment_id、location_json、quote、normalized_quote、validation_state | evidence_id 对应真实 segment；模型只选来源，证据记录由程序核验生成 |
 | settings | key、value_json、revision | 密钥禁止存入 value_json；配置更新带版本 |
@@ -906,6 +940,7 @@ action_items 和 notice_task_links 的关系应支持“既有同事项附加一
 CREATE TABLE operations (
   id TEXT PRIMARY KEY,
   user_id TEXT NOT NULL REFERENCES users(id),
+  account_ref TEXT NOT NULL REFERENCES account_scopes(id),
   revision INTEGER NOT NULL DEFAULT 1 CHECK (revision >= 1),
   item_id TEXT,
   kind TEXT NOT NULL CHECK (kind IN
@@ -917,7 +952,7 @@ CREATE TABLE operations (
   state TEXT NOT NULL CHECK (state IN
     ('validated','executing','succeeded','failed_safe',
      'outcome_unknown','created_unverified','uploaded_unverified',
-     'reconciled','cancelled')),
+     'applied_unverified','cancelled')),
   attempt INTEGER NOT NULL DEFAULT 0,
   remote_project_id TEXT,
   remote_task_id TEXT,
@@ -933,7 +968,8 @@ CREATE TABLE jobs (
   id TEXT PRIMARY KEY,
   user_id TEXT NOT NULL REFERENCES users(id),
   job_kind TEXT NOT NULL CHECK (job_kind IN
-    ('close_group','parse_group','execute_operation','reconcile','send_receipt')),
+    ('acquire_media','read_materials','close_group','parse_group',
+     'execute_operation','reconcile','send_receipt')),
   subject_id TEXT NOT NULL,
   dedupe_key TEXT NOT NULL UNIQUE,
   state TEXT NOT NULL CHECK (state IN
@@ -950,8 +986,8 @@ CREATE INDEX jobs_due_idx ON jobs(state, available_at_ms);
 
 事务边界：
 
-1. 入站事务：插入 message_records；唯一冲突返回原处理结果；关联/创建 material_group 并创建 close/parse job，在同一事务提交。平台媒体不在事务中下载。
-2. 固化计划事务：保存 notice_version、action_item 与 validated operation；重复 plan job 返回已经固化的计划，不重新调用模型重建动作。
+1. 入站事务：插入 message_records；唯一冲突返回原处理结果；关联/创建 material_group，创建 pending asset、media_acquisition 和可准入的 close/acquire/parse job，在同一事务提交。未准入项保存入站状态，不超出活动作业上限。平台媒体不在事务中下载。
+2. 固化计划事务：保存 notice_version、稳定 action_item、不可变 action_item_version 与 validated operation；重复 plan job 返回已经固化的计划，不重新调用模型重建动作。直接请求无 notice_version，保留真实 request_origin。
 3. 执行 claim 事务：条件更新 validated → executing，attempt +1，提交后才运行 CLI。执行期间数据库事务关闭。
 4. 结果事务：收到远端 ID 后先立即记录结果；回读的核验再更新状态。核验成功与最终回执 outbox 入库为同一短事务，避免任务已成但回执作业丢失。
 5. 失败事务：记录 side_effect 类别和错误；未知状态不能更新成 failed_safe。若写库失败，暂停该账号写入并进入运维错误，不能继续丢失记账地调用更多 CLI。
@@ -1057,7 +1093,11 @@ DisabledWebsiteSource.describe 返回 planned/disabled；poll 与 fetch_material
 
 成功返回普通业务 JSON，避免 bridge 自动解包与重复 data 包装混淆；统一至少含 contract_version、request_id、revision/operation_id（适用时）。错误含 code、safe message、retryable、trace_id、blocking_fields；凭据与 URL 令牌不进入详情。HTTP 400 参数不合规、401/403 未授权、404 不存在或无权限、409 版本/状态冲突、429 排队限额、503 必要能力不可用。
 
-request_id 为客户端生成不透明请求 ID，结合 endpoint、目标与请求 payload hash 去重；同 ID 不同 payload 返回 409 REQUEST_ID_REUSED。前端 request_id 不能直接当远端上传幂等保证。恢复接口经最新回读与政策验证，POST 也不能直接映射“运行一次 CLI”。
+所有改变本地/远端状态的 POST 均必须带 request_id，包括设置、身份、授权、回答问题、补文件、恢复和补回执；表格中的业务字段之外统一适用此要求。配置/身份/账号授权使用对应资源 expected_revision，通知用 notice revision，文件用 group revision，回执用 receipt revision，操作用 operation revision。拒绝官网启用不改变状态，仍记录 request_id 的拒绝结果。
+
+request_id 为客户端生成不透明请求 ID，结合 endpoint、目标与规范化 payload 指纹去重；同 ID 不同 payload 返回 409 REQUEST_ID_REUSED。上传指纹含原字节 SHA-256、目标和原名称；同请求重传返回原 asset occurrence，新 request_id 的同字节文件可保留新 occurrence，但不重复远端上传。敏感授权 payload 不入普通请求表，只持久化受保护的 keyed fingerprint 和脱敏响应，不保存 secret 明文。先检查请求去重，再检查 expected_revision；已完成的同请求返回已有响应/operation 引用，执行中的返回同一 operation 并显示处理中。request reservation、版本条件更新与本地副作用在同一事务；CLI 等外部调用必须由已固化作业执行。未知的授权调用同样不得因刷新页面重复执行。
+
+前端 request_id 不能直接当远端上传幂等保证。恢复接口经最新回读与政策验证，POST 也不能直接映射“运行一次 CLI”。框架合法 bridge 调用验证须按阶段零版本落实，并检验未登录、失效认证、跨插件/跨 origin 请求；不能以 Referer 或 iframe 本身代替认证。
 
 ### 21.5 CLI 输入输出标准化
 
@@ -1085,7 +1125,7 @@ request_id 为客户端生成不透明请求 ID，结合 endpoint、目标与请
 }
 ```
 
-status 为 succeeded、failed_safe、outcome_unknown、created_unverified、uploaded_unverified；side_effect 为 none/applied/unknown。退出码或 status 相互矛盾、JSON 多对象/截断、operation_id 不一致时不能猜 succeeded：未启动/本地验证失败才是 none，已运行可能写出则 unknown；有可靠远端 ID 即保存并核查。输入输出字段均按 DTO 校验。
+status 为 succeeded、failed_safe、outcome_unknown、created_unverified、uploaded_unverified、applied_unverified；side_effect 为 none/applied/unknown。退出码或 status 相互矛盾、JSON 多对象/截断、operation_id 不一致时不能猜 succeeded：未启动/本地验证失败才是 none，已运行可能写出则 unknown；有可靠远端 ID 即保存并核查。输入输出字段均按 DTO 校验。
 
 扩展可定义退出码 0=命令返回结果、2=输入失败且无副作用、3=授权前置失败、4=经验证无副作用的业务拒绝、5=结果未知；但必须以结果和实测分类一起判定，不把官方 CLI 非零退出码照搬此含义。stdout/stderr 限额默认各 1 MiB，溢出停止并按未知规则核查；日志只保留脱敏摘要，不输出整份账号任务或授权响应。
 
@@ -1166,7 +1206,7 @@ async def execute_operation(op_id):
 
 1. 上个 owner 的 running parse/close jobs 是无远端副作用，可按固定原输入恢复；已经有固化计划则复用计划。
 2. executing create/upload/update/complete 先转为 outcome_unknown，保留所有已知 ID；不得直接重跑。
-3. created_unverified/uploaded_unverified 转入只读核查，准确 ID 查询可自动重试。
+3. created_unverified/uploaded_unverified/applied_unverified 转入只读核查，准确 ID 查询可自动重试。
 4. failed_safe 可在前置恢复后有限重试原固化计划，不重新调用模型补出不同请求。
 5. 待发回执在平台上下文允许时独立发送；不允许则标为等待用户下次查询或后台查看。
 6. 已关闭的自动材料组不因重启再等窗口；已过期 explicit/clarification 组保留但不执行。
@@ -1198,7 +1238,15 @@ async def execute_operation(op_id):
 
 ### 22.4 去重与未知结果核查
 
-消息级：平台唯一键解决重复交付。计划级：固定 action_item_id + notice_revision + operation_kind 生成本地 idempotency_key，落库时唯一。资产级：目标 project/task + user + SHA-256 去重。通知业务级：相同正文/附件指纹只提供强候选，还需课程/活动、行动、期限、渠道及来源条件可唯一关联。
+消息级：平台唯一键解决重复交付。计划级键由程序生成，采用有版本的固定编码后 SHA-256，不用含糊分隔符拼接原始 ID：
+
+| operation_kind | 本地唯一键的语义元组 | 行为 |
+| --- | --- | --- |
+| create_task | (key_v1,user_id,account_ref,action_item_id,create_task) | 同动作终身一个新增操作；通知延期改为 update，不因 notice_revision 新增 |
+| update_task / complete_task | (key_v1,user_id,account_ref,plan_id,operation_kind) | 同计划只执行一次；新的明确修改产生新 plan_id，不被旧 notice revision 吞掉 |
+| upload_attachment | (key_v1,user_id,account_ref,project_id,task_id,sha256,upload_attachment) | 同账号目标与内容只上传一次，不受重复 asset occurrence 影响 |
+
+重复直接新增请求具有不同真实 message_id、action_item_id，仍按原产品规则可创建两份；重复交付同一消息返回已有计划。已有 create 操作但远端任务疑似被删除时先核查，不静默给同键造一个新 create；必要的明确重建是新的用户请求、新动作身份，并关联原审计。通知业务级：相同正文/附件指纹只提供强候选，还需课程/活动、行动、期限、渠道及来源条件可唯一关联。
 
 已有 task_id 核查必须在对应允许 project 中查询。无 task_id 的未知 create 可比较写前/写后快照、title、due、notes 中稳定引用及创建时间；单靠标题/时间不能认定同一任务。只有可靠唯一关联证据才可自动绑定，否则展示候选给用户选。用户选择后仍回读并保存人工关联记录。
 
@@ -1208,7 +1256,7 @@ async def execute_operation(op_id):
 
 ### 22.5 配置变更与操作中的授权
 
-模型、时区、清单、身份配置的变更只影响尚未固化的新计划；已固化 plan 保存当时的配置 revision/时间锚点。用户重新授权同一账号可恢复原目标；换到另一账号须停止待执行任务与附件并重新选择关联，不将原 task_id 写向新账号。
+模型、时区与非授权默认配置变更只影响尚未固化的新计划；已固化 plan 保存当时的配置 revision/时间锚点。权限、允许清单、当前账号与用户身份是执行前必须重新校验的条件：撤销清单或身份从 applies 变为 not_applies/unknown 时暂停旧计划，不能以固化快照绕过新配置。原计划不就地改写；需重新规划则生成新的明确计划并取消尚未开始的旧操作。用户重新授权同一账号可恢复原目标；换到另一账号须停止待执行任务与附件并重新选择关联，不将原 task_id 写向新账号。账号处理见第 26.2 节。
 
 未执行操作的授权允许列表被撤销后停止执行。已经执行的远端结果保留审计、后台可见，撤销授权不能抹去已产生副作用。清除附件授权只暂停附件队列，不把已经上传文件标失败；清除任务授权暂停查询/写入依赖，不删除待上传原件。
 
@@ -1219,6 +1267,23 @@ async def execute_operation(op_id):
 进度回执与最终回执分别 revision，附件很慢时可先报“任务已创建、文件上传中”，之后只补附件最终结果。已供知晓且无任务的通知也有处理记录与摘要，不用 failed 状态表示“没有待办”。
 
 异步完成回复使用实测的平台延迟回复能力。AstrBot 文档提供 unified_msg_origin 与 context.send_message，但平台可能有发送限制；参考 [消息发送说明](https://docs.astrbot.app/dev/star/guides/send-message.html)。只用捕获的真实 origin，不拼接目标；阶段零必须验证 30 秒收集和较长文件处理后的回执，过期时明示平台限制而保留后台结果。此处是原请求结果回复，不增加定时主动提醒。
+
+### 22.7 核查、取消与过期计划
+
+| 当前状态/证据 | 核查后的状态 | 后续动作 |
+| --- | --- | --- |
+| outcome_unknown，无可靠唯一证据 | outcome_unknown | 保存候选与 last_checked_at，不自动执行 |
+| created/uploaded/applied_unverified，暂时读不到 | 原状态 | 限定次数只读核查，不清除已知 ID |
+| 可靠目标及指定字段/完成状态/附件已验证 | succeeded | 同事务固化核验与必要 outbox；子操作仅触发一次 |
+| 经验证的可靠证据证明未发生副作用 | failed_safe | 重试仍检查账号、授权、目标和期限；默认不自动重试 |
+| 已发生副作用但结果字段与计划不符 | 原未核验状态，error=RESULT_MISMATCH | 展示差异，保留真实 ID；不以再次 create/upload 修复 |
+| 已证明完成但随后被外部修改 | succeeded，另记 external_change | 历史成功保留，当前查询展示实时值；不自动恢复旧值 |
+
+reconciliation_json 记录检查时间、证据类型、目标、可靠性、结果和人工选择；“核查执行完”不能等于“原操作成功”。合法状态转换使用枚举与条件 UPDATE，禁止通用 set_state API。update/complete 只有明确成功结果但回读失败才使用 applied_unverified；仅知道目标 ID 且命令超时仍是 outcome_unknown。
+
+取消与 worker claim 共享状态条件：仅 validated 操作可 cancelled；执行已开始返回 409 OPERATION_IN_PROGRESS 并保留真实状态，不杀进程宣称撤销成功。failed_safe/outcome_unknown/unverified 的“停止后续处理”只能记 separate resolution/暂停标记，不把可能发生的副作用抹成 cancelled。已完成任务的附属未开始上传可逐项取消本地计划，必须显示任务已经存在、附件要求未完成。
+
+每次真正启动新的写 CLI 前重新比较 deadline 与当前配置时区。材料等待/30 分钟追问/排队造成新建期限已过去时，进入 DEADLINE_PASSED_WAITING 并询问是否补记逾期；用户明确同意后保存确认事实。已知 ID 的只读核查或补附件不因期限过去而触发重建。对明确延期到过去的 update 同样暂停确认。相对时间仍按原请求/通知锚点计算，不重新解析成新的“明天”。
 
 ## 23 配置、文件处理与安全边界
 
@@ -1243,12 +1308,12 @@ async def execute_operation(op_id):
 | max_assets_per_group | 20，整数 | 原文件数量与 OCR 图片数量不同 |
 | max_asset_bytes | 20971520，整数 | 本地取件默认 20 MiB；平台更低则取最小值 |
 | attachment_upload_max_bytes | 10000000，整数 | 初始 10 MB，按实际账号实测调整，不超过账号能力 |
-| pdf_max_pages / vision_images_max | 30 / 5 | 完整范围超过则阻塞有关项 |
+| pdf_max_pages / vision_images_max | 30 / 5 | 单 PDF 页数 / 独立截图数，渲染页不计入截图数 |
 | model_timeout_seconds | 30 | 网络等待/调用预算，另有格式修复上限 |
 | cli_timeout_seconds / read_timeout | 20 / 60 | 调整不改变超时未知处理 |
 | upload_timeout_seconds | 120 | 未知上传不得自动重试；可配置但有上限 |
 | extraction_concurrency / model_concurrency / write_concurrency | 2 / 2 / 1 | 写并发固定 1；不能从页面开成多写 |
-| max_active_jobs | 100 | 超限已入库材料排队，拒绝无限资源消耗 |
+| max_active_jobs / max_inbox_pending | 100 / 1000 | 已准入作业 / 未准入消息分别有界，见 26.3 |
 | log_level | INFO | DEBUG 也不得输出密钥/全部文件正文 |
 | website_source_status | planned/disabled | 只读，不存在可开启官网采集的布尔字段 |
 
@@ -1287,7 +1352,7 @@ token/API Key/session Cookie 不进入模型、页面读取、错误详情、tra
 下列目录为必须交付的仓库组织建议，属于技术文档中的目标结构，不表示当前已经生成源码。可调整分包名，但不能省略职责或把业务全部塞在 main.py。
 
 ```text
-astrbot_plugin_dida_todo/
+NotiDo/              # 仓库根；安装目录名为 astrbot_plugin_notido
   main.py
   metadata.yaml
   _conf_schema.json
@@ -1325,8 +1390,8 @@ dependencies.lock 至少记录 AstrBot tag/commit/image digest、Python、Node�
 
 ```yaml
 services:
-  campus-notice:
-    image: campus-notice:1.0.0
+  notido:
+    image: notido:1.0.0
     build:
       context: ..
       dockerfile: deploy/Dockerfile
@@ -1337,12 +1402,12 @@ services:
       - "127.0.0.1:6185:6185"
     environment:
       TZ: Asia/Shanghai
-      NOTICE_DATA_ROOT: /AstrBot/data/plugin_data/astrbot_plugin_dida_todo
+      NOTICE_DATA_ROOT: /AstrBot/data/plugin_data/astrbot_plugin_notido
       NOTICE_LOG_LEVEL: INFO
     volumes:
       - ./data:/AstrBot/data
     healthcheck:
-      test: ["CMD", "python3", "/opt/campus_tools/healthcheck.py"]
+      test: ["CMD", "python3", "/opt/notido_tools/healthcheck.py"]
       interval: 30s
       timeout: 5s
       retries: 3
@@ -1406,7 +1471,7 @@ SIGTERM：先拒绝新业务写入并停止 claim；现有无副作用提取可�
 | WP3 任务闭环 | NoticeParser、ValidatedPlan、CLI argv/codec、worker、notes | 真实新增/查询/更新/完成、deadline/all-day/notes，通过 A/N 有关项 |
 | WP4 原生附件 | AttachmentGateway、CLI 实现、核查、分项状态 | PDF、图片、非解析原件在中国版客户端可见可下载；通过 B 项 |
 | WP5 页面与恢复 | Pages、API、revision/idempotency、未知核查、outbox | 未授权拒绝、冲突保护、失败后只补相关步骤 |
-| WP6 部署与验收 | 锁定镜像、Compose、README、backup/restore、71 项结果 | 新机器部署、重启、升级/备份恢复，零官网采集 |
+| WP6 部署与验收 | 锁定镜像、Compose、README、backup/restore、83 项结果 | 新机器部署、重启、升级/备份恢复，零官网采集 |
 | WP7 扩展接口 | Source Protocol/DTO/Registry/DisabledWebsiteSource、内存测试 | E01–E03，生产不能开启，无真实网站请求 |
 
 工作包可交叉开发，但 WP0 的外部能力是必要前置。不能先交“支持附件”的页面占位、用服务器下载链接掩盖原生上传缺口，再把核心工作无限留为 TODO。模型、deadline 和本地安全规则属于可先独立实现部分；阻塞点必须写具体证据和下一步方案。
@@ -1429,8 +1494,20 @@ SIGTERM：先拒绝新业务写入并停止 claim；现有无副作用提取可�
 | T12 | 延迟回执限制 | 收集/OCR/上传后能按实际平台回执；上下文失效独立标失败，不重复任务 |
 | T13 | 文件/文档边界 | 伪 MIME/HTML、加密/损坏 PDF、DOCX 混排/外部关系、ZIP 超限不猜内容不换原字节 |
 | T14 | 脱敏与禁用来源 | key/Cookie/媒体令牌不进模型/日志/页面；运行和网络断言证明无校园采集 |
+| T15 | 动作版本与操作键 | 同通知两次延期仅 update 同一任务；两次直接修改各有新计划；重复交付/模型重排不重建 |
+| T16 | 账号切换与 ID 碰撞 | 两账号相同 project/task 字符串仍完全隔离；旧队列、编号、附件不写到新账号 |
+| T17 | 取件作业恢复 | pending asset/取件描述与作业原子入库；取件中重启恢复或明确请补发，无永久静默遗漏 |
+| T18 | 双层背压 | 100 活动作业和 1000 inbox 上限分别生效；超限明确未接收，已接收可恢复且无无限 jobs |
+| T19 | 截图与文档视觉预算 | 5 截图、30 页扫描 PDF、DOCX 嵌图分开计数；超总预算显式报告漏读范围 |
+| T20 | 等待后期限过期 | 确认/排队跨期限时新增先问是否补记逾期；相对日期不从执行时重算 |
+| T21 | 全部变更 API 去重 | 授权、设置、回答、文件、回执均去重与版本保护；同请求不重复 occurrence/CLI |
+| T22 | 核查结果与状态 | 查不到不变成功；核验通过才触发子作业；修改/完成未核验保留 applied_unverified |
+| T23 | 查询完整性与排序 | 部分清单失败标明范围；全天跨午夜不漂移；分页重排不会把旧编号指向新任务 |
+| T24 | 产品与协议一致 | NotiDo/插件/数据根一致；各 intent 合法字段独立；不可读节点可通过严格 Schema |
+| T25 | 取消与超时竞争 | 取消和 claim 至多一个获胜；执行中不能 cancelled；显式组/澄清过期不会自动执行 |
+| T26 | 执行前配置校验 | 允许清单撤销/身份变更/账号未知会暂停旧计划；日期与 Provider 快照仍保留 |
 
-合计：A01–A24 24 项，N01–N18 18 项，B01–B12 12 项，E01–E03 3 项，T01–T14 14 项，共 71 项。每项填写 pass/fail/blocked/not_applicable、证据路径、版本与执行日期；核心功能不得用 not_applicable 绕过。官网真实采集属于不实现，不以 blocked 记入本版。
+合计：A01–A24 24 项，N01–N18 18 项，B01–B12 12 项，E01–E03 3 项，T01–T26 26 项，共 83 项。每项填写 pass/fail/blocked/not_run/not_applicable、证据路径、版本与执行日期；not_run 表示尚未执行，发布时不得保留；核心功能不得用 not_applicable 绕过。官网真实采集属于不实现，不以 blocked 记入本版。
 
 ### 25.3 测试层级与故障注入
 
@@ -1457,7 +1534,7 @@ SIGTERM：先拒绝新业务写入并停止 claim；现有无副作用提取可�
 
 compatibility.md 每个能力行需有 implemented_version、tested_at、account_region、中国版/国际版域名、auth_method、stdout_schema、field_mapping、limits、verification_evidence、failure_classification、restart_result。公开凭据值始终缺省；只记录凭据类型与受保护位置。
 
-完成定义：全部 71 项有结果；核心 A/N/B 与相关 T 项真实通过；CLI deadline 为原生字段且原文件为原生附件；Docker 新部署/恢复可重复；官网接口在生产保持禁用并有无请求证据。代码中不可把核心能力用 mock/占位 pass/本地假任务替代。任何未通过项明确列出，不宣称已交付完整首版。
+完成定义：全部 83 项有结果；核心 A/N/B 与相关 T 项真实通过；CLI deadline 为原生字段且原文件为原生附件；Docker 新部署/恢复可重复；官网接口在生产保持禁用并有无请求证据。代码中不可把核心能力用 mock/占位 pass/本地假任务替代。任何未通过项明确列出，不宣称已交付完整首版。
 
 ### 25.5 当前待验证与风险边界
 
@@ -1472,3 +1549,91 @@ compatibility.md 每个能力行需有 implemented_version、tested_at、account
 | 官网真实采集 | 用户明确推迟 | 仅留契约和禁用实现，不能作为首版待解技术阻塞 |
 
 未提供真实账号/密钥的 PRD 编写阶段不能完成上述实机联调。本文交付的是可实现、可验收且明确外部阻塞的技术规格，不表示服务已运行。
+
+## 26 产品闭环与关键实现边界
+
+### 26.1 产品定位、成功指标与发布边界
+
+知办面向需要处理课程、学院与活动通知的东北大学学生，首版服务一个人。核心价值是减少从长通知中找本人事项、核对截止日期、整理提交要求和找原文件的重复劳动。班委等角色只参与适用条件判断，不增加多人协作产品。一个完整闭环为“提供真实材料 → 确定本人行动 → 记录真实时间和要求 → 原件挂到任务 → 回执可核验”。
+
+首次价值验收样本：用户转发一份含多对象、多时间节点和附件的课程通知，系统只保存适合本人的必做事项，报名等自愿事项待选择；用户在滴答看到原生时间、提交要求及可下载原文件，并能在原会话查询后标记完成。若仅输出摘要，或任务没有原生日期/所需附件，不计为该场景完成。
+
+发布前冻结至少 50 条人工标注样本（含至少 25 条通知），标注适用条件、动作边界、期限精度/锚点、关键要求、附件关系和预期追问。训练式调试样本与最终验收样本分开记录。模型与 prompt 改动后用同一冻结集复测，报告每类分母，不能把追问或失败样本从准确率中删除。
+
+| 维度 | 首版默认准入目标 | 计量方式 |
+| --- | --- | --- |
+| 自动行动提炼 | precision ≥95%、recall ≥90% | 在有完整输入且适用性可确定的标注动作上逐项比对；遗漏及多生成分别计数 |
+| 自动日期写入 | 精确匹配 ≥95% | 年月日、时刻/全天、时区、deadline/event_start 必须同时正确；另报日期覆盖率 |
+| 强制阻塞 | 100% 阻止不确定关键输入写入 | 冻结集中的身份未知、可选未同意、缺材料、关键日期冲突、范围外操作 |
+| 来源与成功回执 | 100% 有证据且符合真实结果 | 自动写入均有已读依据；无任何“未执行却宣称成功”的样本 |
+| 原件完整性/目标 | 100% 正确 | 样本原字节 hash、目标任务、账号匹配；同名异内容保留 |
+| 故障与重复处理 | 0 次已知重复 create/upload | 在第 25.3 节及 T15–T26 的有限故障样本中统计，不能推导为全局 exactly-once |
+
+这些是设计目标，当前均未实测。任一错误时间或额外执行必须在验收记录中解释并修复对应错误路径，不能仅凭均值掩盖已知缺陷。阶段一/二可展示已完成的功能闭环；只有完整首版准入通过才能标“首版可用”。原生附件路径不存在时，WP0 应明确阻塞附件开发与整版发布；可独立开展 Domain/SQLite/读取规则验证，不无限等待也不降低原件要求。
+
+### 26.2 账号作用域与重新授权
+
+account_ref 是本地不可变 UUID，代表一份经确认的中国版滴答账号作用域，不能用 token/Cookie 的 hash 充当账号身份。首版仍只允许一个 active 账号。远端账号身份能可靠读取则存脱敏 fingerprint；不能可靠读取时，后台须由维护者明确选择“同一账号重新授权”或“更换账号”，并回读测试清单验证；未能确认则 account_identity_unknown，停止写入。
+
+任务、附件、操作、查询编号、最近引用及与写入有关的回执均绑定 account_ref。允许清单和默认清单按账号存储，不能只全局保存裸 project_id。所有 gateway 调用前核对当前认证作用域、credential_generation 和 operation.account_ref；返回 ID 也按同一作用域保存，两个账号中相同字符串不能互相去重或关联。
+
+授权变更先暂停新 claim，等待执行中的写命令结束或转未知，不能在 CLI 运行时替换它使用的凭据。新凭据在独立 staging 认证目录检查，验证通过后原子切换受保护凭据；验证失败保留旧可用凭据。任务与附件两套凭据必须确认属于同一账号及地区，否则显示 ACCOUNT_MISMATCH，不上传。
+
+同账号重新授权增加 credential_generation，旧计划可在重新校验后恢复。更换账号创建新 account_ref，旧作业暂停且保留审计，清空当前编号/最近引用并要求重选清单；历史未知结果只能使用原账号身份核查，不把新账号“查不到”当作旧操作无副作用。旧通知在新账号写入属于新的明确迁移请求，首版不自动迁移任务或附件。
+
+### 26.3 持久取件与有界接收
+
+取件不能只在消息 handler 中 fire-and-forget。入站事务建立 pending asset、media_acquisition 及准入状态后，acquire_media worker 流式落 staging，完成校验后建立 blob。read_materials 作业按真实 asset 与读取策略生成 segment；close_group 关闭收集窗口不等于取件完成。parse_group 等待所需读取终态，不能把仍 pending 的关键附件当“不存在”。取件失败也持久记录，并生成补发问题。
+
+取件描述含敏感临时 URL/令牌时只能存受保护引用；能由 AstrBot 重取时复用其能力，不能安全持久化时记录具体不可恢复边界。重启先恢复 acquire_media/read_materials，再解析依赖。稳定消息 ID 不保证媒体可无限重取；已过期取件须 FILE_EXPIRED 并请求补发，补发更新 occurrence 与关联，不重复创建任务。
+
+同一个媒体作业的重复唤醒靠 dedupe_key 返回现有结果；成功 blob 无需再下载。未完整 staging 可在安全确认后重新下载，原件没有远端滴答副作用；不把局部字节续为完整文件，除非平台支持并验证了分段取件契约。
+
+默认 max_active_jobs=100 计入 pending/running 的全部作业，blocked 历史记录另计存储预算；max_inbox_pending=1000 计未准入消息。每次准入用短事务检查容量，job dedupe 冲突不增加占用。取件、核查、回执有调度优先级，保留活动槽位避免解析填满后阻塞取件；公平调度避免普通消息永久饥饿。高优先级不改变同账号单写约束。
+
+inbox 或存储已满时只返回“暂未接收，请稍后重发”，不保存半个待执行请求、不声称零丢失。若平台不能可靠回绝/重投递，记录接收限制和可能丢失窗口。已接收数据因资源受限待排队，与尚未接收严格区分。max_group_bytes 默认 100 MiB，disk_free_reserve_bytes 默认 1 GiB；大小按累计字节检查，未知 Content-Length 不跳过限额。这些默认可配置，容量与真实部署测试共同确定。
+
+### 26.4 图片、PDF 与 DOCX 预算分层
+
+独立 JPG/PNG/WebP 通知截图默认每组最多 5 张；单 PDF 最多 30 页；一组所有 PDF 默认最多 30 个需视觉识别的渲染页；DOCX 默认最多 20 个需识别的关键嵌图；全组视觉单元（截图、渲染页、嵌图）默认最多 40。各限额独立且取较严格约束，不能用“5 张图片”让第 6 页扫描 PDF 被静默丢弃。扫描 PDF 的全部页在单文件 30 页范围内可读取，但仍受总组预算和执行时间限制。
+
+文本层 PDF 仍须逐页记录是否检查、是否需视觉补充；图片化表格不能仅因本页有少量可提取文字就判已完整读取。页码/嵌图数超限或 180 秒预算耗尽，报告精确已读/漏读范围并阻塞依赖漏读范围的任务。不相关、完全独立的明确事项可先执行。全范围检查与字数分块是不同预算：文本超 8 块同样要求拆分，不绕过上限。
+
+相应配置新增 pdf_vision_pages_per_group=30、docx_images_per_group=20、max_visual_units_per_group=40、max_group_bytes=104857600、disk_free_reserve_bytes=1073741824，保存时联动校验正整数及镜像/账号限制。原件保留和上传不重新编码，视觉预算不改变附件字节。
+
+### 26.5 查询范围、排序与编号
+
+查询先读全部允许清单并记录 per_project_complete 和错误。完整读取失败时可以返回可见部分，但必须显示“仅查到 X 清单，Y 清单读取失败”，total_count=null，不能回复“没有任务”或“全部只有 3 项”。能力未就绪时避免用缓存补成伪实时结果。task_id 目标的可靠单项回读若可用，可独立执行该明确目标；关键词自动定位要求候选范围完整，否则追问并说明缺失范围。
+
+“今天”定义为 local_date 等于今天；另列逾期结果不计入今天匹配数。“本周”按周一至周日，“最近七天”按当地今天至第六天结束。有时刻任务仅 instant < now 且未完成时为逾期；全天任务仅 local_date < today 为逾期，不在当天 00:00 自动逾期。
+
+排序为日期升序、同日全天置前、有时刻按本地时刻、再以 account_ref/project_id/task_id 作稳定 tie-break；无日期单列。deadline 筛选使用已验证的本地 time_kind，未关联历史任务显示“到期时间”，不推断其为提交任务。跨服务读取不是原子快照，响应带 checked_at 与清单完整性。
+
+查询 session 保存 query_definition、query_revision、snapshot_fingerprint 和当前位置。下一页重新读取，快照变化时返回 QUERY_CHANGED，提示从第一页刷新，不直接以新排序 offset 继续漏项。页面编号含 query_revision，重新查询/翻页/账号切换使旧映射失效；执行仍回读对应真实 ID。task 编号与待处理 notice 编号使用独立 namespace，不能把“第 2 条”跨列表解释。
+
+### 26.6 预算、过期与取消的统一语义
+
+自动组 30 秒静默、120 秒上限；显式组 10 分钟过期；澄清问题 30 分钟过期；列表编号 10 分钟；最近任务引用 30 分钟。显式组过期进入 expired_collecting，继续收集需明确恢复，未结束就不自动执行。澄清过期不丢材料，旧 question_ref 失效，重新发起澄清生成新引用。新独立请求不能覆盖或填入旧问题；保留旧草稿为待处理，当前会话最多一个活动问题。
+
+“取消”只取消当前未开始计划/窗口；有成功项必须回显真实成功结果。正在执行的任务或附件按第 22.7 节处理，不能把取消请求视为滴答回滚。等待过程中附件到达仍按材料关联证据补到对应 notice，不因草稿过期默认挂最近任务。
+
+20 秒为正常外部依赖条件下的纯文本 p95 目标，60 秒为请求协调软预算，两者不是每条请求的硬承诺。worker 用 monotonic clock 计算当前调用剩余预算，持久时间仍用 UTC instant；model/CLI/read 各自 timeout 取配置和阶段剩余预算中较小者。软预算到期停止新副作用 claim，已经启动的写 CLI 依其固定 timeout 结束并记账，不能因回执超时直接重跑。长材料预算和每文件上传 120 秒独立计量，排队、收集和澄清等待分别报告。
+
+### 26.7 阶段零证据模板与推进规则
+
+compatibility.md 的能力行至少有“文档证据”“锁定构建版本”“真实账号验证”“生产就绪”四个独立结论；阅读官方文档不能自动将后两列置 true。最小证据包为 help/version、argv 字段映射、脱敏输入输出/退出码、目标客户端截图或观察记录、下载 hash、失败/超时/重启结果，路径与每个验收编号关联。原文件与个人通知不默认上传公开仓库，只提交脱敏样本和必要校验信息。
+
+| 门槛 | 通过后可推进 | 失败时的具体产物 |
+| --- | --- | --- |
+| G0 入口与持久能力 | 接入/媒体恢复实现 | 平台、版本、稳定 ID/原件/延迟回复的失败样本与绕过边界 |
+| G1 任务 CLI/字段/机器输出 | 真实文字任务闭环 | 缺失字段/JSON 契约；替代受控 CLI 评估；不猜命令 |
+| G2 中国版原生附件 | 附件闭环与整版候选 | 正确域名、授权、上传、查询各环失败证据与扩展方案；阻塞整版 |
+| G3 版本锁定与恢复 | 集成部署及验收 | 构建/迁移/账号持久/未知操作恢复的可复现问题 |
+
+本轮只交付需求文档与公开仓库，不执行真实滴答/微信/QQ 账号联调，不将任何 G 门槛标为通过。开发可以先完成不依赖真实账号的领域部分；外部契约确定后再接生产 gateway。README 的部署命令要等真实源码交付后提供，不能从 Compose 模板推导“现在可启动”。
+
+### 26.8 本轮外部资料复核范围
+
+2026-10-07 重新检查了 [AstrBot Plugin Pages](https://docs.astrbot.app/dev/star/guides/plugin-pages.html)、[QQ 官方 WebSocket](https://docs.astrbot.app/platform/qqofficial/websockets.html)、[AstrBot pyproject](https://github.com/AstrBotDevs/AstrBot/blob/master/pyproject.toml)、[Node.js 版本表](https://nodejs.org/en/about/previous-releases)及[社区附件上传源码](https://github.com/liuboacean/ticktick-cli/blob/main/ticktick/commands/attach.py)。这些材料支持选型依据，未替代锁定发行版和真实账号测试。社区上传源码仍显示国际版域名和额外会话凭据，不能据此证明中国版附件可用。
+
+滴答官方 CLI 与附件帮助链接仍保留，但本轮网页读取未取得正文；第 3、8、9 节有关官方 CLI 命令及 API 口令的描述继承原 1.3 调研记录，本轮未独立复核，不代表已经否定这些能力。开发必须以实际官方包版本、帮助和真实受控账号测试重新确认。第 16 节其余历史参考未在本轮逐项复核，尤其候选学校网址仍非已实现采集来源。

@@ -1,0 +1,26 @@
+# Runtime data and credentials
+.env
+.env.*
+!.env.example
+data/
+runtime-data/
+backups/
+cli-auth/
+secrets/
+*.db
+*.db-shm
+*.db-wal
+*.log
+
+# Local caches and environments
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+node_modules/
+dist/
+build/
+.DS_Store
+Thumbs.db
