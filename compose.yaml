@@ -1,0 +1,19 @@
+services:
+  astrbot:
+    build: .
+    image: notido-astrbot:0.1.0
+    init: true
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6185:6185"
+    volumes:
+      - ./data:/AstrBot/data
+    stop_grace_period: 180s
+    environment:
+      TZ: Asia/Shanghai
+    healthcheck:
+      test: ["CMD", "python", "/opt/notido-plugin/deploy/healthcheck.py"]
+      start_period: 90s
+      interval: 15s
+      timeout: 5s
+      retries: 3

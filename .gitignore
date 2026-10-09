@@ -24,3 +24,10 @@ dist/
 build/
 .DS_Store
 Thumbs.db
+
+.research/
+.coverage
+htmlcov/
+
+
+tools/*.exe

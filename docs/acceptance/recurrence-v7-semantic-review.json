@@ -1,0 +1,26 @@
+{
+  "main_sha256": "228630c26fabab03f3fc5801d41d5e998ea0d94f12f06ac3754e3626ca45fad3",
+  "runtime_code_sha256": "fbf9ce11f538144cab9985357e0f9e1ce9a68920a673ab44602da39f9d6b1628",
+  "cases": {
+    "weekly": {
+      "status": "pass",
+      "note": "首次周一17:00，共5次，日历起算。",
+      "output_sha256": "de4cf00b9e3a5801b8c39bbc4925a6a0c121684a5c788ab861c0c180c03ddb86"
+    },
+    "daily": {
+      "status": "pass",
+      "note": "每2天共4次、完成日起算，首次08:10。",
+      "output_sha256": "6ef6dc0a88c77985463928acf0525a6da56e62be348c85fdbcf55b1ebea1b31d"
+    },
+    "monthly": {
+      "status": "pass",
+      "note": "每月最后一天、共3次、截止日起算，首次09:05；回执结尾多余条件性提示未触发新写。",
+      "output_sha256": "25020c56c691e8b0941eb26b2415e412410992a51bceb287e66a810df2faea8f"
+    },
+    "yearly": {
+      "status": "pass",
+      "note": "2月29日、结束日含当天、日历起算，首次10:15。",
+      "output_sha256": "8520c50bda54f666997bd9a20fa077724a8bac09b7a89cb249944b44665a9828"
+    }
+  }
+}

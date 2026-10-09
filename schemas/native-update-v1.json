@@ -1,0 +1,226 @@
+{
+  "$defs": {
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "location": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Location",
+          "type": "string"
+        },
+        "quote": {
+          "maxLength": 12000,
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        },
+        "source_id": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Source Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "location",
+        "quote"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "NoticeRevision": {
+      "additionalProperties": false,
+      "properties": {
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "title": "Evidence",
+          "type": "array"
+        },
+        "group_id": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Group Id",
+          "type": "string"
+        },
+        "requirements": {
+          "anyOf": [
+            {
+              "items": {
+                "type": "string"
+              },
+              "maxItems": 100,
+              "type": "array"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Requirements"
+        },
+        "source_order_confirmed": {
+          "default": false,
+          "title": "Source Order Confirmed",
+          "type": "boolean"
+        },
+        "visual_evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "title": "Visual Evidence",
+          "type": "array"
+        }
+      },
+      "required": [
+        "group_id"
+      ],
+      "title": "NoticeRevision",
+      "type": "object"
+    },
+    "Patch": {
+      "additionalProperties": false,
+      "properties": {
+        "all_day": {
+          "anyOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "All Day"
+        },
+        "date_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Date Text"
+        },
+        "notes": {
+          "anyOf": [
+            {
+              "maxLength": 10000,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Notes"
+        },
+        "priority": {
+          "anyOf": [
+            {
+              "enum": [
+                0,
+                1,
+                3,
+                5
+              ],
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Priority"
+        },
+        "reminder": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Reminder"
+        },
+        "time_text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Time Text"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "maxLength": 200,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Title"
+        }
+      },
+      "title": "Patch",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "allow_overdue": {
+      "default": false,
+      "title": "Allow Overdue",
+      "type": "boolean"
+    },
+    "notice": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/NoticeRevision"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "patch": {
+      "$ref": "#/$defs/Patch"
+    },
+    "request_key": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Request Key",
+      "type": "string"
+    },
+    "selection_ref": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Selection Ref",
+      "type": "string"
+    }
+  },
+  "required": [
+    "request_key",
+    "selection_ref",
+    "patch"
+  ],
+  "title": "ChangeArgs",
+  "type": "object"
+}

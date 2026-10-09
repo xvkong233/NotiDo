@@ -1,0 +1,41 @@
+{
+  "main_sha256": "228630c26fabab03f3fc5801d41d5e998ea0d94f12f06ac3754e3626ca45fad3",
+  "runtime_code_sha256": "fbf9ce11f538144cab9985357e0f9e1ce9a68920a673ab44602da39f9d6b1628",
+  "stages": {
+    "memory": {
+      "status": "pass",
+      "note": "原生身份记忆零写，首次执行前核对真实清单名称。",
+      "output_sha256": "c1c3c901db8e7e5a4edb2d4398c68fb6fdef19761b6dabf732bc02dfb4cda928"
+    },
+    "created": {
+      "status": "pass",
+      "note": "来源与真实任务/期限/要求一致，创建前关键词0匹配。",
+      "output_sha256": "d03c37a1ce3fe6abe9fa7ec3edb848c9d3d98a732475c627fe82bd9cc6be97ec"
+    },
+    "repeated": {
+      "status": "pass",
+      "note": "实时回读原唯一任务，零写。",
+      "output_sha256": "4d71f7a65b5ef3bb8052028e9604528e17ec86fcdc580c4db31f338036b6aea6"
+    },
+    "postponed1": {
+      "status": "pass",
+      "note": "同task/action/notice版本1，日期与要求真实正确。",
+      "output_sha256": "88cb484f401b85815fb4956d5d8b6b54f1b5287cabbf89db4134317db03ff8d5"
+    },
+    "postponed2": {
+      "status": "pass",
+      "note": "同task/action/notice版本2，日期与要求真实正确。",
+      "output_sha256": "040c86a441b8f055154ec5cd166ce3e91cc54729a3b8621eb7624dbb04d769d5"
+    },
+    "completed": {
+      "status": "pass",
+      "note": "原唯一任务status=2、回执带时区，未改其他字段。",
+      "output_sha256": "da6e656fcd64a2abe9dadc378bd9427f5d30095026e20aa674598c53d7da5be8"
+    },
+    "after_completion": {
+      "status": "pass",
+      "note": "只查未完成0匹配并引用上一轮实际完成证据，零重开/新建。",
+      "output_sha256": "d76d7682c82278df9cbce4957a1c535f74610c23c4a47113b0d26a09bedff091"
+    }
+  }
+}

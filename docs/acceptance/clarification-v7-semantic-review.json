@@ -1,0 +1,21 @@
+{
+  "main_sha256": "228630c26fabab03f3fc5801d41d5e998ea0d94f12f06ac3754e3626ca45fad3",
+  "runtime_code_sha256": "fbf9ce11f538144cab9985357e0f9e1ce9a68920a673ab44602da39f9d6b1628",
+  "stages": {
+    "unclear": {
+      "status": "pass",
+      "note": "仅问年份、零写，原生awaiting_clarification。",
+      "output_sha256": "16c062eb3166c515afb190167d2d718fb6d1d8e5c18153ba8e5fade7866d5bca"
+    },
+    "independent": {
+      "status": "pass",
+      "note": "独立无日期意图首次创建，未把旧日期串入。",
+      "output_sha256": "14c1da4905bcafb57ab7dff3d5202dcc317a4a06529fd191318dae9db2ffa014"
+    },
+    "clarified": {
+      "status": "pass",
+      "note": "原意图按补充年份首次创建，独立任务零改动；旧/新组均completed并实际API持久回读三组完成。",
+      "output_sha256": "7ff710ae2c7aa1870c33b4fa0f72b24b1922d0a938f647a8ab8971aea19212de"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+# 实际配置API与原生待执行保护（2026-10-09）
+
+最新已核验的119条真实历史备份，分别恢复为三个独立本机副本；未增加容器、修改当前运行实例或清除真实账号授权。代码版本 `14f6a23478e9a73ebfffc9d794e9e408fba7804ad2611f9687cde9e6ad1e76ed`。每个副本从真实原生创建计划复制一项明确标记的待执行夹具，state=validated、attempt=0、无remote_id；并核对真实框架实例、actor及session作用域。
+
+通过生产PagesAPI分别撤销该实际会话绑定、移除允许清单、清除副本里的任务与网页会话授权。三种变更均使夹具paused、attempt=0；调用实际执行服务不启动CLI。再以本机夹具故障注入解除paused，模拟持有旧快照的worker，执行保护分别返回CONFIG_OR_AUTHORIZATION_CHANGED、PROJECT_NOT_ALLOWED、ACCOUNT_CHANGED，重新暂停且attempt仍为0。
+
+所有网关写入/上传被硬禁用；三项连网关写入边界都未触及，0次模型调用。清除授权只删除副本中的两个授权文件，原运行实例继续正常处理完整冻结语料。
+
+这是实际配置API、真实来源计划与原生执行器的隔离技术证据；待执行操作是公开标记夹具，不能冒称来自自然聊天或真实撤换用户授权。凭据代次变化及裸ID越权另有原生回归保护。
+
+首轮探针恢复被严格manifest拒绝：前一结论读取辅助器留下零字节WAL和临时SHM。未放宽备份校验；确认备份根位于专用工作区、WAL为0字节、SHM为32768字节后，仅清理两项临时文件。结论读取改为显式关闭连接，读取固定备份使用immutable=1；DB、manifest、原件和授权字节保留，再沿用原探针记录继续验证。
+
+工具native_scope_change_smoke.py；证据runtime-data/native-scope-change-results.json。三个副本保留用于检查，没有删除原始备份、授权或失败观察。

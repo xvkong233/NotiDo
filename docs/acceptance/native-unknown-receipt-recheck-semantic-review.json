@@ -1,0 +1,17 @@
+{
+  "reviewer": "开发代理实际逐条读取工具输出、账本与最终回执；没有自动语义评分器",
+  "runtime_code_sha256": "14f6a23478e9a73ebfffc9d794e9e408fba7804ad2611f9687cde9e6ad1e76ed",
+  "main_sha256": "228630c26fabab03f3fc5801d41d5e998ea0d94f12f06ac3754e3626ca45fad3",
+  "cases": {
+    "unload": {
+      "status": "pass",
+      "note": "实际清单名与未知状态准确；存在同标题目标不核验原操作，0新写。",
+      "output_sha256": "e0f42d2c3e82b2439bf60d6e96da29bf361497cae56d1a1b754d1ef80b8ebe92"
+    },
+    "sigterm": {
+      "status": "pass",
+      "note": "实际清单名与未知状态准确；存在同标题目标不核验原操作，0新写。",
+      "output_sha256": "ad024b589233353e47f3727b3caa8b8a941341dc88bd5399da91d311141c6342"
+    }
+  }
+}

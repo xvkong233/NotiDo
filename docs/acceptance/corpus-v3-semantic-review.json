@@ -1,0 +1,261 @@
+{
+  "reviewer": "开发代理逐条读取实际输入/调用/回读/回执；不使用模型评分器",
+  "complete": false,
+  "main_sha256": "78c7c8d842aa3f5859d78b1d12fc6eaf343001dab3c016833e915d323054091d",
+  "frozen_sha256": "15f663b459fee4568e2e2154d9884c12f7fab5fda3fb86f435e59808e0ecd407",
+  "cases": {
+    "N01": {
+      "status": "pass",
+      "note": "PDF、文件名、渠道及期限完整，有通知依据；解析锚点不冒充原发布时间。",
+      "evaluation_sha256": "ae456d93d4f14bdbcf428ca49c7865cdba1025012c40b4a439c5806fc290977e"
+    },
+    "N02": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "3de29093d6e19291fa35e652bda7ff9935a31302d8c19adece3363e07b05d6bd"
+    },
+    "N03": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "0d2d840f92ecd95c1417b70130060f10898cbaaa04e1ceb5b94e02124e2981bf"
+    },
+    "N04": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "9fd522d960fa57aec9f794df7b38d161c482bd7cb178d58f4dffe0d6b2f2ecf4"
+    },
+    "N05": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "46dadd1cbf7b6685457a4a30c298267b6ac381bbf4fb06f385b47e75ea337d41"
+    },
+    "N06": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "f0434a893a58a47c5ef4ef2b6ab60c3f9412c1da8fd48148e185b8dc74d27ec6"
+    },
+    "N07": {
+      "status": "pass",
+      "note": "明确自愿参与后按通知保存来源、全天和参加决定。",
+      "evaluation_sha256": "90d1e53c2223cf48a9f1742fd46ee14684eedc64d889e077b282dc5cfb052510"
+    },
+    "N08": {
+      "status": "pass",
+      "note": "仅询问班长身份，零写入。",
+      "evaluation_sha256": "86c333e099510eb53f01f5f3eeb29f455b0155aa83f66345234ec9388e1fda5a"
+    },
+    "N09": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "481347023054a3a499bc8d957c9e52c7ba0dd384d1df23c58127b730f9a45555"
+    },
+    "N10": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "e2aee75c7da620213e04fdb7cf4c6330eab2a24df98fa8ba10d5062bc4fc7035"
+    },
+    "N11": {
+      "status": "pass",
+      "note": "一行动，PDF/A4/文件名学号完整，保存通知来源，不索要具体学号。",
+      "evaluation_sha256": "ba4d2e54e67b8250f76c4048afeb5cc06c9f5d6a20773914ba1b4a502c1671ae"
+    },
+    "N12": {
+      "status": "pass",
+      "note": "三行动时刻及事件/截止分类正确；参加必修实践与参加实践为同一参考行动，按实际标题精确映射。",
+      "evaluation_sha256": "0181f942cc16323bb788067ea00d3ec0c102fec20c45e904e823620e6568ef20",
+      "action_title_matches": {
+        "参加实践": "NotiDo 验收 · N12 · 到实验室参加必修实践"
+      }
+    },
+    "N13": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "8c503fb77909df276585cdbf258de04a5c6b064be7bf12ef7c206ff94c1d1b21"
+    },
+    "N14": {
+      "status": "pass",
+      "note": "依据明确原发布时间推导12-21 17:00，引用正文原文，无错误接收时间标签。",
+      "evaluation_sha256": "c6c8de3187de72c498774a1553209d456e101328888db94003e9efd779eaaae5"
+    },
+    "N15": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "ef223785a5cd3bc7add085b66177c915a3e21fb8eb94e81f0bee69e352012955"
+    },
+    "N16": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "e4abd6074dedaf351f6822936e74b30e2d6fe5df1e41b3451be4de69d3f51d33"
+    },
+    "N17": {
+      "status": "pass",
+      "note": "只请求补记逾期同意，不额外索要事项名称或机构。",
+      "evaluation_sha256": "0451778509aaff9d3eb53784489420aa8b35e3afaa56516fc0e5f54d6c145e54"
+    },
+    "N18": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "92d5fb014406cd7e226b6945e76f20330fe4e9a2a5e4696073ef1bed74daa51a"
+    },
+    "N19": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "2fc90c824876c047e720e60db22de2c8ff739b89c110d01f8aa1f608df62c081"
+    },
+    "N20": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "87da0518226cafd3ff6a3954567587b2562afa65b519584ae5ebd05b299fd38c"
+    },
+    "N21": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "9c708306c6a23d05e07ff2f077c33a762636173f67bef1f38c58cc157dd0f188"
+    },
+    "N22": {
+      "status": "pass",
+      "note": "独立名单保存通知来源，依赖缺附件的申请暂停。",
+      "evaluation_sha256": "464b469750b8ffe43ecfcf40fe137c82650f818ea29dfb2dff89337d879d1264"
+    },
+    "N23": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "cca36e07b79054fbe789052d95335e5f5a1ff0b7558355d8c507c2bbc074675e"
+    },
+    "N24": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "3cf6eaf7d335b27a45e12440b079f948dcbc826d8a6d5e06501f79cba3513e5d"
+    },
+    "N25": {
+      "status": "pass",
+      "note": "保留日前、不减一天、不增加准备事项。",
+      "evaluation_sha256": "2026b0481acc9be9851aae958bc7859f2b1153255c91bafa4d0324429b71120c"
+    },
+    "N26": {
+      "status": "fail",
+      "note": "失败：模型把2027年12月24日24:00降为当天全天；原文虽保留，但远端日期/精度错误。",
+      "evaluation_sha256": "7cf812797e83ff9b07490383a35f18c19e2a116c9ba80aa9ce39a70bd0f70d16"
+    },
+    "N27": {
+      "status": "pass",
+      "note": "请求实际正文或可读原件，不以卡片标题造任务。",
+      "evaluation_sha256": "97d3dd27b39d928e6a0cdf0b9d30d75a5693b55d4392af22e69cff96ace6a9d8"
+    },
+    "N28": {
+      "status": "pass",
+      "note": "缺链接正文时暂停，不访问链接，不降为无日期待办。",
+      "evaluation_sha256": "64356942127d7686d53d581b45c5381980c9a80d8866c1a657c472ad905f0df6"
+    },
+    "N29": {
+      "status": "pass",
+      "note": "五项要求及09:20完整，不索要本人学号姓名。",
+      "evaluation_sha256": "8df04a69a4e66626c02277ce92b7d8210d63a791c212295c8bb1f6fa984aac82"
+    },
+    "N30": {
+      "status": "pass",
+      "note": "纸质与教学楼101完整，无报名或购买动作。",
+      "evaluation_sha256": "cfff318a7119d2ae390848f660bf695388293b63290a6d77b0a09e9974f6cf93"
+    },
+    "D01": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "26b1ec4fc6b91f41c66725aa68e3e0b99e36df8c3acce4a7c3e9ed6ef40780a3"
+    },
+    "D02": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "181743e346ba36fae789f2fd7c6fef1f74fc96444451a66ff7624d7df426b662"
+    },
+    "D03": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "1b3abc9b9ae809011c1e2fe0c9664bd68f9e8a66823d920faa838c97fe317f08"
+    },
+    "D04": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "57320f9a24a1cfec3ea33d7731d22bb4788de1f8c51af6632566228b611b4713"
+    },
+    "D05": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "60ee8e3fba2f2b731dea5e22add11236130d5d2165363a4065c706675b7dded1"
+    },
+    "D06": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "1cc2244ddaa12a00ff3bdf72e0af9946f417436b2fb9f041e21dd7f9809d7a02"
+    },
+    "D07": {
+      "status": "pass",
+      "note": "只读取获允许清单；不存在目标不写，不冒称账号全部清单。",
+      "evaluation_sha256": "be29a1b85726b4b660ba949b84f5fd63c5d574e07a378bf12f0ad7187ec6d0dc"
+    },
+    "D08": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "579792b29fb0f4939a290adcba70265b3b9614060e7c4c02eb90daafad2593b4"
+    },
+    "D09": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "f182b5ef0d75c75fc9df58a21c24f90ce5febe1ffb186c84957a1bd9430bcdf9"
+    },
+    "D11": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "8f89698ff2ef54956f59e78332513df398ee3fc18a100ca658e17b997d467548"
+    },
+    "D12": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "eb005b44f9cd899097845a7b6975d0f5b2af355e71f91ab1b453b25b88813452"
+    },
+    "D13": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "9c21b8076ce3690fe85fdb9f6336995a7055ce5cccc9d133344cb632b214f3f4"
+    },
+    "D14": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "be24ba3dd47364e1ecbe5776c60f1be9e3d293c3b2a1843b81eea9c5ca2149a8"
+    },
+    "D15": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "e5bedc0489effbe4aa044808b6527724cba238b4c7a0c4d734fd8fff992fa4d0"
+    },
+    "D16": {
+      "status": "fail",
+      "note": "真实多候选分页，未按最近项猜测目标；创建时刻沿用原UTC数值未标时区，作为回执呈现问题保留。",
+      "evaluation_sha256": "7f8bafedc2ef8cf9d0100475374fbedbd5a1324ef9e3ba36b35003143476bfa3"
+    },
+    "D17": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "1faf717cfe561130774573773e7bf03436a97ab1c7f32c13b8d1ed66385f8913"
+    },
+    "D18": {
+      "status": "pass",
+      "note": "逐条核对输入、实际工具调用、来源/写入字段及回执，符合参考边界。",
+      "evaluation_sha256": "32c0e8575ee8f9d4825abe012892d3e591edadb7cbee53d9ad6225fd0c59f799"
+    },
+    "D19": {
+      "status": "pass",
+      "note": "真实暂停账本操作取消，零尝试/零远端写，既有任务实时可见。",
+      "evaluation_sha256": "5703307e1821aa1e49b87cc5bcc9286f5f06e12941c00176f62e810f4ecb7ead"
+    },
+    "D20": {
+      "status": "pass",
+      "note": "符号标题原样创建，不执行命令。",
+      "evaluation_sha256": "1fbc4bb3d8fa5731e4fc19b27040800af4da66722407284631fb0e6d5d2deb01"
+    },
+    "D10": {
+      "status": "pending",
+      "note": "首轮因V2/V3历史夹具同名歧义仅查询，追加精确目标后真实零写入预览，待人工确认；不冒称两轮验收完整通过。",
+      "evaluation_sha256": "7255bc71b220c43d89b3174b043e309db52fcc2fd3850edf3beeee45b309109a"
+    }
+  }
+}

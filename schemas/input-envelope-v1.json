@@ -1,0 +1,178 @@
+{
+  "$defs": {
+    "Segment": {
+      "additionalProperties": false,
+      "properties": {
+        "asset_id": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Asset Id"
+        },
+        "author": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Author"
+        },
+        "kind": {
+          "enum": [
+            "text",
+            "image",
+            "file",
+            "transcript",
+            "forward",
+            "unavailable"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "published_at": {
+          "anyOf": [
+            {
+              "format": "date-time",
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Published At"
+        },
+        "source_id": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Source Id",
+          "type": "string"
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Text"
+        },
+        "unavailable_reason": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Unavailable Reason"
+        }
+      },
+      "required": [
+        "source_id",
+        "kind"
+      ],
+      "title": "Segment",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "actor_key": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Actor Key",
+      "type": "string"
+    },
+    "contract_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Contract Version",
+      "type": "integer"
+    },
+    "event_id": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Event Id",
+      "type": "string"
+    },
+    "framework_instance_id": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Framework Instance Id",
+      "type": "string"
+    },
+    "message_key": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Message Key"
+    },
+    "received_at": {
+      "format": "date-time",
+      "title": "Received At",
+      "type": "string"
+    },
+    "reply_origin_ref": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Reply Origin Ref",
+      "type": "string"
+    },
+    "segments": {
+      "items": {
+        "$ref": "#/$defs/Segment"
+      },
+      "title": "Segments",
+      "type": "array"
+    },
+    "session_key": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Session Key",
+      "type": "string"
+    },
+    "source_kind": {
+      "enum": [
+        "direct_request",
+        "manual_notice",
+        "user_forward"
+      ],
+      "title": "Source Kind",
+      "type": "string"
+    }
+  },
+  "required": [
+    "event_id",
+    "framework_instance_id",
+    "session_key",
+    "actor_key",
+    "message_key",
+    "received_at",
+    "source_kind",
+    "segments",
+    "reply_origin_ref"
+  ],
+  "title": "InputEnvelope",
+  "type": "object"
+}

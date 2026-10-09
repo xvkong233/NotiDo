@@ -1,0 +1,99 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "account_ref": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Account Ref",
+      "type": "string"
+    },
+    "actual_fields": {
+      "additionalProperties": true,
+      "title": "Actual Fields",
+      "type": "object"
+    },
+    "contract_version": {
+      "const": 1,
+      "default": 1,
+      "title": "Contract Version",
+      "type": "integer"
+    },
+    "error": {
+      "anyOf": [
+        {
+          "additionalProperties": true,
+          "type": "object"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Error"
+    },
+    "kind": {
+      "enum": [
+        "create",
+        "update",
+        "complete",
+        "upload",
+        "delete"
+      ],
+      "title": "Kind",
+      "type": "string"
+    },
+    "operation_id": {
+      "maxLength": 500,
+      "minLength": 1,
+      "title": "Operation Id",
+      "type": "string"
+    },
+    "remote_id": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Remote Id"
+    },
+    "side_effect": {
+      "enum": [
+        "none",
+        "applied",
+        "unknown"
+      ],
+      "title": "Side Effect",
+      "type": "string"
+    },
+    "status": {
+      "enum": [
+        "succeeded",
+        "failed_safe",
+        "outcome_unknown",
+        "created_unverified",
+        "uploaded_unverified",
+        "applied_unverified"
+      ],
+      "title": "Status",
+      "type": "string"
+    },
+    "verification": {
+      "additionalProperties": true,
+      "title": "Verification",
+      "type": "object"
+    }
+  },
+  "required": [
+    "operation_id",
+    "kind",
+    "status",
+    "side_effect",
+    "account_ref"
+  ],
+  "title": "OperationResult",
+  "type": "object"
+}

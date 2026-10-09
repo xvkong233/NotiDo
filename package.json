@@ -1,0 +1,5 @@
+{
+  "name": "notido-cli-runtime", "private": true, "type": "module",
+  "engines": {"node": "24.x"},
+  "dependencies": {"@suibiji/dida-cli": "0.1.14"}
+}

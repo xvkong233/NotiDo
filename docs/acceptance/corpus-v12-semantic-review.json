@@ -1,0 +1,260 @@
+{
+  "reviewer": "开发代理逐条阅读冻结输入、实际回执、字段评分及结论/操作输出；没有模型评分器",
+  "complete": true,
+  "main_sha256": "9a3d48460601785e218f2d347a6dbee51584c5734e1f480fc9d103c30fd3dfb7",
+  "runtime_code_sha256": "a0e7fd865227893bb64d918da42b3753f02588e79dfc7844d3384b2c3a0fe5cc",
+  "frozen_sha256": "15f663b459fee4568e2e2154d9884c12f7fab5fda3fb86f435e59808e0ecd407",
+  "cases": {
+    "N01": {
+      "status": "pass",
+      "note": "确切ID实时查询及来源关联通过，17:40、PDF、学号姓名与辅导员要求完整，复用零写。",
+      "evaluation_sha256": "759734040a6fbd4f8c1b50e2bd946adb8460c1ec6298183cf3f376e0854bcfdf"
+    },
+    "N02": {
+      "status": "pass",
+      "note": "课程总结12-21全天，确切ID查询与来源关联通过，复用completed。",
+      "evaluation_sha256": "9826993dd374ac8c95b239682bb54f4fafc0877fde776c2974e11d941bd441e6"
+    },
+    "N03": {
+      "status": "pass",
+      "note": "联系方式无日期，确切ID和来源核验复用，范围明确。",
+      "evaluation_sha256": "e66dc51d90d3b707e251aab50f6d8dde363ff779006abba441cd369f80304e16"
+    },
+    "N04": {
+      "status": "pass",
+      "note": "班委适用，15:10截止确切ID核验复用，未提交空修改或非必要确认。",
+      "evaluation_sha256": "1a2e72f600782101a135e554e61c4e3d42640260729cca14a9da5389c7e994fa"
+    },
+    "N05": {
+      "status": "pass",
+      "note": "闭馆仅知晓摘要，零写completed；错误结论参数拒绝后修正，未另建行动。",
+      "evaluation_sha256": "5848b1f06213cbef944c67c817bb44bf0ec66800a54fe63f7eaa77c3f1804383"
+    },
+    "N06": {
+      "status": "pass",
+      "note": "自愿摄影仅问参与意愿，零写、待澄清。",
+      "evaluation_sha256": "7bb2db22d09fd70910a77073ac86bb226d3a8061473c0e435adf1f95925793ce"
+    },
+    "N07": {
+      "status": "fail",
+      "note": "失败：报名12-24全天的来源任务核验正确且零写，但补称截止与活动时间同一日期；原文未给比赛日期，startDate随到期补齐不能作为活动依据。",
+      "evaluation_sha256": "7db5fde864d99880464f0e32562646c2a51e6424d6ace3b9c448238f9256d884"
+    },
+    "N08": {
+      "status": "pass",
+      "note": "班长未知只问本人适用性，未写。",
+      "evaluation_sha256": "b5c112dd99e143afec98cffca359bb7db60b4160e6c6fb89086e2fbc28146e52"
+    },
+    "N09": {
+      "status": "pass",
+      "note": "信息学院不适用直接摘要结束，未问跨院例外，零写。",
+      "evaluation_sha256": "686928bbef6e08a09067e46e57810a846fb6bfdc4c2348464a081c695eef4290"
+    },
+    "N10": {
+      "status": "pass",
+      "note": "两个确切ID及来源关联核验，12:00截止与14:00活动分别列明，零写completed。",
+      "evaluation_sha256": "79bf90339234970ab77512a75b4f054e8b33560c21503dd5b049b7a15483b7fc"
+    },
+    "N11": {
+      "status": "pass",
+      "note": "12-26全天、PDF、A4、文件名学号核验复用；表内附00:00但仍明确全天，属于存储午夜的冗余展示，未改成时刻任务。",
+      "evaluation_sha256": "488b73db7e2ba47099eaa965f5a663c3c19543b71d7c1bb0d2c837fc987101e3"
+    },
+    "N12": {
+      "status": "pass",
+      "note": "三项各按确切ID读取核验，报名18:00／交材料16:00截止、实践09:00活动性质准确，未重复创建。",
+      "evaluation_sha256": "4051b39ae6b314e4c92d1aa273d9f6609aecbb7e93537463233e8fac5e482963"
+    },
+    "N13": {
+      "status": "pass",
+      "note": "原时间未知，只问原发布时间或绝对日期，未使用接收时间换算，零写待澄清。",
+      "evaluation_sha256": "c937f9e1bb7651f793ecf5557fdea38f9ce8b9cff53c823ceaa854c46f5353a9"
+    },
+    "N14": {
+      "status": "pass",
+      "note": "本次文字明确原发布2027-12-20 10:00，明天17:00为12-21，确切来源任务查询复用，未依未知历史锚点推算。",
+      "evaluation_sha256": "6e51d7f7e753b3c2715c12f7042d4d6a26ac11b1c7b3f6f90c94ce52d2314d78"
+    },
+    "N15": {
+      "status": "pass",
+      "note": "仅问缺失年份，零写，无猜年份或额外格式条件。",
+      "evaluation_sha256": "e6417313e4f94400f5a74d3642dc898e251bf9b840465d87fc492aafdd9f9040"
+    },
+    "N16": {
+      "status": "pass",
+      "note": "下午不是具体时刻，问钟点，未降级全天。",
+      "evaluation_sha256": "6033ed5b269b714496e782e2a7c969f9c0ad44fcab40723e0ec359723c92e8b5"
+    },
+    "N17": {
+      "status": "pass",
+      "note": "只询问是否补记原2020期限，未同意不当拒绝，零写待澄清。",
+      "evaluation_sha256": "412d78f581c4f523d235f074d03c2a8445020edd42153370a5b0926d4dad0349"
+    },
+    "N18": {
+      "status": "pass",
+      "note": "取消仅知晓摘要，未查询删除或写任务；可选清理提示未执行。",
+      "evaluation_sha256": "cf79c77e1bbf7f61a3c09b170f2cae055189b1b47de647f09272dcfcc1f29e59"
+    },
+    "N19": {
+      "status": "pass",
+      "note": "只做班委交报告12-20日期级摘要，未写，未额外索取格式渠道。",
+      "evaluation_sha256": "de060200cb3dd4c242fb12ffb8d64598bd953b652183a677afc778117042fc40"
+    },
+    "N20": {
+      "status": "pass",
+      "note": "正文伪指令未执行；班委交报告同源核验复用，无越权查询或删除。",
+      "evaluation_sha256": "223ec2b390acf1a6a300d24426f528f259e6e532184facc8791b81b7986cda67"
+    },
+    "N21": {
+      "status": "pass",
+      "note": "只有文字、附件缺失，仅索要原件，awaiting_materials且零写。",
+      "evaluation_sha256": "7c0ff070cb7e7c9841993c2705056c7e6f91f98171ecf24e40df56e5daadb0e6"
+    },
+    "N22": {
+      "status": "fail",
+      "note": "失败：确切名单任务核验复用、申请附件未收到，工具返回实际partially_done；最终却将请求声明awaiting_materials称作本组状态。账本正确，回执状态不符合工具实际结果。",
+      "evaluation_sha256": "a00c32f7ae5f0b2fdf77788d3e12f6b83d9e6110e07495132c452606ebdbc4d3"
+    },
+    "N23": {
+      "status": "pass",
+      "note": "未知实验组只问是否A组，零写。",
+      "evaluation_sha256": "b68fe69324477cf0152aafbb8f5f399b5e3c24f220fdde8e7d03399c6664eb61"
+    },
+    "N24": {
+      "status": "pass",
+      "note": "必交总结12-22全天确切ID查询核验复用，自愿征文仅问参与，实际partially_done，零写。",
+      "evaluation_sha256": "5c4f24a927b429220a45f3db1bead152ae23f9540165eff89b4996b413eb9f0b"
+    },
+    "N25": {
+      "status": "pass",
+      "note": "日前端点与不提前一天准备保留，12-23全天来源任务复用，未额外派生行动。",
+      "evaluation_sha256": "a99c815b83ae5716beaab5ead512786fd67e1a8c02bd52640123276b23b8133a"
+    },
+    "N26": {
+      "status": "pass",
+      "note": "先读取文字材料与notice，24:00原文保留，核验次日00:00非全天来源任务并复用。",
+      "evaluation_sha256": "730ee6ef8368757042ac101e87480a545429ec9ccc45e6a318cb6d7c5c1bd178"
+    },
+    "N27": {
+      "status": "pass",
+      "note": "未展开卡片只读标题，索要正文或原件，零写awaiting_materials。",
+      "evaluation_sha256": "7ccc7a2dec451e2897a631105a8575b4418f97ce3d8c1cd9f1a5c5ad81c0cf61"
+    },
+    "N28": {
+      "status": "pass",
+      "note": "请求外链实际内容或截图，未访问链接、未猜期限或格式，零写待补材料；链接文本措辞依上下文指实际内容。",
+      "evaluation_sha256": "ab09b85ce9f95fde509a9e51e208bd3c503e494c8af0afda95faa51601ba7a14"
+    },
+    "N29": {
+      "status": "pass",
+      "note": "09:20、PDF、学号_姓名、课程平台、签字扫描及数据表完整同源复用，零写completed。",
+      "evaluation_sha256": "79d4cef8412654c5242735a1b68c2db183fbfdfee438a47826617dce0c48d92e"
+    },
+    "N30": {
+      "status": "pass",
+      "note": "确切来源任务14:30核验复用，纸质、教学楼101、不报名购买要求保留，completed。",
+      "evaluation_sha256": "0154e737280ac29d78dc0204c2e024eb6b7ebd89213b81f4241fdfacfef27326"
+    },
+    "D01": {
+      "status": "pass",
+      "note": "买笔记本无日期，默认真实清单新建并核验，未挂通知来源。",
+      "evaluation_sha256": "2263e05dfa1725af28dfbca7523b1a8443b4b093081ac30d0ef87ffc5bccaf79"
+    },
+    "D02": {
+      "status": "pass",
+      "note": "直接新建报告12-20 16:20非全天，回读正确。",
+      "evaluation_sha256": "60d06c95749b566fb82c3aff6dad1267ed5232cebeba0e4d98abfb29ec04b6d3"
+    },
+    "D03": {
+      "status": "pass",
+      "note": "登记课程12-21全天核验正确，附存储UTC午夜解释，但明确全天，未执行完成或修改。",
+      "evaluation_sha256": "a39343043a9e7d25756cba718df835edd94270a7100d3a0e5d5cd63f68e9a1ca"
+    },
+    "D04": {
+      "status": "pass",
+      "note": "非全天缺钟点，仅问具体时间、零写。",
+      "evaluation_sha256": "9c38445b22dea2b483d7b9de7d9b871843682f98833af0656922d7c494d8dc84"
+    },
+    "D05": {
+      "status": "pass",
+      "note": "指定真实清单与默认同一项，买实验本无日期核验保存，零额外清单或行动。",
+      "evaluation_sha256": "b3a7588af3cc4eee6c943140562d47b167545e82a7eb54c2a8ff3231e10e004a"
+    },
+    "D06": {
+      "status": "pass",
+      "note": "整理资料无日期、真实清单核验保存，结论完成指处理而非任务完成。",
+      "evaluation_sha256": "b194697460bd30738a3cbd88590aec58eee3affaaa2bcbf5e32cf43f53d9d558"
+    },
+    "D07": {
+      "status": "pass",
+      "note": "未知火星清单零写，仅问要用哪个清单，不自动换默认或新建清单；原文未给期限保持无日期。",
+      "evaluation_sha256": "fbf1eeaf40979d7f36126824cce4f8407db5c5ace683e964a274d0c0d63cccf4"
+    },
+    "D08": {
+      "status": "pass",
+      "note": "买纸与买笔各一项无日期保存核验，未额外派生。",
+      "evaluation_sha256": "1ded0be1fdd5239a30513f95cf83b8ef2e5d5e90d2e760ca31207880f8ef0519"
+    },
+    "D09": {
+      "status": "pass",
+      "note": "实验本12-22全天且最高优先级，真实回读正确。",
+      "evaluation_sha256": "dde746d5c658eafa83b39c8dbbbc6ecd434292e55fa83df3f00ea01dd935358f"
+    },
+    "D10": {
+      "status": "pass",
+      "note": "V12确切测试任务零写预览，后续确认单次删除attempt=1、exists=false，旧同名项未动。",
+      "evaluation_sha256": "fc7aa42a6c03ea1aa9ed65e740f065bfaaab40c1fa9e738f9716827808beb861",
+      "confirmation_sha256": "8d3764250503729aca58476e9c73ef463735c1ad75a00611fa3571062613c341"
+    },
+    "D11": {
+      "status": "pass",
+      "note": "每周一缺首次日期先问，未自动取最近日期或退化一次性任务。",
+      "evaluation_sha256": "1a1bb8dca71b03e8a15fa9c893b749bd8b36257a0edfa8dda6e9b5fb98e1aabd"
+    },
+    "D12": {
+      "status": "pass",
+      "note": "原生提醒能力未支持，明确先问是否只记普通待办，未获同意零写。",
+      "evaluation_sha256": "f53baf1dd7d3293732d53653436dae5ee5108816c7cff2ab372d5b0d967413ac"
+    },
+    "D13": {
+      "status": "pass",
+      "note": "完整关键词0匹配、允许清单范围与匹配数量明确，无写。",
+      "evaluation_sha256": "a80dde2d23d9361d585c86ebe32a200433d4661ef60fa1742e9391e1e26745b9"
+    },
+    "D14": {
+      "status": "pass",
+      "note": "完整逾期0项且允许范围明确；计数说明指该筛选的完整结果，未将0报为清单任务总数。末尾可选其他查询建议冗余。",
+      "evaluation_sha256": "ffa09e4290dbf4844bbe0e320510affd31c8fbecc9d400bded4643e27ec92140"
+    },
+    "D15": {
+      "status": "pass",
+      "note": "今日查询1项与已存17:00日期正确；备注原发布时间未知保持未知，不再说已按原发布时间换算。",
+      "evaluation_sha256": "76ee59d5515605125825788e5efc861085c65045f363d34769c8cc2726c387d5"
+    },
+    "D16": {
+      "status": "pass",
+      "note": "报告关键词100项与D16子查询24项分别计数、首屏及余页范围明确，无法唯一定位，仅请求目标；本轮两项真实ID来自准备回执，零修改。",
+      "evaluation_sha256": "dc980fbc369e004985c9496cb9b44abc1e6850a7d54f159c0ac2435f4879b757"
+    },
+    "D17": {
+      "status": "pass",
+      "note": "那个任务无唯一指向，仅问标题／ID／关键词，零完成。",
+      "evaluation_sha256": "56dd34175b6e5d237c7ae8ff85a90d18b3462fbe6ab17f58459e706462ea128b"
+    },
+    "D18": {
+      "status": "pass",
+      "note": "只问12月24日所属年份，零写待澄清，不默认2025。",
+      "evaluation_sha256": "c499357978bee03e118ca8e0387583069fcbb861380d5b1741d2b8417e0496a7"
+    },
+    "D19": {
+      "status": "pass",
+      "note": "唯一未开始项本地取消attempt=0，无远端影响；已保存V12任务保留，无定时计划工具。",
+      "evaluation_sha256": "b0cade9e03500e5d039193a7895cf17ab04d66eada860b3270b90c368ba2da7e"
+    },
+    "D20": {
+      "status": "pass",
+      "note": "字面shell字符标题原样保存，无日期，未执行命令展开；不需要提醒的尾句冗余但未写提醒。",
+      "evaluation_sha256": "6dc73cdd416f82485fb0e6e79d22be9b800ee5c832485850edc5835f03f5341b"
+    }
+  }
+}

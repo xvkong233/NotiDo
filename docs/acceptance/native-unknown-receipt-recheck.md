@@ -1,0 +1,9 @@
+# 真实清单名称与未知回执只读复核（2026-10-09）
+
+安装查询名称修正后，在R2两个原授权会话中分别核查其既有未知操作和完整任务标题，无新的创建或其他远端写入。代码SHA-256：`14f6a23478e9a73ebfffc9d794e9e408fba7804ad2611f9687cde9e6ad1e76ed`，新查询工具实时读取清单名并返回project_name/query_scope，不从备注推测。
+
+两条实际回复均正确报告清单「NotiDo 验收」、允许范围、关键词匹配1项而非清单总数、无日期未完成，原操作仍outcome_unknown/remote_id=null/write_verified=false。同标题查询只证明存在目标，不能核验原操作；均未建议换请求重建或自动重传，实际新操作0项。
+
+卸载复核附加了仅针对当前目标的条件性人工核对/删除预览选项，表述偏长，没有执行或要求清理其他历史任务；SIGTERM复核仅给出人工关联与再次只读核查。原始两次边界和R2清单名称失败仍保留，不能以此只读复核代替一次新的写后退出采集或完整冻结50条复测。
+
+工具native_unknown_receipt_recheck.py；证据runtime-data/native-unknown-receipt-recheck-results.json。这是原生模型的真实回复，不是框架固定模板或自动文本匹配评分。

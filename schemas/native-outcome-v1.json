@@ -1,0 +1,80 @@
+{
+  "$defs": {
+    "RequiredAttachment": {
+      "additionalProperties": false,
+      "properties": {
+        "asset_id": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Asset Id",
+          "type": "string"
+        },
+        "project_id": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Project Id",
+          "type": "string"
+        },
+        "task_id": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Task Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "asset_id",
+        "project_id",
+        "task_id"
+      ],
+      "title": "RequiredAttachment",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "attachments": {
+      "items": {
+        "$ref": "#/$defs/RequiredAttachment"
+      },
+      "maxItems": 100,
+      "title": "Attachments",
+      "type": "array"
+    },
+    "group_id": {
+      "anyOf": [
+        {
+          "maxLength": 200,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Group Id"
+    },
+    "pending_reason": {
+      "default": "",
+      "maxLength": 2000,
+      "title": "Pending Reason",
+      "type": "string"
+    },
+    "state": {
+      "enum": [
+        "completed",
+        "awaiting_materials",
+        "awaiting_clarification",
+        "attachments_pending"
+      ],
+      "title": "State",
+      "type": "string"
+    }
+  },
+  "required": [
+    "state"
+  ],
+  "title": "OutcomeArgs",
+  "type": "object"
+}

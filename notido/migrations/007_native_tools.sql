@@ -1,0 +1,3 @@
+CREATE TABLE native_tool_calls (id TEXT PRIMARY KEY, session_key TEXT NOT NULL REFERENCES sessions(id), message_key TEXT NOT NULL, kind TEXT NOT NULL, request_key TEXT NOT NULL, fingerprint TEXT NOT NULL, operation_id TEXT NOT NULL REFERENCES operations(id), created_at REAL NOT NULL, UNIQUE(session_key,message_key,kind,request_key));
+CREATE TABLE native_material_reads (group_id TEXT PRIMARY KEY REFERENCES material_groups(id), payload TEXT NOT NULL CHECK(json_valid(payload)), created_at REAL NOT NULL);
+CREATE TABLE native_material_deliveries (group_id TEXT NOT NULL REFERENCES material_groups(id), item_index INTEGER NOT NULL, created_at REAL NOT NULL, PRIMARY KEY(group_id,item_index));

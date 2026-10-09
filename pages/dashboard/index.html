@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>知办 · NotiDo</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <span class="mark" aria-hidden="true">知</span>
+        <div>
+          <h1>知办 <span>NotiDo</span></h1>
+          <p>让通知成为行动。</p>
+        </div>
+      </div>
+      <button id="refresh" type="button">刷新</button>
+    </header>
+    <nav aria-label="管理视图">
+      <button type="button" data-view="overview" aria-current="page">
+        概览
+      </button>
+      <button type="button" data-view="notices">通知 / 待处理</button>
+      <button type="button" data-view="assets">原件</button>
+      <button type="button" data-view="operations">操作 / 恢复</button>
+      <button type="button" data-view="settings">设置</button>
+    </nav>
+    <main>
+      <div id="feedback" role="status" aria-live="polite"></div>
+      <section id="content" aria-busy="true">
+        <p>正在连接 AstrBot 后台…</p>
+      </section>
+    </main>
+    <footer>
+      一个用户 · 一个当前滴答账号 <span>官网接口预留，采集未实现</span>
+    </footer>
+    <dialog id="detail">
+      <div class="dialog-head">
+        <h2 id="detail-title">详情</h2>
+        <button id="close-detail" type="button" aria-label="关闭详情">
+          关闭
+        </button>
+      </div>
+      <div id="detail-content"></div>
+    </dialog>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

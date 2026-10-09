@@ -1,0 +1,262 @@
+{
+  "reviewer": "开发代理逐条读取实际输入、工具调用、真实字段/来源及回执；不使用模型评分器",
+  "complete": true,
+  "main_sha256": "69bc5ecd6f3dde7307501ae848f96dfb029a190623a80ce1cd47032885abe5d6",
+  "frozen_sha256": "15f663b459fee4568e2e2154d9884c12f7fab5fda3fb86f435e59808e0ecd407",
+  "runtime_code_sha256": "1feab6ffb91d8639e70afcab34c6c3eea8ccfc0ea7260bbf5a4d25d27d54e681",
+  "cases": {
+    "N01": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "2a05cffd47806815601c8c9795f87d78bb1c2401020833858c5eac7960e44ff3"
+    },
+    "N02": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "58c53c798b21c50ff4f6c4194f4efd49f5f5e456b67c030425bee931dcfb2f45"
+    },
+    "N03": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "cf35a7b273817ddfaf2f633027c7968de3f865ae61c3137280ed18f96c44a6ad"
+    },
+    "N04": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "79d451d93cdd8002bddf1346780a21e75f5ffafc122ca95279df5f19772b84e3"
+    },
+    "N05": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "cf2db347f9694491f5e6700640308e5b1ccab1e7a6685ec2ba9c59c660d45801"
+    },
+    "N06": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "71b5d07b336c6dc18aad2aec3d7850b70af70daac4cb75db83ccfe469d07dd59"
+    },
+    "N07": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "a8183cf64d84c07701340102fd1e578bd7058eec29225dcb3b2b93f773db2b18"
+    },
+    "N08": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "bc11285bf0882a8a944b4412c59d4cb548b072d293630ea1bfe4b818c1153d8a"
+    },
+    "N09": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "841353de7bc0bb10a1a1f04c508854571f9c71fb605bf04f4a945aa6edc204bc"
+    },
+    "N10": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "78efdae64359c4c7f6abd0c8d24699edd90d89da010aac1158bc5ca2b701bb26"
+    },
+    "N11": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "3d57eea1e9e8e293b3b190cb6de0df950e29f412efba5d7c0d51676cae4b95ac"
+    },
+    "N12": {
+      "status": "pass",
+      "note": "三个独立行动、两个截止与一个事件正确；手工核对参加必修实践与参考参加实践同义，未改参考。",
+      "evaluation_sha256": "a0dfc219c9e667a57bcdd455cce805759d52c1e1b90535d04a694b15a2bea080",
+      "action_title_matches": {
+        "参加实践": "NotiDo 验收 · N12 · 到实验室参加必修实践"
+      }
+    },
+    "N13": {
+      "status": "pass",
+      "note": "原发布时间未知先问锚点或绝对日期，零写入，未沿用收到转发的当前时间。",
+      "evaluation_sha256": "97c28316266a3b2b26383054b14f861abbb2e8e01e183c137600b906c60468c3"
+    },
+    "N14": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "474da0325783ab6f3f02b59e7c3394ae550009767bbda6e42612fe11ccb3ab11"
+    },
+    "N15": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "39a52a5bb06f6a037c901bfb541d31b5a832c09c8f18fc64ca8b9bf19bee28c9"
+    },
+    "N16": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "84cff075c177cb5866a45a0beea442f4eaaceac9f4570a984a55335068978405"
+    },
+    "N17": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "e47b2b2d4192989f1d0e4693bce3eefb52368c3296ec56642eed444add42e554"
+    },
+    "N18": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "435787e992d5b391e9e2c320b1f3c1134e6ef3d5d6d28ec5196034d9a7a1b706"
+    },
+    "N19": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "1e1000829ae09908e918d71b493e517a7eb65fba1ede8b8ae1c34bea1796a7c2"
+    },
+    "N20": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "51449149516b318f663555783efed877113a74214f0bea8eccdcb6ee456de5ac"
+    },
+    "N21": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "12025c9e068cbb5810432683cf384fc05a979c369e2f1be9f835fee4b63ae37f"
+    },
+    "N22": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "71e72c8c3626964236be6accc0df2ff6a3fe2c9f34d0bd6aab749ab9b1c48223"
+    },
+    "N23": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "87f96baa6a9156e9f308b2da516b4db9f579a3b532632fe73268ca9c3b80d78c"
+    },
+    "N24": {
+      "status": "fail",
+      "note": "必交总结保存正确、自愿报名零写入；参与未定却同时要求报名期限或原发布时间，增加当前不必要的条件。",
+      "evaluation_sha256": "b74897902a43ffad2b5c0c6487ec479c97ea4f5eb0b9f1ce9de518c25634dcb2"
+    },
+    "N25": {
+      "status": "pass",
+      "note": "12-23全天和日前原文完整保留，无提前一天任务；本条从框架保存历史只读恢复，未重发，缺失耗时不作性能证据。",
+      "evaluation_sha256": "d297e1bb371eb1f9323e3c1f6b261d0341c2a8604affb3739bd6d72d31960875"
+    },
+    "N26": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "ebf9adeee641cbbe19fd83b2c313f7bbdcaad9cfd7c35b5dc6cc98bc400586fd"
+    },
+    "N27": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "bc020d5b7c710f55c6b9a96db2f4a0b07596e12fed32901162ee152754b13795"
+    },
+    "N28": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "215d6e13c3c62a9350e74e1d06bad2355eba3ee585ce411162f4dc0a5dc2d1ef"
+    },
+    "N29": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "65b94f06134d345bbf6a18b6e035b2c447cac982a0c4676199cce7281adfae59"
+    },
+    "N30": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "86e1bf8bea4119479557cbf5ff67b23edde508fb80ed94f64d959308b7a779d2"
+    },
+    "D01": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "bad7b13e161dc7b453c80c012cdde5c5fa6b6be2d75dfe84a1cd08c08eee49af"
+    },
+    "D02": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "0e64b21f53c0bed94ffafd25847751a6b5207a924a240dbb2a0049a49d85fbac"
+    },
+    "D03": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "a53b15b8f41c5d8cd72d7c7e29b4de292e9a41b55839a8cdba4ca020bdc511c3"
+    },
+    "D04": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "ee089d87bdda24d9f38bb564f87ff1f214da9ee562bf0659e93bf48b5c829287"
+    },
+    "D05": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "4c588cbfe9cc0c44521a7aeaadf0b27a632f7fbfc0e82484fafa4740d5347be4"
+    },
+    "D06": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "9f75b30cd3576b293486cfff3ce67a15f3788558e3e65ca4f6fe179027d8302c"
+    },
+    "D07": {
+      "status": "fail",
+      "note": "未知清单不创建、不换默认正确；除选择真实清单之外又询问期限与要求，不符合只问当前阻塞条件。",
+      "evaluation_sha256": "1607e46979d0c00575efaba3218de10d6ef7bc6fc91191db71e294282b812ab6"
+    },
+    "D08": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "9eac9e26eea68d0083f04f57afbd62aa222e3b42f59bf85d03b23d9262be2120"
+    },
+    "D09": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "ef82288c6bf8e0582e47407033f142d3f1d5658f8c39cb8bfd3c8d637cefb432"
+    },
+    "D11": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "65d344e1e8baf1db1a193f1a2ef27b1b1b957d6c4c8519f0542911abd2ac8543"
+    },
+    "D12": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "d06587716a13ba76539267566e47a89692d5dfd40042d0722c0a148b57a48d45"
+    },
+    "D13": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "1ef6fa921028e250bcaa733a288b2ecd38bb21ce91c38f3414e27d9c6a04ca77"
+    },
+    "D14": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "63a7108e970e203bd24f9f419bbf166361ad5c8695e76f217125ad64081a5212"
+    },
+    "D15": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "d50eff9db09c1a8f7bbef7ab0ff2eb555e09cdad76c00ca594077238261473a4"
+    },
+    "D16": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "1ad418008076f27aaddc348aa54065de737cac051c9fad4b51a1ffd7150e5826"
+    },
+    "D17": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "acfd99c01d9fc97500aca9b8a7be4c569be8ab25fb478fad9a317da958d1cb7d"
+    },
+    "D18": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "caff171d82f914a692a1f75b000e81dd2784fc2293d55d3ab4f8b1d2cc94db3a"
+    },
+    "D19": {
+      "status": "pass",
+      "note": "NotiDo真实validated暂停夹具取消且attempt=0；已保存远端任务保留，三项cancel_checks均通过。",
+      "evaluation_sha256": "5ad0db014c362b6936dd74954254f9ca7b1faafae15ec4a8d046e429ccaeb5e4"
+    },
+    "D20": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入。",
+      "evaluation_sha256": "259cf3911bce210780ec24455f753a9ee7d852674ece2011745a5df43551e762"
+    },
+    "D10": {
+      "status": "pass",
+      "note": "本轮真实目标先零写入预览，用户下一条确认后删除一次；原生墓碑exists=false，未触及V2/V3/V4。",
+      "evaluation_sha256": "f7f55082dc984760b6370cafb3a691d6dabe1c691377f0f5bf34e4fde8b1a790"
+    }
+  }
+}

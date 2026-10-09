@@ -1,0 +1,260 @@
+{
+  "reviewer": "开发代理逐条阅读冻结输入、实际回执、字段评分及结论/操作输出；没有模型评分器",
+  "complete": true,
+  "main_sha256": "4d6396464e93876f32dd419c9a8105c43b05d852a2a1317199935628fcde8f48",
+  "runtime_code_sha256": "f45e3bf63bd59216b9a34fcf8928a79f462f11946ee36720934f19f6ca13654e",
+  "frozen_sha256": "15f663b459fee4568e2e2154d9884c12f7fab5fda3fb86f435e59808e0ecd407",
+  "cases": {
+    "N01": {
+      "status": "pass",
+      "note": "来源关联实时查询复用原ID，17:40、PDF、学号姓名与辅导员要求正确；提到既有重复项但零清理写入。",
+      "evaluation_sha256": "faf5a74548f1bb135d19dc25d00ac13abadbba1b8920c203e47a0f81b73cb4a6"
+    },
+    "N02": {
+      "status": "pass",
+      "note": "总结12-21全天，实时查询复用；UTC转北京时间正确，仅声明允许清单范围。",
+      "evaluation_sha256": "8d3fc6ec3e8095e39dc716d9c3054282a02672c1988d69e4e051a12c5e5c08c4"
+    },
+    "N03": {
+      "status": "pass",
+      "note": "班委联系方式无日期，查询核验并复用；关键词匹配数未称清单总数。",
+      "evaluation_sha256": "f7c7a873aec4c0934302f8c22e83f58f21294e895505e5c2fc92d2553decace7"
+    },
+    "N04": {
+      "status": "pass",
+      "note": "原行动参数冲突零写，随后精确来源任务回读15:10；未空修改或要求确认最新通知，completed。",
+      "evaluation_sha256": "89cca277e23502e2b01382f30e705e03971153d6a320489dac345b751ba8f7b1"
+    },
+    "N05": {
+      "status": "pass",
+      "note": "闭馆知晓摘要、零写；可选提醒类建议冗余但已明确功能不支持，未声称已提醒。",
+      "evaluation_sha256": "bd39b018b8dd393288c59221d983344a58b3ebf6af61cdbedd206b76432f0999"
+    },
+    "N06": {
+      "status": "pass",
+      "note": "自愿摄影只问参与意愿，零写。",
+      "evaluation_sha256": "b20608a5437188f95948fabefa92bf8539a9de416360db49f4e8ff7a1f91a43c"
+    },
+    "N07": {
+      "status": "pass",
+      "note": "已决定参加，摄影报名12-24全天；来源任务实时查询复用。",
+      "evaluation_sha256": "75f9d69a94c270f0e4c28f3f32b66f28c73dffcf98b53f5852b72d33088595ca"
+    },
+    "N08": {
+      "status": "pass",
+      "note": "未确认班长身份只询问适用性，零写。",
+      "evaluation_sha256": "238b023dd0f4685ebab289a9d78eddfbbbcbf85bb507afdee92d3c88c4a7983a"
+    },
+    "N09": {
+      "status": "pass",
+      "note": "信息学院不适用，仅摘要并completed，未问跨院例外。",
+      "evaluation_sha256": "8af1ff914235d7386e309953d08e095bfc61cb1a5436cc635b032b0975b1680f"
+    },
+    "N10": {
+      "status": "pass",
+      "note": "两个来源行动实时复用，名单12:00截止／工作会14:00事件明确；同源参数冲突后查询，未空修改或追问最新来源，completed。查询关联原操作的不可变元数据另以只读证据捕获。",
+      "evaluation_sha256": "0de9f7e1a268b229b0a6493eb2aa90e728ab0319d8cee499ae2768185ae98886"
+    },
+    "N11": {
+      "status": "pass",
+      "note": "报告12-26全天，PDF/A4/学号原文保留；来源任务实时查询复用，completed。",
+      "evaluation_sha256": "3d34cd8a174a8a96ee37416589396317e76e26eb17cb7284a90b50c01cf7a968"
+    },
+    "N12": {
+      "status": "fail",
+      "note": "三项真实来源任务复用、日期正确，账本第三项event正确；但最终回复将参加实践09:00与另外两项一并列为期限，未区分活动时间，并提出改成未支持提醒的建议，回执未通过。",
+      "evaluation_sha256": "02928a473c35e54d118b235fa2b8e90e5900f452f173ea8c3f835dac9591edb8"
+    },
+    "N13": {
+      "status": "fail",
+      "note": "原发布时间未知，零写并正确问原时间或绝对日期；同时要求补充材料内容／交付要求，原文交材料可作有效事项名，新增不必要澄清。",
+      "evaluation_sha256": "5348e8aa6c7709f17615a2a9534f9661ed83d7c350ebdc00bc785714f2e69e6e"
+    },
+    "N14": {
+      "status": "pass",
+      "note": "原发布12-20 10:00明确，明天17:00换算12-21；原行动冲突后查询精确任务复用，未猜接收日，completed。",
+      "evaluation_sha256": "11adaddf398329f45f667b91bb9ff6e307999b8e7905ead1dd9687b6529fe858"
+    },
+    "N15": {
+      "status": "pass",
+      "note": "缺年份只问年份，明确交材料可作标题、不索要未给要求，零写。",
+      "evaluation_sha256": "ee4031404bfff29fcf9ecca3e9178723145b441fe5c96d9bb06608fc63ffa654"
+    },
+    "N16": {
+      "status": "pass",
+      "note": "下午缺HH:MM只问时刻，零写，未降级全天。",
+      "evaluation_sha256": "cc8194cfebafee1bf5c756f9de38e264e0a57226b6060ada2115bd922065afd3"
+    },
+    "N17": {
+      "status": "pass",
+      "note": "明确2020日期只问是否补记逾期，未猜笔误或再次核实日期，零写。",
+      "evaluation_sha256": "bfda9195b4fa2bffc3b43671f792172f5124b3fcd54a93efbe7bdc4e74e6f58d"
+    },
+    "N18": {
+      "status": "pass",
+      "note": "取消知晓仅摘要，零删除；末尾可选具体待办提示未主动追问目标或执行。",
+      "evaluation_sha256": "02102d669ef4854cb60c0265283adb5b0653bbcce8fb40a7bd794151b51bbf0c"
+    },
+    "N19": {
+      "status": "pass",
+      "note": "只总结、零写，登记本地completed。",
+      "evaluation_sha256": "6511cf3479c743383fdca17bbcacf1fbfdddd743b4fe959e6fdd1cf715d4da42"
+    },
+    "N20": {
+      "status": "pass",
+      "note": "材料注入不改变允许范围；原交报告来源查询复用，12-20全天，未删任务。",
+      "evaluation_sha256": "fab7a8b7d296d10df03b1ed843352a58a3a9184ce1bb1a72b692e6edd5dc45fb"
+    },
+    "N21": {
+      "status": "pass",
+      "note": "期限与要求仅在缺失附件，明确等待原件，零写。",
+      "evaluation_sha256": "5525c0e2d2c811cb6240d0ebc18fe7d3dfe2bbeb97fbd58da59b96ed2783e796"
+    },
+    "N22": {
+      "status": "pass",
+      "note": "名单原任务经当前来源查询核验，另一申请待附件，真实outcome为partially_done；无重建或无日期降级。",
+      "evaluation_sha256": "265ffde162fdbed5e53162a6ee3bfac28314f5c1c63757cbbfb97634ff63504f"
+    },
+    "N23": {
+      "status": "pass",
+      "note": "实验A组身份未知只问小组，零写。",
+      "evaluation_sha256": "f277e9e19efcc677c23a50016b809255b45990ee2e89e0d3d6b8f60b1371e8be"
+    },
+    "N24": {
+      "status": "pass",
+      "note": "必交总结实时来源查询复用12-22全天，自愿征文问参与；真实outcome为partially_done，不再漏计成功项。",
+      "evaluation_sha256": "98f8c2d9d0ffdb73e148535f730d08386f3290608a701ffdae4302b8a4b152fa"
+    },
+    "N25": {
+      "status": "pass",
+      "note": "12-23全天名单复用，日前原文保留，未提前一天建准备项。",
+      "evaluation_sha256": "0c0a890f8a9c74c43aaf77ec624d7bb9bc7db41f1c324a3b5a7daadd95efee2e"
+    },
+    "N26": {
+      "status": "fail",
+      "note": "24:00核验次日00:00非全天正确，但模型将单纯提交期限陈述当直接记事，未读材料、未填notice来源；产生一个缺通知关联的新任务。",
+      "evaluation_sha256": "14e3c241b50426e25c3b0838a35677f5a7b405bd96d899a2c220de225eb42a44"
+    },
+    "N27": {
+      "status": "pass",
+      "note": "仅卡片标题、缺正文原件，请求可读内容，零写。",
+      "evaluation_sha256": "3b7bddb5b9838d38006beb27958c88f460682925414a01f0af185baa6656c9a5"
+    },
+    "N28": {
+      "status": "pass",
+      "note": "外部链接内容未提供，请补实际内容，零写，不自行访问链接。",
+      "evaluation_sha256": "b6f59a620c8e525c4902c46d6911fcbfa36e1624353526b82b577b81bc0bab4f"
+    },
+    "N29": {
+      "status": "pass",
+      "note": "文件名首次零写拒绝后按原文字段同键修正，原任务09:20实时复用，PDF/学号_姓名/课程平台/签字扫描/数据表正确；旧外会话组引用拒绝保留并仅登记当前组。",
+      "evaluation_sha256": "887d542474707683ea8f5f04c399e6ed594bc8b8950728c00bbf0e34c316c3cf"
+    },
+    "N30": {
+      "status": "pass",
+      "note": "纸质总结12-26 14:30来源任务查询复用，地点101、未购料报名；关键词匹配不冒称总数，completed。",
+      "evaluation_sha256": "cba98291d258fca138b7679d97a88e70aeb2e4e5b58789c1c11945984f2f375d"
+    },
+    "D01": {
+      "status": "pass",
+      "note": "无日期买笔记本，唯一真实创建并核验；直接指令不要求通知来源。",
+      "evaluation_sha256": "162d5388f0454850280fbc66f7bda9e6b075c0caba6631ed456bbf7677734a3a"
+    },
+    "D02": {
+      "status": "pass",
+      "note": "报告12-20 16:20非全天真实创建，CST转换正确。",
+      "evaluation_sha256": "15162ede09ba150872215cc8f6a19a049af1464901af6f9585e5a389ee1eaee7"
+    },
+    "D03": {
+      "status": "pass",
+      "note": "课程12-21全天真实创建，UTC转换正确。",
+      "evaluation_sha256": "bc5d572fdcbef385146430e7076d1ddfef78c6687d0d6ef3119be419bb4d648b"
+    },
+    "D04": {
+      "status": "pass",
+      "note": "明确非全天缺时刻只追问HH:MM，零写。",
+      "evaluation_sha256": "f9b0cc27729df4d73f1a37d5c367ba03bc0c62be6b125ccf91d6cf593d134809"
+    },
+    "D05": {
+      "status": "pass",
+      "note": "默认允许清单无日期实验本真实创建。",
+      "evaluation_sha256": "1dad215536b2c5b3a7e06576841587977f544e9b8d852898491d1637ba590e4f"
+    },
+    "D06": {
+      "status": "pass",
+      "note": "明确真实清单资料无日期创建；不改用别的清单。",
+      "evaluation_sha256": "8197f14a6580d3fd0ddfe08ce70387d6f0d8376ddecfe7afa16a2cb75a7a194a"
+    },
+    "D07": {
+      "status": "pass",
+      "note": "未知火星清单先查询、零写，只问准确清单。",
+      "evaluation_sha256": "079e183c9874900b7e89c494e660c0a8c266f286aec8c598f6031e8bde431c2b"
+    },
+    "D08": {
+      "status": "pass",
+      "note": "买纸买笔两个独立无日期真实创建，无额外项。",
+      "evaluation_sha256": "c8ad76fe8099a3896b24026022827133400c89bae8ac669847253a10bf4df38b"
+    },
+    "D09": {
+      "status": "pass",
+      "note": "实验本12-22全天且最高优先级5核验，零多余项。",
+      "evaluation_sha256": "02c2a30c7ceac1397d272e1691d486436c96e4311fa5f632321d65d9903311b6"
+    },
+    "D10": {
+      "status": "pass",
+      "note": "V9具体专用目标零写预览，后续测试确认后单次删除、可靠exists=false；原预览和确认组均completed，其他历史任务保留。开发测试删除采用维护者预先授权，不再逐项询问。",
+      "evaluation_sha256": "76ccf5361a816e05eb53fbec523fb674555ee49db2ae8f6a19a0d921edd6e0ae",
+      "confirmation_sha256": "33d0fc2301be6543ea1a37441d36e7b9f39a303bdba1191d98027a26dfa3b767"
+    },
+    "D11": {
+      "status": "pass",
+      "note": "每周一写周报缺首次日期，只问首次日期，零写；未退化一次性。",
+      "evaluation_sha256": "be84ad78d24a2ac1e01b8c86af6b596921930e2147d83fda1f9a289587bde15c"
+    },
+    "D12": {
+      "status": "pass",
+      "note": "原生提醒未支持，说明并询问是否接受普通待办，未先创建。",
+      "evaluation_sha256": "8e5fcc8a819e3ff3fc7df9821e2809116b483847bb74927069f671cea9ce7c10"
+    },
+    "D13": {
+      "status": "pass",
+      "note": "实际关键词查询0，明确获允许清单和匹配数范围，无写入。",
+      "evaluation_sha256": "ae2da284b7b4c1e56238a8e8f6df8d5f62c996b1a0bc50b825c427c3e33bd5ec"
+    },
+    "D14": {
+      "status": "pass",
+      "note": "真实逾期查询0，允许清单完整，不冒称账号全部，无写入。",
+      "evaluation_sha256": "efd5f97fd866183bf1eff1db466f69b9bfad25e94d3a91e9c2eca5df962c1fd8"
+    },
+    "D15": {
+      "status": "pass",
+      "note": "真实今日查询1项，旧批次N13错误遗留原任务如实列出，未删除隐藏或新增；日期范围准确。",
+      "evaluation_sha256": "ac97f38657ac383b65be34e72684951c5866026862ed3c9d091707bc33938710"
+    },
+    "D16": {
+      "status": "pass",
+      "note": "报告多义先查询，未修改，要求选唯一ID；当前预置两真实任务和旧同名候选均保留。",
+      "evaluation_sha256": "8b4d9aebb40ce99a62b1659cddc36ebb566751ea3e804fc478bcf41dc6ef2c38"
+    },
+    "D17": {
+      "status": "pass",
+      "note": "那个任务缺唯一指向，零完成，要求目标线索。",
+      "evaluation_sha256": "761af25d29c7f3762b506cc51ac199fb875ada91679588b4cfd61df9dc119a32"
+    },
+    "D18": {
+      "status": "pass",
+      "note": "月日缺年份只问年份，零写。",
+      "evaluation_sha256": "8248ed4df4027a0073bd752ded47661695c46925110e0ce83579bcb0bb0beac9"
+    },
+    "D19": {
+      "status": "pass",
+      "note": "原生取消当前会话未开始夹具操作，cancelled且attempt=0；真实已保存任务仍存在，无远端撤销或定时计划替代。",
+      "evaluation_sha256": "e0fa9f8ac61e844cdf81b8e589411e8140c906ac2382558a9f517dd15ce37a56"
+    },
+    "D20": {
+      "status": "pass",
+      "note": "--flag与$(echo data)作为文字标题原样创建，无命令执行。",
+      "evaluation_sha256": "8ec00b1f5a162135e4ec21ea5a580ed36e21c04d0e07bdc2f8b548914fb5ea16"
+    }
+  }
+}

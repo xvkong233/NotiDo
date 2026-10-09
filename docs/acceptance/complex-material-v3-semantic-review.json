@@ -1,0 +1,52 @@
+{
+  "reviewer": "开发代理逐条读取输入、工具结果、真实账本字段和附件关联/下载hash及回执；不使用模型评分器",
+  "main_sha256": "69bc5ecd6f3dde7307501ae848f96dfb029a190623a80ce1cd47032885abe5d6",
+  "runtime_code_sha256": "1feab6ffb91d8639e70afcab34c6c3eea8ccfc0ea7260bbf5a4d25d27d54e681",
+  "cases": {
+    "M01": {
+      "status": "pass",
+      "note": "6页均读取，第6页视觉引用正确；唯一事项日期要求与原件目标/hash正确，无历史追问。",
+      "evaluation_sha256": "e01bbec12ac71bc31fa33692ee953baaa6babde8f30d3725fed0311fd43b06e9"
+    },
+    "M02": {
+      "status": "pass",
+      "note": "段落、表格、关键embedded:1共同作为同通知依据；唯一截止与编号正确，DOCX原件hash及目标正确。文本计数分别含/不含外层消息，未漏读。",
+      "evaluation_sha256": "620172ddc3081c81e7c4ef111441f8367c84c49bdf3e17200e55831f234b8350"
+    },
+    "M03": {
+      "status": "pass",
+      "note": "UTF-8中文实际读取，日期要求与文本原件目标/hash正确。",
+      "evaluation_sha256": "b7045f92fda2974967d2053f84494d6c245081601b97b2f15fa3144f63311f3b"
+    },
+    "M04": {
+      "status": "pass",
+      "note": "未知编码明确ENCODING_UNKNOWN，请求可读正文，零任务/上传。",
+      "evaluation_sha256": "3808aeac4e97b4df446d4b9a98039c0a524fa471c8534925aabf99f789f81d5c"
+    },
+    "M05": {
+      "status": "pass",
+      "note": "正文独立项保存；关键损坏PDF所依赖报告暂停，仅问实际内容，不挂到无关领取任务。",
+      "evaluation_sha256": "6f485f71b50c080f13fce3f01e25551ae8e859019c7e5b718131ddf05bed2b9c"
+    },
+    "M06": {
+      "status": "pass",
+      "note": "关键时刻模糊仅要求清晰期限，零写入，无猜测。",
+      "evaluation_sha256": "0ae9bc4bc05c11886a871c8e5588c752b7f7e9acd3f4ec995a3f98a633bc8cce"
+    },
+    "M07": {
+      "status": "fail",
+      "note": "已知学生行动与原件归属正确，班长未知仅问受影响身份；但把2个材料位置说成3个，把关键词V3查询的6个匹配加新项称为清单内7项，范围/数量回执错误。",
+      "evaluation_sha256": "21f577750e13112d71e411381dccbc9a81d9e47b305ee02ba84694cad4f57ab7"
+    },
+    "M08": {
+      "status": "pass",
+      "note": "两项独立报告，各原件共用/专属四条实际关联与下载hash正确，无混挂。",
+      "evaluation_sha256": "f5e50d0b6feb83834cf20b24b96d84ff4a1661ec7da04d815bd03e35772255a7"
+    },
+    "M09": {
+      "status": "pass",
+      "note": "实际读取1–30页；第31页PDF_PAGE_LIMIT缺关键期限，不建无日期占位，零写入，要求补第31页。",
+      "evaluation_sha256": "0736d42199e0e50a318f4b349f2c83e47e7905fa5e3f0edb4ce2491c4cc50f53"
+    }
+  }
+}

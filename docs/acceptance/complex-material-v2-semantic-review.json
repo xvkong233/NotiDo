@@ -1,0 +1,52 @@
+{
+  "reviewer": "开发代理逐条读取输入、工具结果、实际账本字段/原件关系与模型回执；无模型评分器",
+  "main_sha256": "e04dc668c8973635d8d7c0e7fefe33b7e3adabb4156683445eeb176b0b4882eb",
+  "runtime_code_sha256": "ed11c6f9d20586c6c2a6fff7b35caae4f7d6cf281ad1558cf0a3b7831f265347",
+  "cases": {
+    "M01": {
+      "status": "fail",
+      "note": "页码source_id/location正确且保存page:6视觉依据，期限和原件hash正确；材料与历史同事项来源不同，新建后才询问关系，出现非必要历史追问。",
+      "evaluation_sha256": "89942e93da62395ed3ed5844cb853cdb81c960b96e8e970d4173f72b676ce1e9"
+    },
+    "M02": {
+      "status": "pending",
+      "note": "全文、表格和embedded:1均读取；发现同一业务历史任务，来源先后未知而拒绝更新，零写入并询问是否最新。不能当作当前首次创建通过；需独立事项夹具验证。",
+      "evaluation_sha256": "6d2696183cabe09a23cde39335b313142b0d78795e610f7034ce192da431489a"
+    },
+    "M03": {
+      "status": "pass",
+      "note": "唯一同业务历史任务按显式本轮标题规则更新，期限要求保留，挂V2新原件且hash正确；真实为update，不能计作新建。",
+      "evaluation_sha256": "83c3a2e1e337c5dfccc7fa65a07ec0ceb19cb37ee5802a9201a56e88b1981c47"
+    },
+    "M04": {
+      "status": "pass",
+      "note": "未知编码零写入，请求可读正文，未宣称全读。",
+      "evaluation_sha256": "7eca696f05731968ffd5c27b79a8b773685649a4dcf81b34c040ca77881c2e58"
+    },
+    "M05": {
+      "status": "pass",
+      "note": "独立项保存，损坏报告暂停；本轮不把缺损PDF挂到无关领取任务，修正实测有效。",
+      "evaluation_sha256": "d0a40b4ab54d40b4dc2d4bf21c74ea0e992e75c45ccfd7b9734f8cb9b4433e4a"
+    },
+    "M06": {
+      "status": "pass",
+      "note": "模糊关键数字仅追问清晰日期时刻，零写入。",
+      "evaluation_sha256": "5667e1c0a7b4243b75887f41721490233914a4d8aa26af91142e46afb7ede2f4"
+    },
+    "M07": {
+      "status": "pass",
+      "note": "已知学生项正确保存与挂件，仅对班长未知身份追问。",
+      "evaluation_sha256": "ba0c099333ba1d011f13571be32bfe04303ce160f6b9f846dcac17f74768cfa2"
+    },
+    "M08": {
+      "status": "pass",
+      "note": "共用通知两项分别上传，各专属仅目标任务；四条实际附件关系和hash正确。",
+      "evaluation_sha256": "898c593e0304d9e329305e798dfe262ef2e38e3104990b14c61287bc57cb15eb"
+    },
+    "M09": {
+      "status": "pass",
+      "note": "31页预算边界明确，全部可读1–30页分页交付，未读第31页关键期限不猜测、不建无日期占位。",
+      "evaluation_sha256": "ca7b1e953439285e7da0975d8ab57ccd1f9e04530a86162b59ca5cb8ac75055f"
+    }
+  }
+}

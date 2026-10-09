@@ -1,0 +1,265 @@
+{
+  "$defs": {
+    "MaterialBudget": {
+      "additionalProperties": false,
+      "properties": {
+        "block_characters": {
+          "default": 12000,
+          "maximum": 12000,
+          "minimum": 1000,
+          "title": "Block Characters",
+          "type": "integer"
+        },
+        "block_overlap": {
+          "default": 500,
+          "maximum": 500,
+          "minimum": 0,
+          "title": "Block Overlap",
+          "type": "integer"
+        },
+        "blocks": {
+          "default": 8,
+          "maximum": 16,
+          "minimum": 1,
+          "title": "Blocks",
+          "type": "integer"
+        },
+        "document_characters": {
+          "default": 50000,
+          "maximum": 200000,
+          "minimum": 1,
+          "title": "Document Characters",
+          "type": "integer"
+        },
+        "docx_visuals": {
+          "default": 20,
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Docx Visuals",
+          "type": "integer"
+        },
+        "file_bytes": {
+          "default": 20971520,
+          "maximum": 104857600,
+          "minimum": 1,
+          "title": "File Bytes",
+          "type": "integer"
+        },
+        "group_bytes": {
+          "default": 104857600,
+          "maximum": 1073741824,
+          "minimum": 1,
+          "title": "Group Bytes",
+          "type": "integer"
+        },
+        "group_files": {
+          "default": 20,
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Group Files",
+          "type": "integer"
+        },
+        "image_pixels": {
+          "default": 40000000,
+          "maximum": 40000000,
+          "minimum": 1,
+          "title": "Image Pixels",
+          "type": "integer"
+        },
+        "message_characters": {
+          "default": 50000,
+          "maximum": 50000,
+          "minimum": 1,
+          "title": "Message Characters",
+          "type": "integer"
+        },
+        "message_nodes": {
+          "default": 100,
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Message Nodes",
+          "type": "integer"
+        },
+        "pdf_pages": {
+          "default": 30,
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Pdf Pages",
+          "type": "integer"
+        },
+        "pdf_visuals": {
+          "default": 30,
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Pdf Visuals",
+          "type": "integer"
+        },
+        "screenshots": {
+          "default": 5,
+          "maximum": 40,
+          "minimum": 1,
+          "title": "Screenshots",
+          "type": "integer"
+        },
+        "total_visuals": {
+          "default": 40,
+          "maximum": 100,
+          "minimum": 1,
+          "title": "Total Visuals",
+          "type": "integer"
+        }
+      },
+      "title": "MaterialBudget",
+      "type": "object"
+    },
+    "RetentionBudget": {
+      "additionalProperties": false,
+      "properties": {
+        "body_days": {
+          "default": 30,
+          "maximum": 3650,
+          "minimum": 1,
+          "title": "Body Days",
+          "type": "integer"
+        },
+        "completed_task_days": {
+          "default": 30,
+          "maximum": 3650,
+          "minimum": 1,
+          "title": "Completed Task Days",
+          "type": "integer"
+        },
+        "dedup_minimum_days": {
+          "default": 180,
+          "maximum": 3650,
+          "minimum": 180,
+          "title": "Dedup Minimum Days",
+          "type": "integer"
+        },
+        "summary_days": {
+          "default": 90,
+          "maximum": 3650,
+          "minimum": 1,
+          "title": "Summary Days",
+          "type": "integer"
+        }
+      },
+      "title": "RetentionBudget",
+      "type": "object"
+    },
+    "TimeBudget": {
+      "additionalProperties": false,
+      "properties": {
+        "group_read_seconds": {
+          "default": 180,
+          "maximum": 600,
+          "minimum": 1,
+          "title": "Group Read Seconds",
+          "type": "integer"
+        },
+        "read_seconds": {
+          "default": 60,
+          "maximum": 180,
+          "minimum": 1,
+          "title": "Read Seconds",
+          "type": "integer"
+        }
+      },
+      "title": "TimeBudget",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "account_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Account Ref"
+    },
+    "account_region": {
+      "const": "cn",
+      "default": "cn",
+      "title": "Account Region",
+      "type": "string"
+    },
+    "allowed_projects": {
+      "items": {
+        "type": "string"
+      },
+      "title": "Allowed Projects",
+      "type": "array"
+    },
+    "authorization_revision": {
+      "default": 0,
+      "title": "Authorization Revision",
+      "type": "integer"
+    },
+    "credential_generation": {
+      "default": 0,
+      "title": "Credential Generation",
+      "type": "integer"
+    },
+    "default_project": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Default Project"
+    },
+    "materials": {
+      "$ref": "#/$defs/MaterialBudget"
+    },
+    "max_inbox": {
+      "default": 1000,
+      "maximum": 10000,
+      "minimum": 10,
+      "title": "Max Inbox",
+      "type": "integer"
+    },
+    "max_jobs": {
+      "default": 100,
+      "maximum": 1000,
+      "minimum": 10,
+      "title": "Max Jobs",
+      "type": "integer"
+    },
+    "min_free_bytes": {
+      "default": 1073741824,
+      "minimum": 0,
+      "title": "Min Free Bytes",
+      "type": "integer"
+    },
+    "project_aliases": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "title": "Project Aliases",
+      "type": "object"
+    },
+    "retention": {
+      "$ref": "#/$defs/RetentionBudget"
+    },
+    "time_budgets": {
+      "$ref": "#/$defs/TimeBudget"
+    },
+    "timezone": {
+      "default": "Asia/Shanghai",
+      "title": "Timezone",
+      "type": "string"
+    }
+  },
+  "title": "Settings",
+  "type": "object"
+}

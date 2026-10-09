@@ -1,0 +1,52 @@
+{
+  "reviewer": "开发代理逐条读取输入、工具结果、实际账本字段/原件关系与模型回执；无模型评分器",
+  "main_sha256": "9ced87c28827f1555490cdb4e21f828c4032ed6d817a7e833a89f9542e6537f9",
+  "runtime_code_sha256": "bce5a2a2753af58f7fa43f7d5875dd902dac61f1acaa64b2bb65661b23673cfc",
+  "cases": {
+    "M01": {
+      "status": "fail",
+      "note": "六页和后页时刻/要求/原件hash正确，继续读取next_offset=4；但多次错误引用后丢弃视觉依据，仅保留上传指令message，来源证据不合格。",
+      "evaluation_sha256": "c643a292aa1d8516dafb14dea1a2f2d32ee1163ae8b732eaf6f98577bce0e2ee"
+    },
+    "M02": {
+      "status": "pass",
+      "note": "段落、表格与关键嵌图均读取；修正source_id后保存embedded:1视觉依据，09:45/PDF/课程系统/编号及原件hash正确。",
+      "evaluation_sha256": "75309bc75923e96099018d8d6914b921d406c3fb4dd73b6205668b514000e66f"
+    },
+    "M03": {
+      "status": "pass",
+      "note": "UTF-8中文文本完整读取，18:20/PDF/编号和TXT原件hash正确。",
+      "evaluation_sha256": "6b624c62b5e6346e33a1b923552cc168647e1e0aa2215ae3bffaf3e3f164eebd"
+    },
+    "M04": {
+      "status": "pass",
+      "note": "未知GB18030编码明确ENCODING_UNKNOWN，零任务/零上传，只请求可读正文。",
+      "evaluation_sha256": "3f08ae3ad5ad4371edb8027ca7cfdbab4ee81bcab714bdc56ad6e9a106a67ecd"
+    },
+    "M05": {
+      "status": "fail",
+      "note": "独立明确项正确保存，损坏报告暂停；但把只关联损坏报告的PDF挂到了独立领取任务。",
+      "evaluation_sha256": "2a05298332554834e5e3727b8977c8e9278d4491e96967278eea2d6a0cf479b5"
+    },
+    "M06": {
+      "status": "pass",
+      "note": "关键日期时刻模糊，明确不可读，零写入，不退化为无日期任务。",
+      "evaluation_sha256": "8ca234fad89e1535b770b36e0d3a0748b874194cd94b2563c847ac7c65a5d085"
+    },
+    "M07": {
+      "status": "pass",
+      "note": "学生个人实践报告保存且挂正确原件，班长统计项仅追问身份，未写入受影响项。",
+      "evaluation_sha256": "76457c08eb73c687cb1227dd4d0f0f17e8e91d469abc478d4e80365434367bcc"
+    },
+    "M08": {
+      "status": "pass",
+      "note": "两任务、两份专属和一份共用通知，四个原生附件链接精确且下载hash一致；未混挂。",
+      "evaluation_sha256": "bb35ae577c7548795d22befa909a537651a3c4c3d1d1a5ac95755c50f0f4655c"
+    },
+    "M09": {
+      "status": "pass",
+      "note": "逐次offset0/4/8/12/16/20/24/28读取1–30页，明确第31页PDF_PAGE_LIMIT，关键期限不可见时零写入。",
+      "evaluation_sha256": "10ebdb7b2598851ea225e6de40509a9a2970d2941621bf61ae77202ab5f405e3"
+    }
+  }
+}

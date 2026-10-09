@@ -1,0 +1,3 @@
+CREATE TABLE restore_reviews (id TEXT PRIMARY KEY, user_id TEXT NOT NULL REFERENCES users(id), account_ref TEXT NOT NULL REFERENCES account_scopes(id), config_revision INTEGER NOT NULL, marker_key TEXT NOT NULL, payload TEXT NOT NULL CHECK(json_valid(payload)), next_cursor TEXT, state TEXT NOT NULL CHECK(state IN ('checking','ready','confirmed')), created_at REAL NOT NULL, checked_at REAL NOT NULL, confirmed_at REAL, confirmed_by TEXT, revision INTEGER NOT NULL DEFAULT 0);
+CREATE INDEX restore_review_current ON restore_reviews(marker_key,checked_at);
+CREATE TABLE restored_group_holds (group_id TEXT PRIMARY KEY REFERENCES material_groups(id), created_at REAL NOT NULL, released_at REAL, released_by TEXT, resume_id TEXT);

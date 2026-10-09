@@ -1,0 +1,22 @@
+{
+  "reviewer": "开发代理实际逐条读取工具输出、账本与最终回执；没有自动语义评分器",
+  "runtime_code_sha256": "14f6a23478e9a73ebfffc9d794e9e408fba7804ad2611f9687cde9e6ad1e76ed",
+  "main_sha256": "228630c26fabab03f3fc5801d41d5e998ea0d94f12f06ac3754e3626ca45fad3",
+  "cases": {
+    "partial": {
+      "status": "pass",
+      "note": "两个任务首次创建；初轮辅助器查询截断，附件未执行，回执未冒称挂接成功；该轮不计配额故障。",
+      "output_sha256": "06e265efcfe23542c8228f45cec600865213c1fa9872c8ff97ba3fc2cab29802"
+    },
+    "attachment_followup": {
+      "status": "pass",
+      "note": "甲挂接成功、乙安全配额失败；分项回执与原组pending状态一致，不重建任务。",
+      "output_sha256": "8e3f5460b1394fbaddc31eebffa7ade3f141088ce600c7e0b506ab104b826315"
+    },
+    "recovery_receipt": {
+      "status": "pass",
+      "note": "仅四个实际操作只读核查、原组completed；管理员只补乙，其他成功项未重放，hash一致。",
+      "output_sha256": "da2ae7dbc5455811d81a50b0984f1823caa12ea81219f6e62e08d285c6d63bd1"
+    }
+  }
+}

@@ -1,7 +1,31 @@
 * text=auto
 *.md text eol=lf
-*.json text eol=lf
 *.yml text eol=lf
-*.yaml text eol=lf
 *.py text eol=lf
 *.sh text eol=lf
+*.mjs text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+*.png binary
+
+.gitattributes export-ignore
+.gitignore export-ignore
+.github export-ignore
+tests export-ignore
+.research export-ignore
+runtime-data export-ignore
+data export-ignore
+backups export-ignore
+cli-auth export-ignore
+secrets export-ignore
+.venv export-ignore
+node_modules export-ignore
+dist export-ignore
+build export-ignore
+tools/* export-ignore
+tools/attachment-cli.mjs -export-ignore
+tools/task-extension.mjs -export-ignore
+tools/backup.py -export-ignore
+tools/diagnostics.py -export-ignore
+tools/export_schema.py -export-ignore
+tools/build_release.py -export-ignore

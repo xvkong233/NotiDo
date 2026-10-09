@@ -1,0 +1,26 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "operation_id": {
+      "anyOf": [
+        {
+          "maxLength": 200,
+          "minLength": 1,
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Operation Id"
+    },
+    "query_only": {
+      "default": false,
+      "title": "Query Only",
+      "type": "boolean"
+    }
+  },
+  "title": "CancelArgs",
+  "type": "object"
+}

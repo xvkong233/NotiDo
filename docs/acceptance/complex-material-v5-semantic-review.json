@@ -1,0 +1,53 @@
+{
+  "main_sha256": "0f19c0def72b6fee72e8f55776394cb1c4cd44a61bf8eeaa44690187f652a124",
+  "runtime_code_sha256": "cd324442a5596b8716eca38fcebc083a76ec6fc6ab42435241b5f9e9c17f7bf4",
+  "reviewer": "开发代理逐条阅读9份实际输入、回执、分页位置、操作与结论；无模型评分器",
+  "complete": true,
+  "cases": {
+    "M01": {
+      "status": "pass",
+      "note": "六页实际全部交付，唯一16:35期限／PDF／编号取自第6页，首次保存和原件hash正确，completed；没有改历史批次任务。",
+      "evaluation_sha256": "abd84666b558f61fdde324a1c4947b1eb3cade918720417e216a6c57baf5ae02"
+    },
+    "M02": {
+      "status": "pass",
+      "note": "正文、表格和关键嵌图全部交付，09:45／课程系统／PDF／命名模板／编号完整，DOCX原件hash及completed正确。",
+      "evaluation_sha256": "33060f7dbb10c4e1272ea701005e188e8e1ba9c40dc11f6ecd82889b342e9d3a"
+    },
+    "M03": {
+      "status": "pass",
+      "note": "UTF8原件正文实际读取，18:20／PDF／编号保存、原件hash正确且completed；“1个文本位置”指原件text，另有外层message位置，未漏读。",
+      "evaluation_sha256": "e8f34fc0177002d6288ad2d4cc0dd4a12e75ab9d8acb11f0b4da7e30d375c93e"
+    },
+    "M04": {
+      "status": "pass",
+      "note": "编码未知、complete=false，零任务／挂件，只请求可读正文或版本，实际awaiting_materials。",
+      "evaluation_sha256": "1018416e1765471c0971b6486dabfc5c7da1bd0c48504484fea3d1233722cd76"
+    },
+    "M05": {
+      "status": "pass",
+      "note": "独立领取10:15保存，损坏PDF所属报告暂停、未挂到领取项，实际partially_done，分项及下一步准确。",
+      "evaluation_sha256": "f4c0a21cf618b7df386b475d139dd7df1c4f4f0de72804bd68b8dad970aff51f"
+    },
+    "M06": {
+      "status": "pass",
+      "note": "实际模糊图片已交付，关键期限不可辨只请求清晰原件或明确日期，零写且不退化无日期；实际awaiting_materials与回执一致，完整交付不冒称模糊字段已识别；1个位置指图片，另有外层message。",
+      "evaluation_sha256": "e28a79e0845f6a41367f132da433a2b9079063fc585750d7731f579e0ff0d00a"
+    },
+    "M07": {
+      "status": "pass",
+      "note": "本人独立个人报告15:10首次保存／原件hash正确，班长角色未确认只问受影响项，partially_done；未把匹配数量说成清单总数或挂到未建统计表。",
+      "evaluation_sha256": "445b9d916acbc11111c5cb0a0aad3f6e25182f642061f393ce87eb641ef5214e"
+    },
+    "M08": {
+      "status": "pass",
+      "note": "两项首次保存、期限／专属编号正确，四次上传共用分别挂两项、专属只挂对应任务，hash正确；旧selection拒绝后重新查询，未混挂／重传，completed。",
+      "evaluation_sha256": "2d8ccd9fcd1228340891d1cb46f0581a6cea55411da574367a406bf0b3ac60d1"
+    },
+    "M09": {
+      "status": "pass",
+      "note": "第1至30页逐页实际交付，第31页PDF_PAGE_LIMIT:31-31明确未知且complete=false，零任务／挂件，只请求关键第31页，actual awaiting_materials。",
+      "evaluation_sha256": "48f6162e81d866a0b1e65ee6e08021662be7cb802fafa098c17c01d55215340c"
+    }
+  }
+}

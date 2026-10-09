@@ -1,0 +1,51 @@
+{
+  "main_sha256": "228630c26fabab03f3fc5801d41d5e998ea0d94f12f06ac3754e3626ca45fad3",
+  "runtime_code_sha256": "fbf9ce11f538144cab9985357e0f9e1ce9a68920a673ab44602da39f9d6b1628",
+  "cases": {
+    "M01": {
+      "status": "pass",
+      "note": "六页全部交付，唯一期限和PDF/编号取第6页视觉依据，首次创建/原件hash及completed正确；回执历史任务限定为未操作历史。",
+      "evaluation_sha256": "ce764d51fbfd1d737f8219126081c849020c6cc9a6cf59656d742e5f0ae01cc0"
+    },
+    "M02": {
+      "status": "pass",
+      "note": "正文/表格/嵌图各位置实际交付，09:45/课程系统/PDF/命名模板/编号完整，原生DOCX hash与completed正确。",
+      "evaluation_sha256": "670ef5121dc5b3ab5b9496f46f06e089823e85ab8525af95233a3481b09a2175"
+    },
+    "M03": {
+      "status": "pass",
+      "note": "UTF8通知正文实际读取，18:20/PDF/编号与原件hash正确；回执把独立V4标识称为原V4为措辞瑕疵，未改变操作范围或要求。",
+      "evaluation_sha256": "1553cbd9f516523e34d485c6d4275c594198625678f742ddce477743925c5487"
+    },
+    "M04": {
+      "status": "pass",
+      "note": "编码未知、complete=false，零任务/上传；只请求可读正文或版本，真实awaiting_materials。",
+      "evaluation_sha256": "235311d48ead4f60d62eb2a89c365d5df2d1d4748ace3e51b33c8e730fe71176"
+    },
+    "M05": {
+      "status": "pass",
+      "note": "独立领取项首次创建10:15，损坏PDF所属报告暂停且未挂到领取项；实际partially_done和分项回执正确。",
+      "evaluation_sha256": "afe4d4936a3a9c5139e0d0a989e52ff0aaf6c2259c820691a2427581a9b0f5b3"
+    },
+    "M06": {
+      "status": "pass",
+      "note": "实际模糊图像保留，未知关键期限只追问该项，零写、不降无日期，awaiting_clarification。",
+      "evaluation_sha256": "af8da0a80fd15cb162ee672446ab6c8621bffc36357f5f777121b917e30684fc"
+    },
+    "M07": {
+      "status": "pass",
+      "note": "本人个人报告首次创建15:10/原件hash正确；班长项仅问角色，真实partially_done；未把关键词匹配数说成清单总数。",
+      "evaluation_sha256": "5a403c1e5d950ea8e08ee59b18189bdc9bf9b09a94371d5a6672c7d4e1723c51"
+    },
+    "M08": {
+      "status": "pass",
+      "note": "两项首次创建、日期/格式/专属编号完整，4上传的共用/专属目标和hash正确；一次旧选择引用拒绝后仅重新查询，未误挂或重传，completed。",
+      "evaluation_sha256": "8a7154a45236ed6a6856e8a4caf0a0c606e6ded4d9e8d21cdcbb5a96fc2914dc"
+    },
+    "M09": {
+      "status": "pass",
+      "note": "第1至30页实际交付，唯一关键第31页明确PDF_PAGE_LIMIT:31-31；末尾空页查询仍未伪完整，零写/awaiting_materials，仅请求第31页。",
+      "evaluation_sha256": "ae0928cf08820ae15c34e55739017214f8fe42f56abb9a8458f63da7466e4f3f"
+    }
+  }
+}

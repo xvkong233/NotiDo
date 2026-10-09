@@ -1,0 +1,265 @@
+{
+  "reviewer": "开发代理逐条读取实际输入、工具调用、真实字段/来源及回执；不使用模型评分器",
+  "complete": true,
+  "main_sha256": "5aba3be4f826336aaf50e0b3612ba8a9ad73a5257744fe3c8935fd07557e1878",
+  "frozen_sha256": "15f663b459fee4568e2e2154d9884c12f7fab5fda3fb86f435e59808e0ecd407",
+  "runtime_code_sha256": "36b8abf35132fb0d242eb6c044830cc8d608f3faee66bb78c15cbbaa4b663f2d",
+  "cases": {
+    "N01": {
+      "status": "fail",
+      "note": "行动/时刻/原文依据正确，但要求与回执擅自把文件名“学号姓名”改为“学号_姓名”；关键要求失真，未计语义通过。",
+      "evaluation_sha256": "c2ed3fa50f82d7e3570fc65446399afc6140ad28e9074b76c8bb6ebdcb04786a"
+    },
+    "N02": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "d2807a8058fbbf3da3052da94b59fdbb254666f4e0a9092881dc454eeeef8906"
+    },
+    "N03": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "c76dd8cac4918b7f46670f1ac6c9a4f21fe04af7f7f90a0b5fbaaec1eb12aae2"
+    },
+    "N04": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "345f9fc481926f0f40fa1a8b6ccb628360c70a07da06e955994fe934b76dd199"
+    },
+    "N05": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "6bd54403f10aee3ba5b9b83fef6187f2e54d56af417eb7c50d0b847f99cc3561"
+    },
+    "N06": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "d9ebfb6b66a13366a9bcc8fde3c6575037432940fca9dcc94efe4c057382a96f"
+    },
+    "N07": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "8c3f39a81f6e0593ede73d346519e1b3e5f8f63f88ff29bf096f722d3bb2dee2"
+    },
+    "N08": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "3a0b48115e63915f7f1182c342ecec58ebfd16717ad41565e777cfb4b65c709f"
+    },
+    "N09": {
+      "status": "pass",
+      "note": "学院不适用，零远端写；结论第一次携带未决理由被安全拒绝，随后修正为完成并成功登记。",
+      "evaluation_sha256": "9983108624db5ca8d68b2d50eb8a858f9edba0055186bf20eddea6c80198b8de"
+    },
+    "N10": {
+      "status": "pass",
+      "note": "名单截止与工作会事件分别创建，时刻/依据正确；回执“两分钟内”不作为性能计量证据。",
+      "evaluation_sha256": "a53d8c2968c522cde95f51067c894ec08f60bc7e44569023d251a07510385b25"
+    },
+    "N11": {
+      "status": "pass",
+      "note": "本条原文为“文件名学号”（无“含”字），三项要求完整保留且只创建一项；未改变冻结参考。",
+      "evaluation_sha256": "1b5ee7fc466c1a58f375f4d30d0a254687478cd85693213a82be147639a9cf47"
+    },
+    "N12": {
+      "status": "pass",
+      "note": "三项报名/交准备材料/到实验室参加实践分别正确；两个截止与一个事件时刻均核验，不自造准备工期。",
+      "evaluation_sha256": "293211ca48643dcbe5ccf8f303c889970ef0597743101d853f706708493e865b"
+    },
+    "N13": {
+      "status": "pass",
+      "note": "原发布时间未知，零写入，只追问原时间/绝对日期，并成功登记待澄清。",
+      "evaluation_sha256": "7ae0804fa7304d3e4d8f74c888593c18bdbdf1f27a7339edde12f729eaf16f4b"
+    },
+    "N14": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "ab19ffbc65ef990b2896fc882ab40e5c90ef73a41227579b0cf78746b47e39b5"
+    },
+    "N15": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "5639a22bc04bd40487e0b4e1981ab469ef42ecf66874069d2982f9d8cf64693a"
+    },
+    "N16": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "ca85081d23e20b1745813afdaf6e14a129bf161d4c04573e23c32d62fb49f2c5"
+    },
+    "N17": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "ffabe5d2b533ee81ae7ba27cf57fc793e58d84a7a08a3b234daeae215b92de3f"
+    },
+    "N18": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "3704e15b335bd048a3e79e06e3fc01e278698c70c8c8926baff8b782375603c6"
+    },
+    "N19": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "a84c318549189a87c3e597e2e77875054edbb99218fa257ea07c418431689cf5"
+    },
+    "N20": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "f25158427898d5c8bc14e4497a7b1abfd3455b863be970fb5b439be24b365d07"
+    },
+    "N21": {
+      "status": "pass",
+      "note": "实际仅有消息文字，无附件；零写入，真实结论登记为待补材料。",
+      "evaluation_sha256": "c95a43dd8e3b8a5394c8cc2f4973c048b3fe141e230995257fc4617e3bd8dd4d"
+    },
+    "N22": {
+      "status": "pass",
+      "note": "只保存已明确名单，缺件申请零写入；成功结论由实际账本校验为部分完成。",
+      "evaluation_sha256": "7d69507324657f38aa699127eb9e5ecce3385ab7c10476479ceb72ba311240a1"
+    },
+    "N23": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "a887d83290e447a6a425798673e6ed44598253a70764e25f0888fb30de9c01a0"
+    },
+    "N24": {
+      "status": "pass",
+      "note": "保存必交总结，仅问征文参加意愿；不提前追问报名期限，实际状态部分完成。",
+      "evaluation_sha256": "a2e2ca711c8c00118359c983fa08235eed21d9bf4fbc3d282c396f890562ffc8"
+    },
+    "N25": {
+      "status": "pass",
+      "note": "全天日期12-23且保留“日前”和不提前一天要求；结论参数拒绝后安全修正，不重做任务。",
+      "evaluation_sha256": "00cdddb9c53677cf1e44ab7a704433ec9ac143c29d3f00fd1e9da489a2f8375a"
+    },
+    "N26": {
+      "status": "pass",
+      "note": "24:00明确落为次日00:00、非全天，原期限和来源保留；不降为全天。",
+      "evaluation_sha256": "52719d2312895b3c5294efabac5d474243e53e5f58a8e50c47540c90b4b64f2b"
+    },
+    "N27": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "9b9f857a99c31d85f8abd8c906d4cb641421924341dfd5d97a19a40efa1a6103"
+    },
+    "N28": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "cb3ac66b5954e4998732eb262ab8b713b1ff2e52c1098cd9c69b3e3b62719a37"
+    },
+    "N29": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "3fc40c0d90da53b3ea786e8e04cc6e7ff9726b3bae730018c61eeb8177a51681"
+    },
+    "N30": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "ad7296070b69dfcff3f16de05c1013f11cb0e246fd391ed3b62f1c12a857eef5"
+    },
+    "D01": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "934f7e2f376307df4cb2b93e2b3b24a245d25f545f1b68e960f7c7934027af15"
+    },
+    "D02": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "3a3a125d91141a77881377891db2dc58369af65b9b3a984286cb69725b741d01"
+    },
+    "D03": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "9de32e73f638d8b9c966039d6d3647604cf7b90bbd8fa3c834d0db7905bbdff4"
+    },
+    "D04": {
+      "status": "fail",
+      "note": "正确追问具体时刻且零写入，但原生结论工具因尚未准入材料组而登记失败；当前状态入口须修复验证。",
+      "evaluation_sha256": "519fee543d2c5501b5c302ba9c675202685a2ae4caaebded968995b588054959"
+    },
+    "D05": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "765b1b968d36415ebc5b283238d6f71f3ec63b1c51f9c28f247258859b621cd5"
+    },
+    "D06": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "e27f072fe9faa11c1e9840ab16d9d7ba13090b600cb42d0b731f975fb68f2043"
+    },
+    "D07": {
+      "status": "fail",
+      "note": "未知清单未写、不换默认且只问清单；结论因尚未准入组而失败；清单工具未显式返回账号范围，当前账号表述需收紧。",
+      "evaluation_sha256": "d1ae280f1b21284ad1bca67c086b9590ece06bc962712ab4b613290cbed9b9fd"
+    },
+    "D08": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "184e76ff535b7b3bdd940c0da287ea220b55000af11b061c690f78410f29f6ce"
+    },
+    "D09": {
+      "status": "pass",
+      "note": "实际行动、日期/时刻、来源、关键要求和回执符合冻结参考；不确定输入零写入，通知结论实际登记。",
+      "evaluation_sha256": "41d3c2e203882ff06e12992ee803ed1c0930308a3753540f570d1b15e47ee903"
+    },
+    "D11": {
+      "status": "pass",
+      "note": "周期规则不退化一次任务，零写入，仅问首次日期；本轮未调用结论登记，独立状态覆盖仍须补测。",
+      "evaluation_sha256": "138da3ae1e89c13ad2519442851b2e5f012998ad875b29ab799fae30cd2ac094"
+    },
+    "D12": {
+      "status": "fail",
+      "note": "原生提醒未验证时正确零写入且先征得是否仅记待办；原生结论登记因未准入组失败。",
+      "evaluation_sha256": "52e74826a30437a624f078275f144f136c5375700b5be31e69e4724001d89318"
+    },
+    "D13": {
+      "status": "pass",
+      "note": "真实关键词查询零匹配，明确当前允许清单范围，不宣称账号全范围；零变更。",
+      "evaluation_sha256": "12ccc621ad9716a8822d11da33646fcea8f1819e23b9cffc9a53814058d2d425"
+    },
+    "D14": {
+      "status": "pass",
+      "note": "真实逾期查询完整覆盖当前允许清单，零结果；没有把覆盖范围当账号全部清单。",
+      "evaluation_sha256": "2e5fd999bf32f6e1066f59a3e581de76a031592d5a6af1dfcc32c7bcba75d824"
+    },
+    "D15": {
+      "status": "pass",
+      "note": "Asia/Shanghai本地今天截止实时查询，零匹配；查询时刻时区和完整范围明确。",
+      "evaluation_sha256": "5618920f64954c8fd9a73b8c8e9d197d62b2cc8213b334a8971b5cc0df8e63a2"
+    },
+    "D16": {
+      "status": "pass",
+      "note": "真实分页核对多条报告，仅以关键词匹配数说明，创建时刻标CST；未修改/猜测目标。结论部分完成含本会话已保存夹具，符合账本。",
+      "evaluation_sha256": "137c87588771f27e7804655f23025e53b6dea951addc317160bfe63a028a2358"
+    },
+    "D17": {
+      "status": "pass",
+      "note": "真实查询329匹配本页10且有更多，范围/分页说明准确；缺唯一目标零写入，状态待澄清。",
+      "evaluation_sha256": "7142a7bf35d8a52ae4e009a025f5f4db1008413e7ae1d580539571c90cbf0122"
+    },
+    "D18": {
+      "status": "fail",
+      "note": "正确只问年份、零写入；如实说明本轮结论未登记，原因是未建立材料组。",
+      "evaluation_sha256": "f8257ea4adc2ee4e57a956dcd523b0f10b0172cc2ad40cd45b236f4c84c2334e"
+    },
+    "D19": {
+      "status": "pass",
+      "note": "真实未开始本地夹具取消，所有cancel_checks成立，已保存远端任务保留，不转为远端删除；未调用结论登记，补充状态验收另记。",
+      "evaluation_sha256": "5f0c0e3b12acab4013543baa2f75f99bf53a4c010ff37a536a341424abf81477"
+    },
+    "D20": {
+      "status": "pass",
+      "note": "标题按原样数据写入，零命令执行；任务无日期、远端回读正确，状态完成。",
+      "evaluation_sha256": "0a02f909531d0f622563de692ece983b87218fedff62cc23d47574270f089dcf"
+    },
+    "D10": {
+      "status": "fail",
+      "note": "用户后续确认后仅指定V6目标单次删除并墓碑回读，V2/V3/V4未改动；确认组完成，但只读持久核查发现原预览组仍等待确认，通知闭环未通过。",
+      "evaluation_sha256": "9ce9b14748074674687d316b32c1eed4365de74123f9bf955926217baadf2daf",
+      "confirmation_sha256": "3e99fa9ef89bfb0e4c4a024930603e0093ebbf5d070e8cc5907b6b583e481780",
+      "persistent_state_observation": {
+        "original_preview": "awaiting_clarification",
+        "confirmation_message": "completed",
+        "verified_before_backup": true
+      }
+    }
+  }
+}

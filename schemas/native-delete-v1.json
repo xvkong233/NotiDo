@@ -1,0 +1,45 @@
+{
+  "additionalProperties": false,
+  "properties": {
+    "confirm": {
+      "default": false,
+      "title": "Confirm",
+      "type": "boolean"
+    },
+    "confirmation_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Confirmation Ref"
+    },
+    "request_key": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Request Key",
+      "type": "string"
+    },
+    "selection_ref": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Selection Ref"
+    }
+  },
+  "required": [
+    "request_key"
+  ],
+  "title": "DeleteArgs",
+  "type": "object"
+}

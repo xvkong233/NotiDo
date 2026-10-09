@@ -1,0 +1,292 @@
+{
+  "$defs": {
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "location": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Location",
+          "type": "string"
+        },
+        "quote": {
+          "maxLength": 12000,
+          "minLength": 1,
+          "title": "Quote",
+          "type": "string"
+        },
+        "source_id": {
+          "maxLength": 500,
+          "minLength": 1,
+          "title": "Source Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "source_id",
+        "location",
+        "quote"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "NoticeSource": {
+      "additionalProperties": false,
+      "properties": {
+        "action_key": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Action Key",
+          "type": "string"
+        },
+        "group_id": {
+          "maxLength": 200,
+          "minLength": 1,
+          "title": "Group Id",
+          "type": "string"
+        }
+      },
+      "required": [
+        "group_id",
+        "action_key"
+      ],
+      "title": "NoticeSource",
+      "type": "object"
+    },
+    "Recurrence": {
+      "additionalProperties": false,
+      "properties": {
+        "count": {
+          "anyOf": [
+            {
+              "maximum": 10000,
+              "minimum": 1,
+              "type": "integer"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Count"
+        },
+        "end_date": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "End Date"
+        },
+        "frequency": {
+          "enum": [
+            "daily",
+            "weekly",
+            "monthly",
+            "yearly"
+          ],
+          "title": "Frequency",
+          "type": "string"
+        },
+        "interval": {
+          "default": 1,
+          "maximum": 365,
+          "minimum": 1,
+          "title": "Interval",
+          "type": "integer"
+        },
+        "month_days": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 31,
+          "title": "Month Days",
+          "type": "array"
+        },
+        "months": {
+          "items": {
+            "type": "integer"
+          },
+          "maxItems": 12,
+          "title": "Months",
+          "type": "array"
+        },
+        "repeat_from": {
+          "default": "calendar",
+          "enum": [
+            "calendar",
+            "due_date",
+            "completion"
+          ],
+          "title": "Repeat From",
+          "type": "string"
+        },
+        "weekdays": {
+          "items": {
+            "enum": [
+              "MO",
+              "TU",
+              "WE",
+              "TH",
+              "FR",
+              "SA",
+              "SU"
+            ],
+            "type": "string"
+          },
+          "maxItems": 7,
+          "title": "Weekdays",
+          "type": "array"
+        }
+      },
+      "required": [
+        "frequency"
+      ],
+      "title": "Recurrence",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "all_day": {
+      "anyOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "All Day"
+    },
+    "allow_overdue": {
+      "default": false,
+      "title": "Allow Overdue",
+      "type": "boolean"
+    },
+    "date_text": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Date Text"
+    },
+    "evidence": {
+      "items": {
+        "$ref": "#/$defs/Evidence"
+      },
+      "title": "Evidence",
+      "type": "array"
+    },
+    "notes": {
+      "default": "",
+      "maxLength": 10000,
+      "title": "Notes",
+      "type": "string"
+    },
+    "notice": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/NoticeSource"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "priority": {
+      "default": 0,
+      "title": "Priority",
+      "type": "integer"
+    },
+    "project_name": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Project Name"
+    },
+    "recurrence": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Recurrence"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    },
+    "request_key": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Request Key",
+      "type": "string"
+    },
+    "requirements": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 100,
+      "title": "Requirements",
+      "type": "array"
+    },
+    "time_kind": {
+      "default": "deadline",
+      "enum": [
+        "deadline",
+        "event",
+        "none"
+      ],
+      "title": "Time Kind",
+      "type": "string"
+    },
+    "time_text": {
+      "anyOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null,
+      "title": "Time Text"
+    },
+    "title": {
+      "maxLength": 200,
+      "minLength": 1,
+      "title": "Title",
+      "type": "string"
+    },
+    "visual_evidence": {
+      "items": {
+        "$ref": "#/$defs/Evidence"
+      },
+      "title": "Visual Evidence",
+      "type": "array"
+    }
+  },
+  "required": [
+    "request_key",
+    "title"
+  ],
+  "title": "CreateArgs",
+  "type": "object"
+}

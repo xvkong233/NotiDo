@@ -1,0 +1,11 @@
+{
+  "main_sha256": "228630c26fabab03f3fc5801d41d5e998ea0d94f12f06ac3754e3626ca45fad3",
+  "runtime_code_sha256": "fbf9ce11f538144cab9985357e0f9e1ce9a68920a673ab44602da39f9d6b1628",
+  "cases": {
+    "retrieval": {
+      "status": "pass",
+      "note": "真实SSE于已核验create后断连；原生排队核查合并原agent，最终历史恢复；零重发、零新写。",
+      "output_sha256": "6c9f8df7fa033b94beead8edcd82e6821b3e994f23f4612e1f62458be0eec931"
+    }
+  }
+}
