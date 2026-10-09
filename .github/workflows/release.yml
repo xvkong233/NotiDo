@@ -4,12 +4,18 @@ on:
   push:
     tags:
       - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing version tag to publish
+        required: true
+        type: string
 
 permissions:
   contents: read
 
 concurrency:
-  group: release-${{ github.ref }}
+  group: release-${{ github.event.inputs.tag || github.ref_name }}
   cancel-in-progress: false
 
 jobs:
@@ -23,6 +29,7 @@ jobs:
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           persist-credentials: false
+          ref: ${{ github.event.inputs.tag || github.ref }}
       - name: Set up Python
         uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
@@ -35,10 +42,10 @@ jobs:
       - name: Check source and run local tests
         run: |
           uv run --frozen ruff check .
-          uv run --frozen pytest -q
+          uv run --frozen python -m pytest -q
       - name: Build and validate release package
         env:
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ github.event.inputs.tag || github.ref_name }}
         run: |
           uv run --frozen python -m tools.build_release --tag "$RELEASE_TAG" --output dist
           cd dist
@@ -47,7 +54,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-          RELEASE_TAG: ${{ github.ref_name }}
+          RELEASE_TAG: ${{ github.event.inputs.tag || github.ref_name }}
         run: |
           python - <<'PY'
           import os

@@ -54,6 +54,8 @@ python -m tools.build_release --output dist
 
 标签必须严格等于 `v` 加 pyproject.toml 的版本；metadata.yaml 的版本也必须一致，否则发布失败。版本对应的 CHANGELOG.md 段落作为发布说明。预发布标签包含 `-` 时标记为 prerelease。先创建草稿并上传附件，再公开发布；同一标签不会覆盖已有 Release。失败时先查看 Actions 日志；若已产生草稿，应由维护者检查草稿后再处理，不能覆盖公开附件。
 
+发布工作流修正后，可在 Actions 的 Release 页面选择 Run workflow，并填入既有版本标签；工作流检出该标签源码，使用修正后的工作流运行，不需要移动原标签。命令行等价为 `gh workflow run release.yml --ref main -f tag=v0.1.0`。已经公开发布的版本不能用此入口覆盖。
+
 后续发布时，更新 pyproject.toml、metadata.yaml、main.py 注册版本与 CHANGELOG.md，并同步 uv.lock，然后提交、推送源码。以 `0.1.1` 为例：
 
 ```sh
