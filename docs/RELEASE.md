@@ -24,6 +24,8 @@
 
 本仓库仅以 AstrBot 插件交付，通过已有 AstrBot 的插件管理安装仓库或导入发布 ZIP。Python 依赖由根目录 requirements.txt 提供，Node.js 24、`@suibiji/dida-cli@0.1.14`、扫描 PDF 使用的 Poppler 由宿主机准备。插件目录执行 npm ci 安装锁定的任务 CLI；插件不自动安装系统级或 npm 依赖。CLI 配置留空时从宿主 PATH 查找 Node.js，并使用插件目录的 dida-cli 入口；自定义绝对路径仍可使用。
 
+requirements.txt 仅声明与 pyproject.toml 一致的直接依赖范围，允许复用 AstrBot 核心保护的已安装版本；filelock 范围为 `>=3.18,<5`，包含核心使用的 4.0.4。uv.lock 只用于冻结开发／CI 环境，不要用 `uv export` 覆盖插件安装清单，否则精确版本及传递依赖可能与核心约束冲突。修改依赖时同步这两个清单并运行 `tests/test_dependencies.py`。
+
 启动配置 `_conf_schema.json` 只含数据目录、稳定实例标识及固定 CLI 路径。任务／附件授权、允许清单、真实会话授权、材料和保留预算在插件 Pages 中分组设置。默认持久化目录位于 AstrBot 的 data/plugin_data，而不是插件源码目录。
 
 ## 发布包
