@@ -1,4 +1,5 @@
 import json
+import shutil
 from copy import copy
 from pathlib import Path
 
@@ -61,7 +62,7 @@ TOOL_GUIDANCE = """NotiDo 提供滴答工具。继续使用 AstrBot 当前会话
 """
 
 
-@register("astrbot_plugin_notido", "NotiDo contributors", "知办：让通知成为行动", "0.1.0")
+@register("astrbot_plugin_notido", "NotiDo contributors", "知办：让通知成为行动", "0.1.1")
 class NotiDoPlugin(Star):
     def __init__(self, context: Context, config: AstrBotConfig):
         super().__init__(context)
@@ -74,14 +75,13 @@ class NotiDoPlugin(Star):
         )
         plugin_root = Path(__file__).resolve().parent
         bridge = AstrBotBridge(context, config.get("instance_id", "notido-local"))
-        node = config.get("cli_node", "/usr/local/bin/node")
+        node = config.get("cli_node", "") or shutil.which("node") or ""
         home = root / "cli-home"
         gateway = DidaGateway(
             CLIRunner(
                 node,
-                config.get(
-                    "cli_script", "/opt/notido-cli/node_modules/@suibiji/dida-cli/dist/index.js"
-                ),
+                config.get("cli_script", "")
+                or str(plugin_root / "node_modules/@suibiji/dida-cli/dist/index.js"),
                 home,
             ),
             task_extension=CLIRunner(node, str(plugin_root / "tools/task-extension.mjs"), home),

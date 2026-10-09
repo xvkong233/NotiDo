@@ -41,7 +41,7 @@ NotiDo 是兼容 AstrBot 的通知待办插件。用户把通知和材料交给 
 | 文件落点 | 相关原文件进入滴答任务原生附件区，不降级为链接 |
 | 任务能力 | 新增（含周期）、查询、修改、标记完成、二次确认删除；滴答操作统一经过 CLI |
 | 使用与管理 | 一个用户、一个当前滴答账号；复用 AstrBot WebUI、Provider 与 Plugin Pages |
-| 部署 | AstrBot 插件，Linux Docker；单实例 SQLite 与持久文件目录 |
+| 安装 | 已有 AstrBot 的插件管理或插件 ZIP；单实例 SQLite 与持久文件目录 |
 | 官网 | 只交付来源契约及禁用实现，不采集、轮询或自动写入 |
 
 默认时区 Asia/Shanghai，中文回复，未指定清单用已配置默认清单；单组最多 10 个新增任务；日期级期限为全天任务，缺日期为无日期。材料预算、保留期和性能阈值是产品默认规则，可按配置调整，不表示用户逐项确认。
@@ -54,7 +54,7 @@ NotiDo 是兼容 AstrBot 的通知待办插件。用户把通知和材料交给 
 
 | 层 | 选型 | 约束 |
 | --- | --- | --- |
-| 基座 | AstrBot 稳定发行版 | 锁定 tag/commit/镜像 digest，复用框架插件能力 |
+| 基座 | AstrBot 稳定发行版 | 声明兼容版本范围，复用框架插件能力 |
 | 业务 | Python 3.12、asyncio、Pydantic 2 | 与锁定 AstrBot 依赖兼容；严格 DTO，extra=forbid |
 | 滴答任务 | 官方 @suibiji/dida-cli 优先、Node.js 24 LTS | 确切版本、机器输出与字段映射实测，不猜参数 |
 | 原生附件 | 已验证 CLI 能力或独立受控 CLI 扩展 | 中国版账号、上传/登记/查询/核验闭环；插件不直调滴答 API |
@@ -380,15 +380,15 @@ reconcile 是核查动作，不是终态：有唯一可靠证据且核验通过�
 
 ## 11 构建、生命周期、保留与运维
 
-插件名 astrbot_plugin_notido，仓库名 NotiDo。源码包含 main.py、metadata.yaml、_conf_schema.json、domain/application、AstrBot bridge、materials、persistence/migrations、gateways、workers、pages/todo、prompts/schema、sources/disabled、tests 与 deploy/docs。模块名称可调整，职责不可全部堆到 main.py。
+插件名 astrbot_plugin_notido，仓库名 NotiDo。源码包含 main.py、metadata.yaml、_conf_schema.json、domain/application、AstrBot bridge、materials、persistence/migrations、gateways、workers、pages/todo、prompts/schema、sources/disabled、tests 与 tools/docs。模块名称可调整，职责不可全部堆到 main.py。
 
-面向兼容 AstrBot 稳定发行版的插件安装；交付可重复 Docker 构建/Compose 方案。锁定基础镜像、Python/Node、CLI、Poppler、Python/Node 依赖；不改 AstrBot 核心、独立数据库、不在运行时 git pull/latest/install。插件源码升级显式更新并迁移，不能“目录已存在就永不升级”。
+仅交付兼容 AstrBot 稳定发行版的插件，由 AstrBot 插件管理安装与更新；宿主机提供 Python/Node、CLI 和 Poppler，Python/Node 依赖使用锁文件。插件不维护独立 AstrBot 部署、不改框架核心、不在处理消息时 git pull/latest/install。业务数据库独立保存，插件源码更新时按编号迁移。CLI 未自定义时从宿主 PATH 查找 Node.js，并使用插件目录中的 npm 依赖。
 
 数据根通过 AstrBot 插件数据目录能力取得，默认 plugin_data/astrbot_plugin_notido，含 notice.db、blobs、staging、cli-auth、runtime、backup manifest。认证文件位置按实测 CLI 映射到持久卷，不擅自修改框架全局 HOME。原件路径校验必须仍在 blob 根，文件名只作显示，密钥文件/目录限服务用户访问。
 
 默认后台宿主机 loopback，通过已有 AstrBot 安全访问方式管理；公网部署用其受保护 HTTPS 配置。健康检查仅进程/DB/worker/存储，外部业务就绪另显示；功能就绪分别判定：查询只依赖读取，文字任务依赖模型/任务 CLI，原件通知还需附件能力。官网禁用不影响首版就绪。
 
-SIGTERM/插件卸载先停止新接收/claim，允许已启动写 CLI 在退出预算内结束并持久结果，到期终止进程组记未知；关闭 DB/文件和 CLI 子进程资源。应用退出预算默认 120 秒，Compose 外层 180 秒。kill -9 恢复按账本核查，不按租约直接重跑。
+SIGTERM/插件卸载先停止新接收/claim，允许已启动写 CLI 在退出预算内结束并持久结果，到期终止进程组记未知；关闭 DB/文件和 CLI 子进程资源。插件退出预算默认 120 秒，宿主进程退出由 AstrBot 维护者管理。kill -9 恢复按账本核查，不按租约直接重跑。
 
 编号 SQL 迁移有 checksum；迁移失败进入维护状态，不删除重建；旧版本拒绝高版本 schema。备份在维护窗口停止业务写入，用 SQLite 一致性备份加 blob manifest/hash，不能直接复制活跃 DB 漏 WAL。恢复验证 DB/blob 引用，恢复丢失记账的远端操作先核查；回滚本地库不撤销远端任务。
 
@@ -492,7 +492,7 @@ compatibility.md 区分文档依据、锁定实现、真实验证和生产就绪
 
 WP0 完成上述最小契约验证；WP1 领域 DTO/政策/日期/数据库；WP2 AstrBot bridge/材料/归组；WP3 任务 CLI 和通知闭环；WP4 原件附件；WP5 Pages/核查/outbox；WP6 构建/备份/57 项验收；WP7 禁用来源契约。WP1 与无外部副作用部分可先实现；依赖 G1/G2 的生产 Gateway 须验证后接入，不能先做假附件界面再无限留 TODO。
 
-交付包括源码、README、metadata/config Schema、锁文件、DTO/JSON Schema、迁移、CLI 适配/必要扩展、Pages、Dockerfile/Compose/健康/备份工具、兼容性记录、脱敏样本和全部验收结果。上手流程为“安装到 AstrBot → 配模型与身份/授权会话 → 授权滴答与附件 → 选清单 → 提供通知原件 → 核验任务和附件”。AstrBot 自身连接配置参照框架文档，不纳入 NotiDo 的重复实现。
+交付包括插件源码、README、metadata/config Schema、锁文件、DTO/JSON Schema、迁移、CLI 适配/必要扩展、Pages、备份与诊断工具、兼容性记录、脱敏样本和全部验收结果。上手流程为“安装到 AstrBot → 配模型与身份/授权会话 → 授权滴答与附件 → 选清单 → 提供通知原件 → 核验任务和附件”。AstrBot 自身安装与连接配置参照框架文档，不纳入 NotiDo 的重复实现。此前独立部署与容器联调文件从当前分支移除，历史证据保留原验证环境。
 
 完成定义：57 项有有效结果，所有核心项通过；AstrBot 插件契约满足；真实原生日期/备注/附件/周期/确认删除链路可核验；重启/部分失败/未知状态无盲目重放；构建与恢复可重复；官网生产禁用。阶段性文字闭环不能标完整首版，任何未通过项公开说明。
 
@@ -502,7 +502,7 @@ WP0 完成上述最小契约验证；WP1 领域 DTO/政策/日期/数据库；WP
 
 [AstrBot 消息事件](https://docs.astrbot.app/dev/star/guides/listen-message-event.html)、[消息发送](https://docs.astrbot.app/dev/star/guides/send-message.html)、[Plugin Pages](https://docs.astrbot.app/dev/star/guides/plugin-pages.html)、[Provider 调用](https://docs.astrbot.app/dev/star/guides/ai.html)为框架兼容依据；具体方法和稳定版本须阶段零锁定验证。本文内部 DTO/状态/队列为 NotiDo 设计，不是框架自带业务。
 
-[AstrBot 仓库](https://github.com/AstrBotDevs/AstrBot)、[Docker 部署](https://docs.astrbot.app/deploy/astrbot/docker.html)、[Node.js 版本表](https://nodejs.org/en/about/previous-releases)用于构建选型。[滴答 CLI 官方帮助](https://help.dida365.com/articles/7464976698707017728)与[包入口](https://www.npmjs.com/package/%40suibiji/dida-cli)作为待验证依赖入口，本版不提供未经实测的命令/字段映射。
+[AstrBot 仓库](https://github.com/AstrBotDevs/AstrBot)、[插件开发指南](https://docs.astrbot.app/dev/star/plugin-new.html)、[Node.js 版本表](https://nodejs.org/en/about/previous-releases)用于插件与宿主依赖选型。[滴答 CLI 官方帮助](https://help.dida365.com/articles/7464976698707017728)与[包入口](https://www.npmjs.com/package/%40suibiji/dida-cli)作为待验证依赖入口，本版不提供未经实测的命令/字段映射。
 
 [社区附件上传源码](https://github.com/liuboacean/ticktick-cli/blob/main/ticktick/commands/attach.py)只能作候选参考，不能证明中国版可用。相关源码复用须固定提交并保留许可；仅参考设计则注明未复用，不为本项目擅自确定许可。
 

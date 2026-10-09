@@ -29,9 +29,6 @@ FILES = (
     "uv.lock",
     "package.json",
     "package-lock.json",
-    "Dockerfile",
-    "compose.yaml",
-    ".dockerignore",
     "tools/attachment-cli.mjs",
     "tools/task-extension.mjs",
     "tools/backup.py",
@@ -44,7 +41,6 @@ FOLDERS = {
     "pages": {".html", ".js", ".css", ".png", ".svg"},
     "schemas": {".json"},
     "docs": {".md", ".json"},
-    "deploy": {".py", ".sh"},
     "assets": {".svg", ".png"},
 }
 

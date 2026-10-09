@@ -6,7 +6,7 @@ desc: >-
   提供滴答清单查询、任务新建与修改、完成、周期任务、二次确认删除和原生附件工具，
   同时提供 /notido 指令及分组管理页面。任务与附件授权分别配置，操作仅限已授权会话和清单。
   需要 Node.js、dida-cli 和中国版滴答账号；扫描 PDF 读取还需要 Poppler。
-version: 0.1.0
+version: 0.1.1
 author: NotiDo contributors
 repo: https://github.com/xvkong233/NotiDo
 astrbot_version: ">=4.28.2,<4.29"

@@ -1,6 +1,6 @@
 import json
 
-from tools.native_corpus_smoke import returned_evidence, tool_results
+from acceptance_helpers import returned_evidence, tool_results
 
 
 def output(*calls):

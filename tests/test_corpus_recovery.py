@@ -1,6 +1,5 @@
 import pytest
-
-from tools.native_corpus_recover import recovered_output
+from acceptance_helpers import recovered_output
 
 
 def history(message="通知", finished=True):

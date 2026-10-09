@@ -6,7 +6,7 @@
 
 AstrBot 的个人通知待办插件：从已交付的正文、截图和文档中提炼本人行动，通过受控 CLI 写入中国版滴答清单，并把原件上传到任务原生附件区。下游连接、消息协议、Provider 和后台登录由 AstrBot 提供。
 
-版本 **0.1.0** · 作者 **NotiDo contributors** · [GPL-3.0-only](LICENSE) · [更新日志](CHANGELOG.md) · [反馈问题](https://github.com/xvkong233/NotiDo/issues)
+版本 **0.1.1** · 作者 **NotiDo contributors** · [GPL-3.0-only](LICENSE) · [更新日志](CHANGELOG.md) · [反馈问题](https://github.com/xvkong233/NotiDo/issues)
 
 | 能力 | 使用方式 |
 | --- | --- |
@@ -16,33 +16,11 @@ AstrBot 的个人通知待办插件：从已交付的正文、截图和文档中
 | 原生附件 | 保存实际原件并挂到任务附件区，核查目标及下载 hash |
 | 管理页面 | 五组设置、通知状态、操作账本、备份恢复和本地数据保留 |
 
-**环境要求：** AstrBot `>=4.28.2,<4.29`、Python `>=3.12,<3.15`、Node.js 24、`@suibiji/dida-cli@0.1.14`；扫描 PDF 需要 Poppler 的 `pdftoppm`。已实测 AstrBot 4.28.2 与仓库锁定的 Linux Docker 环境。插件采用框架公开消息组件，不额外声明未经实测的平台适配器；图片理解需要所用 AstrBot Provider 支持视觉输入。
+**环境要求：** AstrBot `>=4.28.2,<4.29`、Python `>=3.12,<3.15`、Node.js 24、`@suibiji/dida-cli@0.1.14`；扫描 PDF 需要 Poppler 的 `pdftoppm`。已实测 AstrBot 4.28.2。插件采用框架公开消息组件，不额外声明未经实测的平台适配器；图片理解需要所用 AstrBot Provider 支持视觉输入。
 
 本版聚焦中国版滴答与单个个人账号。官网采集、原生提醒、自动报名／提交、多人独立账号和批量删除不在本版范围内。
 
-## 部署
-
-推荐使用仓库的 Linux Docker 方案：
-
-```sh
-docker compose build
-docker compose up -d
-docker compose ps
-```
-
-后台地址为 http://127.0.0.1:6185。首次登录使用 AstrBot 的本机初始化流程，完成后修改初始密码。数据持久化到宿主机 `./data`，只运行一个实例。源码升级后重新构建并创建容器：
-
-```sh
-docker compose up -d --build
-```
-
-启动时将源码安装到真实插件目录，保留旧托管源码；检测到手工改动会拒绝覆盖。不要多副本共享 SQLite 卷。Compose 退出预算为 180 秒，插件内部预算为 120 秒。
-
-镜像锁定 AstrBot v4.28.2 与 Node 24.18.0 的 digest，任务 CLI 为 `@suibiji/dida-cli@0.1.14`，Poppler 为 `25.03.0-5+deb13u4`；Python 与 npm 依赖见 lock 文件。使用普通 AstrBot 插件安装时，维护者仍需提供这些依赖和固定 CLI 绝对路径。
-
-## 本机配置
-
-### 安装到已有 AstrBot
+## 安装到 AstrBot
 
 可以在 AstrBot 插件管理中使用仓库地址 `https://github.com/xvkong233/NotiDo` 安装，也可将发布 ZIP 导入。插件的注册名及解压目录名为 `astrbot_plugin_notido`。AstrBot 会安装根目录 `requirements.txt` 中的 Python 依赖；Node.js、任务 CLI 和 Poppler 需由宿主机准备。
 
@@ -55,7 +33,7 @@ node --version
 pdftoppm -v
 ```
 
-在 AstrBot 的插件配置中填写 `cli_node` 的实际绝对路径及 `cli_script`：`/path/to/AstrBot/data/plugins/astrbot_plugin_notido/node_modules/@suibiji/dida-cli/dist/index.js`，然后重载插件。默认路径面向本仓库 Docker 镜像。`data_root` 推荐留空，业务数据保存在 AstrBot 的 `data/plugin_data/astrbot_plugin_notido`，不放在插件源码目录；`instance_id` 部署后保持不变。
+重载插件后，`cli_node` 留空时从 AstrBot 进程的 PATH 查找 Node.js，`cli_script` 留空时使用插件目录内的 `node_modules/@suibiji/dida-cli/dist/index.js`。也可填写实际绝对路径；已有配置中的旧路径需清空或修改。`data_root` 推荐留空，业务数据保存在 AstrBot 的 `data/plugin_data/astrbot_plugin_notido`，不放在插件源码目录；`instance_id` 安装后保持不变，同一数据目录仅运行一个插件实例。
 
 ### 授权与选择清单
 
@@ -96,7 +74,7 @@ pdftoppm -v
 
 同一行动重试保持 request_key 不变。工具只根据真实回读报告成功；结果未知时只核查，不重建任务或重传原件。修改只提交需变更字段；未提交字段保留。日期级任务写原生全天，不造时刻。周期支持日/周/月/年及明确首次日期。删除先展示唯一具体任务和范围，十分钟内由后续消息明确确认才执行；指令示例的两步必须分别发送。任务变化或确认过期须重新查询及确认。本地取消只处理本会话的未开始账本操作，多项先选目标，保留已写远端任务，不替代删除。提醒和自动提交尚未支持。
 
-设置按常规、滴答与清单、会话授权、材料与运行、数据与维护分组。AI、人格、记忆和 Provider 均在 AstrBot 管理。旧独立 AI 草稿与未执行计划会暂停保留，须在原生对话核对后继续。完整新版验收尚未完成。
+设置按常规、滴答与清单、会话授权、材料与运行、数据与维护分组。AI、人格、记忆和 Provider 均在 AstrBot 管理。旧独立 AI 草稿与未执行计划会暂停保留，须在原生对话核对后继续。
 
 当前含十一个原生工具；通知状态由 AstrBot 登记，NotiDo 根据实际账本校验。当前安装版[冻结语料V14](docs/acceptance/native-corpus-v14.md)50条、[复杂材料V5](docs/acceptance/native-complex-material-v5.md)9项、[性能V5](docs/acceptance/native-performance-v5.md)30条文字／10条文件全部通过；[完整历史恢复](docs/acceptance/native-outcome-restore-v7-r3.md)核查228条操作及522组结论。180秒同组解码／渲染累计预算已实现，完整57项通过，见[当前57项核对](docs/acceptance/current-requirements.md)。历史失败保留在原批次报告中。
 
@@ -123,12 +101,13 @@ python -m tools.diagnostics /path/to/plugin-data /path/to/new-diagnostic.zip
 ```sh
 uv sync --frozen
 npm ci --ignore-scripts
-uv run pytest -q
-uv run ruff check notido main.py tests tools deploy
+uv run playwright install chromium
+uv run python -m pytest -q
+uv run ruff check notido main.py tests tools
 uv run python -m tools.export_schema
 ```
 
-页面测试使用 Playwright Chromium。真实账号 smoke 脚本只用于本机专用验收清单；首次新增/上传会产生副作用，不能把它们当普通回归命令反复运行。格式探针会在写前落账，已尝试项只核查。
+页面测试使用 Playwright Chromium，本地回归使用模拟 Provider 与 Gateway。仓库仅保留插件代码、运行维护工具与插件契约测试；旧联调脚本可在 `v0.1.0` 标签查阅，历史验收报告保留原批次与验证环境。
 
 截至2026-10-09：当前完整回归288项、8项真实框架契约、5项生命周期、50条冻结语料、9项复杂材料、40次性能及228条历史恢复通过；[实际后台与预算](docs/acceptance/native-read-budget.md)10项页面检查和30路由未登录拒绝通过。同组读取预算已实现，完整57项全部通过；既有真实Provider批次仍保留其原始版本。详细证据：
 

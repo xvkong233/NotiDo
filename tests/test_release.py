@@ -23,7 +23,10 @@ def release_root(tmp_path):
 
 
 def test_release_excludes_runtime_credentials_and_is_reproducible(release_root, tmp_path):
-    for name in (".env", "runtime-data/credentials.json", "data/private.json", "tests/secret.py"):
+    for name in (
+        ".env", "runtime-data/credentials.json", "data/private.json", "tests/secret.py",
+        "Dockerfile", "compose.yaml", ".dockerignore", "deploy/entrypoint.sh",
+    ):
         path = release_root / name
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text("PRIVATE_TEST_SECRET")

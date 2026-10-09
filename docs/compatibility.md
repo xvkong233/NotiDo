@@ -1,5 +1,7 @@
 # 知办 · NotiDo：兼容性与业务依赖
 
+0.1.1 起仅交付 AstrBot 插件，安装方式见 README。以下真实联调记录保留采集时的环境；其中的旧容器部署和联调脚本已从当前分支移除，可在 [v0.1.0 源码](https://github.com/xvkong233/NotiDo/tree/v0.1.0)查阅。历史镜像标识只用于定位证据，不作为当前安装要求。
+
 [同组读取预算](acceptance/native-read-budget.md)已按用户确认的口径实现并安装到唯一验收实例：288项本地回归、8项真实框架契约、5项生命周期、6项实际文件解码、10项后台检查和30条未登录路由拒绝通过，本轮零大模型调用。[完整57项核对](acceptance/current-requirements.md)全部pass。此前V14冻结50条、复杂材料V5 9项、性能V5 30／10样本及完整228条历史恢复的真实证据保留原版本；本轮仅对材料读取、缓存保留、迁移及新增设置执行针对性复验，未冒称重新调用模型或重新计量既有性能。
 
 基线 PRD v1.7；实现 0.1.0；实测更新 2026-10-09。只验证 AstrBot 公共契约，不建立下游渠道矩阵。下表区分真实外部验证、公共类型夹具和本地故障测试；PRD v1.7 开发验收 readiness=true（明确不实现的能力仍为false）。
@@ -53,7 +55,7 @@ account_region=cn；task API 为官方中国版 Open API；附件扩展只访问
 
 ## 证据与来源
 
-公开可复现脚本：`tools/framework_contract_smoke.py`、`handler_contract_smoke.py`、`container_smoke.py`、`container_pages_smoke.py`、`container_recovery_smoke.py`、`container_lifecycle_smoke.py`、`live_smoke.py`、`live_update_smoke.py`、`live_formats_smoke.py`、`live_same_name_smoke.py`、`live_upload_timeout_smoke.py`、`live_supplement_smoke.py`。真实结果和目标 ID 仅保存在被 Git/Docker 排除的 runtime-data。首次 live_smoke 会新增任务，不应自动重跑；后续原件探针使用持久尝试记录，只核查已尝试的上传。跨会话补件探针导入前次已核验真实目标，使用真实任务/附件 CLI 与 Service，公共取件/事件契约另行验证。
+当前保留 `tools/framework_contract_smoke.py`、`handler_contract_smoke.py` 及原生插件契约测试。容器、真实账号 smoke 与报告生成脚本可在 v0.1.0 标签查阅；真实结果和目标 ID 仅保存在被 Git 排除的 runtime-data。历史真实探针会产生副作用，不应自动重跑；历史跨会话补件探针使用真实任务/附件 CLI 与 Service，公共取件/事件契约另行验证。
 
 参考并核对了 AstrBot 的上述固定源码、官方 dida-cli 0.1.14 包，以及 MIT 的 DeliciousBuding/dida-cli commit c2cfa86d32017650543aadc20a711a06427d7cd3 网页授权路径。候选 CLI 只用于本机授权研究，没有复制源码或二进制到交付物；附件扩展为本仓库自有实现。
 

@@ -1,6 +1,6 @@
 {
   "data_root": {"description": "插件数据目录", "hint": "推荐留空，由 AstrBot 保存到 data/plugin_data/astrbot_plugin_notido。自定义时使用持久绝对路径，同一数据目录只运行一个实例。", "type": "string", "default": ""},
   "instance_id": {"description": "框架实例标识", "hint": "用于区分会话授权作用域。部署后保持不变；多个独立 AstrBot 实例应使用不同值。", "type": "string", "default": "notido-local"},
-  "cli_node": {"description": "Node.js 可执行文件", "hint": "填写 Node.js 24 的绝对路径。默认值适用于本仓库 Docker 镜像；普通插件安装需按实际环境修改。", "type": "string", "default": "/usr/local/bin/node"},
-  "cli_script": {"description": "dida-cli 入口脚本", "hint": "填写 @suibiji/dida-cli 0.1.14 的 dist/index.js 绝对路径。默认值适用于本仓库 Docker 镜像；任务授权、清单及材料预算在插件页面分组设置。", "type": "string", "default": "/opt/notido-cli/node_modules/@suibiji/dida-cli/dist/index.js"}
+  "cli_node": {"description": "Node.js 可执行文件", "hint": "留空时从 AstrBot 进程的 PATH 查找 node；也可填写 Node.js 24 的绝对路径。", "type": "string", "default": ""},
+  "cli_script": {"description": "dida-cli 入口脚本", "hint": "留空时使用插件目录 node_modules/@suibiji/dida-cli/dist/index.js，请先在插件目录执行 npm ci。也可填写 @suibiji/dida-cli 0.1.14 入口的绝对路径。任务授权、清单及材料预算在插件页面分组设置。", "type": "string", "default": ""}
 }

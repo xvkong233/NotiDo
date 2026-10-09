@@ -1,4 +1,4 @@
-from tools.native_fresh_setup import isolate_framework_config
+from acceptance_helpers import isolate_framework_config
 
 
 def test_isolated_acceptance_never_starts_copied_downstream_adapters():
